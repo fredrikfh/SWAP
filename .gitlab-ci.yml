@@ -40,7 +40,7 @@ Prettier:
   retry: 1
 
 Firebase:
-  image: node:12.13.0-alpine
+  image: node:16.3.0
   stage: Firebase deploy
   before_script:
     - yarn add firebase-tools
