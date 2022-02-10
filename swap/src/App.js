@@ -1,5 +1,5 @@
-import "./style/styles.css";
-import AdCard from "./components/AdCard";
+import './style/styles.css';
+import AdCard from './components/AdCard';
 
 function App() {
   function multipleCards() {
