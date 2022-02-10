@@ -1,0 +1,29 @@
+stages:
+  - Webapp build
+  - Webapp test
+
+cache:
+  paths:
+    - .m2/repository/
+    - target/
+    - .yarn
+
+Webapp Build:
+  image: node:16.3.0
+  stage: Webapp build
+  needs: []
+  script:
+    - cd swap
+    - yarn install --frozen-lockfile --cache-folder .yarn
+    - yarn add @mui/material @emotion/react @emotion/styled
+    - yarn build
+  retry: 1
+
+Prettier:
+  image: node:16.3.0
+  stage: Webapp test
+  needs: []
+  script:
+    - cd swap
+    - npx prettier --check .
+  retry: 1
