@@ -1,19 +1,19 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import { Button, CardActionArea, CardActions } from "@mui/material";
 
 function AdCard(props) {
   const headline = 'overskrift fra database';
   const description = 'her kommer en beskrivelse om annonsen osv heehehhe';
   const tagsList = ['Til salgs', 'Trondheim Spektrum', '4.mai'];
 
-  function mapTest() {
-    for (let i = 0; i < tagsList.length; i++) {
-      console.log(tagsList[i]);
-    }
-  }
-  mapTest();
+	function mapTest() {
+		for (let i = 0; i < tagsList.length; i++) {
+			console.log(tagsList[i]);
+		}
+	}
+	mapTest();
 
   return (
     <Card sx={{ maxWidth: 345, color: 'hotpink' }}>
