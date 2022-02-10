@@ -1,8 +1,8 @@
-import './style/styles.css';
-import AdCard from './components/AdCard';
+import "./style/styles.css";
+import AdCard from "./components/AdCard";
 
 function App() {
-  return <AdCard></AdCard>;
+	return <AdCard></AdCard>;
 }
 
 export default App;

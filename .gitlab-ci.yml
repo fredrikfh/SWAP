@@ -1,6 +1,7 @@
 stages:
   - Webapp build
   - Webapp test
+  - Firebase deploy
 
 cache:
   paths:
@@ -14,10 +15,20 @@ Webapp Build:
   needs: []
   script:
     - cd swap
+    - yarn install
     - yarn install --frozen-lockfile --cache-folder .yarn
     - yarn add @mui/material @emotion/react @emotion/styled
     - yarn build
   retry: 1
+
+ESLint:
+  image: node
+  stage: Webapp test
+  script:
+    - yarn add eslint-plugin-react@latest --save-dev
+    - cd swap
+    - yarn install
+    - node_modules/eslint/bin/eslint.js .
 
 Prettier:
   image: node:16.3.0
@@ -27,3 +38,19 @@ Prettier:
     - cd swap
     - npx prettier --check .
   retry: 1
+
+Firebase:
+  image: node:12.13.0-alpine
+  stage: Firebase deploy
+  before_script:
+    - yarn add -g firebase-tools
+  script:
+    - cd swap/functions
+    - yarn install
+    - cd ..
+    - firebase deploy --only functions --token $FIREBASE_TOKEN
+  only:
+    refs:
+      - main
+    changes:
+      - functions/**/*
