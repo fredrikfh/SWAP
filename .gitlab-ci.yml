@@ -43,7 +43,7 @@ Firebase:
   image: node:12.13.0-alpine
   stage: Firebase deploy
   before_script:
-    - yarn add -g firebase-tools
+    - yarn add firebase-tools
   script:
     - cd swap/functions
     - yarn install
