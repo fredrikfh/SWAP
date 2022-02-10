@@ -1,5 +1,8 @@
+import './style/styles.css';
+import AdCard from './components/AdCard';
+
 function App() {
-  return <h1>Innhold kommer her</h1>;
+  return <AdCard></AdCard>;
 }
 
 export default App;
