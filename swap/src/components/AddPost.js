@@ -41,12 +41,15 @@ function AddPost() {
   }
 
   var date = today.getFullYear()+'-'+(month)+'-'+today.getDate();
-  console.log(date);
 
   const [selectedDate, setSelectedDate] = useState(date);
+  
+  const handleLagre = () => {
+    setOpen(false)
+    console.log("lagret")
+  };
 
   const handleDateChange = (event) => {
-    console.log(event.target.value);
     setSelectedDate(event.target.value);
   };
   const [open, setOpen] = React.useState(false);
@@ -92,10 +95,8 @@ function AddPost() {
     setValue(event.target.value);
     if (value == 'buyBtn') {
       changeBuy();
-      console.log(buy);
     } else if (value == 'sellBtn') {
       changeSell();
-      console.log(buy);
     }
   };
 
@@ -149,7 +150,7 @@ function AddPost() {
           </FormControl>
           {buy == true && (
             <>
-              <p>buy</p>
+
             </>
           )}
 
@@ -226,7 +227,7 @@ function AddPost() {
             
             <TextField fullWidth id="outlined-basic" label="Arena" variant="outlined" />
           </Box>
-          <Button>Lagre</Button>
+          <Button onClick={handleLagre}>Lagre</Button>
         </Box>
       </Modal>
     </div>
