@@ -41,7 +41,7 @@ Firebase:
   stage: Deploy
   needs: [Yarn build, Prettier, ESLint]
   before_script:
-    - yarn add -g firebase-tools
+    - yarn add global firebase-tools
   script:
     - cd swap
     - yarn
