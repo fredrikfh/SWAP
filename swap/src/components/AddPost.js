@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -12,10 +12,7 @@ import TextField from '@mui/material/TextField';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import MenuItem from '@mui/material/MenuItem';
-import { Grid } from '@mui/material';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import 'date-fns';
-import DateFnsUtils from '@date-io/date-fns';
 import 'date-fns';
 
 const style = {
@@ -90,9 +87,9 @@ function AddPost() {
 
   const handleChange = (event) => {
     setValue(event.target.value);
-    if (value == 'buyBtn') {
+    if (value === 'buyBtn') {
       changeBuy();
-    } else if (value == 'sellBtn') {
+    } else if (value === 'sellBtn') {
       changeSell();
     }
   };
@@ -145,7 +142,7 @@ function AddPost() {
               />
             </RadioGroup>
           </FormControl>
-          {buy == true && <></>}
+          {buy === true && <></>}
 
           <Box component="form" noValidate autoComplete="off">
             <TextField
@@ -196,7 +193,7 @@ function AddPost() {
                 }}
               />
             </form>
-            {buy == false && (
+            {buy === false && (
               <OutlinedInput
                 margin="normal"
                 id="outlined-adornment-weight"
