@@ -1,7 +1,7 @@
 stages:
-  - Webapp build
-  - Webapp test
-  - Firebase deploy
+  - Build
+  - Lint
+  - Deploy
 
 cache:
   paths:
@@ -11,7 +11,7 @@ cache:
 
 Webapp Build:
   image: node:16.3.0
-  stage: Webapp build
+  stage: Build
   needs: []
   script:
     - cd swap
@@ -23,7 +23,7 @@ Webapp Build:
 
 ESLint:
   image: node
-  stage: Webapp test
+  stage: Lint
   script:
     - yarn add eslint-plugin-react@latest --save-dev
     - cd swap
@@ -32,7 +32,7 @@ ESLint:
 
 Prettier:
   image: node:16.3.0
-  stage: Webapp test
+  stage: Lint
   needs: []
   script:
     - cd swap
@@ -41,7 +41,7 @@ Prettier:
 
 Firebase:
   image: node:16.3.0
-  stage: Firebase deploy
+  stage: Deploy
   before_script:
     - yarn global add firebase-tools
   script:
