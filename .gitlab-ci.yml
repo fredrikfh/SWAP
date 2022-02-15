@@ -45,6 +45,7 @@ Firebase:
   before_script:
     - yarn global add firebase-tools
   script:
+    - cd swap
     - yarn
     - yarn build
     - firebase use default
