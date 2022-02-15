@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -13,6 +13,12 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import MenuItem from '@mui/material/MenuItem';
 import { Grid } from '@mui/material';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker
+} from '@material-ui/pickers';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
 
 const style = {
   position: 'absolute',
@@ -26,7 +32,7 @@ const style = {
   p: 4,
 };
 function AddPost() {
-  const [dateValue, setDateValue] = React.useState(new Date());
+  const [selectedDate] = useState(new Date());
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -161,12 +167,21 @@ function AddPost() {
               onChange={handleChangeType}
               helperText="Velg type arrangement"
             >
+              
               {typeList.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
                 </MenuItem>
               ))}
+              
             </TextField>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+
+<KeyboardDatePicker
+  label="Material Date Picker"
+  value={selectedDate}
+/>
+</MuiPickersUtilsProvider>
             {buy == false && (
               <OutlinedInput
                 margin="normal"
@@ -186,6 +201,7 @@ function AddPost() {
               label="By/sted"
               variant="outlined"
             />
+            
             <TextField fullWidth id="outlined-basic" label="Arena" variant="outlined" />
           </Box>
           <Button>Lagre</Button>
