@@ -15,9 +15,7 @@ Yarn build:
   needs: []
   script:
     - cd swap
-    - yarn install
     - yarn install --frozen-lockfile --cache-folder .yarn
-    - yarn add @mui/material @emotion/react @emotion/styled
     - yarn build
   retry: 1
 
