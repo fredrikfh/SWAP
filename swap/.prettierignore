@@ -1,6 +1,6 @@
 # Ignore artifacts:
 build
 coverage
-# fontawesome
+fontawesome
 
 node_modules
