@@ -1,7 +1,7 @@
 import "./style/styles.css";
-import React from "react" ; /*{ useState, useEffect }*/
-import Navbar from './components/Navbar'
-import CardOverview from './pages/CardOverview'
+import React from "react"; /*{ useState, useEffect }*/
+import Navbar from "./components/Navbar";
+import CardOverview from "./pages/CardOverview";
 /*import AdCard from "./components/AdCard";
 import { db } from "./firebase-config";
 import { collection, getDocs } from "firebase/firestore";*/
@@ -33,7 +33,7 @@ function App() {
 			<Navbar />
 			<CardOverview />
 		</React.Fragment>
-	)
+	);
 }
 
 export default App;

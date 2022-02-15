@@ -12,8 +12,8 @@ export default function CardOverview() {
 				flexDirection: "column",
 				justifyContent: "center",
 				alignItems: "center",
-				marginLeft: '4em',
-				paddingLeft: '0 !important',
+				marginLeft: "4em",
+				paddingLeft: "0 !important",
 				width: "600px",
 			}}
 		>
@@ -21,9 +21,37 @@ export default function CardOverview() {
 			{/*Annonseliste-Container*/}
 			<Container
 				sx={{
-					paddingLeft: '0 !important',
+					height: "60vh",
+					paddingLeft: "0 !important",
+					overflowY: "scroll",
 				}}
 			>
+				<Card
+					sx={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						width: "calc(100% - 3em)",
+						height: "12em",
+						margin: "1em auto 0 auto",
+						background: "white",
+					}}
+				>
+					<h2>Her kommer kort-komponenten</h2>
+				</Card>
+				<Card
+					sx={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						width: "calc(100% - 3em)",
+						height: "12em",
+						margin: "1em auto 0 auto",
+						background: "white",
+					}}
+				>
+					<h2>Her kommer kort-komponenten</h2>
+				</Card>
 				<Card
 					sx={{
 						display: "flex",
