@@ -40,17 +40,14 @@ Prettier:
   retry: 1
 
 Firebase:
-  image: node:12.13.0-alpine
+  image: node:16.3.0
   stage: Firebase deploy
   before_script:
-    - yarn add -g firebase-tools
+    - yarn global add firebase-tools
   script:
     - cd swap/functions
     - yarn install
     - cd ..
+    - firebase use default
     - firebase deploy --only functions --token $FIREBASE_TOKEN
-  only:
-    refs:
-      - main
-    changes:
-      - functions/**/*
+  
