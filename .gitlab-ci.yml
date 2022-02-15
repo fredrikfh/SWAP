@@ -48,6 +48,7 @@ Firebase:
     - cd swap/functions
     - yarn install
     - cd ..
+    - yarn
     - yarn build
     - firebase use default
     - firebase deploy --only hosting --token $FIREBASE_TOKEN
