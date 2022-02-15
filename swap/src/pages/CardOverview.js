@@ -23,7 +23,19 @@ export default function CardOverview() {
 				sx={{
 					height: "60vh",
 					paddingLeft: "0 !important",
+					paddingRight: '0 !important',
 					overflowY: "scroll",
+					"&::-webkit-scrollbar": {
+						width: 7
+					},
+					"&::-webkit-scrollbar-track": {
+						backgroundColor: "rgb(240,240,240)",
+						borderRadius: '5px',
+					},
+					"&::-webkit-scrollbar-thumb": {
+						backgroundColor: "rgb(225,225,225)",
+						borderRadius: '5px',
+					}
 				}}
 			>
 				<Card
