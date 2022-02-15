@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -13,10 +13,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import MenuItem from '@mui/material/MenuItem';
 import { Grid } from '@mui/material';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker
-} from '@material-ui/pickers';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import 'date-fns';
@@ -34,19 +31,19 @@ const style = {
 };
 function AddPost() {
   var today = new Date();
-  var month = today.getMonth() +1;
+  var month = today.getMonth() + 1;
 
   if (month < 10) {
-    month = "0" + month
+    month = '0' + month;
   }
 
-  var date = today.getFullYear()+'-'+(month)+'-'+today.getDate();
+  var date = today.getFullYear() + '-' + month + '-' + today.getDate();
 
   const [selectedDate, setSelectedDate] = useState(date);
-  
+
   const handleLagre = () => {
-    setOpen(false)
-    console.log("lagret")
+    setOpen(false);
+    console.log('lagret');
   };
 
   const handleDateChange = (event) => {
@@ -148,11 +145,7 @@ function AddPost() {
               />
             </RadioGroup>
           </FormControl>
-          {buy == true && (
-            <>
-
-            </>
-          )}
+          {buy == true && <></>}
 
           <Box component="form" noValidate autoComplete="off">
             <TextField
@@ -184,27 +177,25 @@ function AddPost() {
               onChange={handleChangeType}
               helperText="Velg type arrangement"
             >
-              
               {typeList.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
                 </MenuItem>
               ))}
-              
             </TextField>
             <form noValidate>
-        <TextField
-          id="date"
-          label="Select Date"
-          type="date"
-          defaultValue="2022-01-01"
-          value={selectedDate}
-          onChange={handleDateChange}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-      </form>
+              <TextField
+                id="date"
+                label="Select Date"
+                type="date"
+                defaultValue="2022-01-01"
+                value={selectedDate}
+                onChange={handleDateChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </form>
             {buy == false && (
               <OutlinedInput
                 margin="normal"
@@ -224,7 +215,7 @@ function AddPost() {
               label="By/sted"
               variant="outlined"
             />
-            
+
             <TextField fullWidth id="outlined-basic" label="Arena" variant="outlined" />
           </Box>
           <Button onClick={handleLagre}>Lagre</Button>
