@@ -45,9 +45,9 @@ Firebase:
   before_script:
     - yarn global add firebase-tools
   script:
-    - firebase use default
     - cd swap/functions
     - yarn install
     - cd ..
+    - firebase use default
     - firebase deploy --only functions --token $FIREBASE_TOKEN
   
