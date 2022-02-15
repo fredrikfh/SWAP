@@ -23,7 +23,6 @@ ESLint:
   image: node
   stage: Lint
   script:
-    - yarn add eslint-plugin-react@latest --save-dev
     - cd swap
     - yarn install
     - node_modules/eslint/bin/eslint.js .
@@ -40,8 +39,6 @@ Prettier:
 Firebase:
   image: node:16.3.0
   stage: Deploy
-  before_script:
-    - yarn global add firebase-tools
   script:
     - cd swap
     - yarn
