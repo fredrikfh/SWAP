@@ -1,11 +1,13 @@
 import "./style/styles.css";
-import { useState, useEffect } from "react";
-import AdCard from "./components/AdCard";
+import React from "react"; /*{ useState, useEffect }*/
+import Navbar from "./components/Navbar";
+import CardOverview from "./pages/CardOverview";
+/*import AdCard from "./components/AdCard";
 import { db } from "./firebase-config";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";*/
 
 function App() {
-	const [posts, setPosts] = useState([]);
+	/*const [posts, setPosts] = useState([]);
 	const postsCollectionRef = collection(db, "posts");
 	useEffect(() => {
 		const getPosts = async () => {
@@ -24,6 +26,13 @@ function App() {
 				})}
 			</div>
 		</div>
+	);*/
+
+	return (
+		<React.Fragment>
+			<Navbar />
+			<CardOverview />
+		</React.Fragment>
 	);
 }
 
