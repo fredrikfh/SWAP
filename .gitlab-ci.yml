@@ -43,7 +43,7 @@ Firebase:
   image: node:16.3.0
   stage: Firebase deploy
   before_script:
-    - yarn add firebase-tools
+    - yarn global add firebase-tools
   script:
     - cd swap/functions
     - yarn install
