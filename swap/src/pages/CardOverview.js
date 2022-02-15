@@ -21,7 +21,7 @@ export default function CardOverview() {
 			{/*Annonseliste-Container*/}
 			<Container
 				sx={{
-					height: "60vh",
+					height: "calc(100vh - 300px)",
 					paddingLeft: "0 !important",
 					paddingRight: "0 !important",
 					overflowY: "scroll",
