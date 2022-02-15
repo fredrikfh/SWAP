@@ -16,6 +16,8 @@ function App() {
     <div className="App">
 
 <AddPost></AddPost>
+<AddPost></AddPost>
+<AdCard></AdCard>
     </div>
   );
 }

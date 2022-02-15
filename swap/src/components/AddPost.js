@@ -19,6 +19,7 @@ import {
 } from '@material-ui/pickers';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
+import 'date-fns';
 
 const style = {
   position: 'absolute',
@@ -32,7 +33,22 @@ const style = {
   p: 4,
 };
 function AddPost() {
-  const [selectedDate] = useState(new Date());
+  var today = new Date();
+  var month = today.getMonth() +1;
+
+  if (month < 10) {
+    month = "0" + month
+  }
+
+  var date = today.getFullYear()+'-'+(month)+'-'+today.getDate();
+  console.log(date);
+
+  const [selectedDate, setSelectedDate] = useState(date);
+
+  const handleDateChange = (event) => {
+    console.log(event.target.value);
+    setSelectedDate(event.target.value);
+  };
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -175,13 +191,19 @@ function AddPost() {
               ))}
               
             </TextField>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-
-<KeyboardDatePicker
-  label="Material Date Picker"
-  value={selectedDate}
-/>
-</MuiPickersUtilsProvider>
+            <form noValidate>
+        <TextField
+          id="date"
+          label="Select Date"
+          type="date"
+          defaultValue="2022-01-01"
+          value={selectedDate}
+          onChange={handleDateChange}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+      </form>
             {buy == false && (
               <OutlinedInput
                 margin="normal"
