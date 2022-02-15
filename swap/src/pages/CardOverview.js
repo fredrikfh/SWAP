@@ -12,12 +12,18 @@ export default function CardOverview() {
 				flexDirection: "column",
 				justifyContent: "center",
 				alignItems: "center",
-				width: "700px",
+				marginLeft: '4em',
+				paddingLeft: '0 !important',
+				width: "600px",
 			}}
 		>
 			<FilterMenu />
 			{/*Annonseliste-Container*/}
-			<Container>
+			<Container
+				sx={{
+					paddingLeft: '0 !important',
+				}}
+			>
 				<Card
 					sx={{
 						display: "flex",
@@ -26,7 +32,7 @@ export default function CardOverview() {
 						width: "calc(100% - 3em)",
 						height: "12em",
 						margin: "1em auto 0 auto",
-						background: "rgb(250,250,250)",
+						background: "white",
 					}}
 				>
 					<h2>Her kommer kort-komponenten</h2>
@@ -39,7 +45,7 @@ export default function CardOverview() {
 						width: "calc(100% - 3em)",
 						height: "12em",
 						margin: "1em auto 0 auto",
-						background: "rgb(250,250,250)",
+						background: "white",
 					}}
 				>
 					<h2>Her kommer kort-komponenten</h2>
@@ -52,7 +58,7 @@ export default function CardOverview() {
 						width: "calc(100% - 3em)",
 						height: "12em",
 						margin: "1em auto 0 auto",
-						background: "rgb(250,250,250)",
+						background: "white",
 					}}
 				>
 					<h2>Her kommer kort-komponenten</h2>
