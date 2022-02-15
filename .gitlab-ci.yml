@@ -12,7 +12,6 @@ cache:
 Yarn build:
   image: node:16.3.0
   stage: Build
-  needs: []
   script:
     - cd swap
     - yarn install --frozen-lockfile --cache-folder .yarn
@@ -22,6 +21,7 @@ Yarn build:
 ESLint:
   image: node
   stage: Lint
+  needs: [Yarn build]
   script:
     - cd swap
     - yarn install
@@ -39,6 +39,9 @@ Prettier:
 Firebase:
   image: node:16.3.0
   stage: Deploy
+  needs: [Yarn build]
+  before_script:
+    - yarn add -g firebase-tools
   script:
     - cd swap
     - yarn
