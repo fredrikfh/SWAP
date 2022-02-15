@@ -15,7 +15,7 @@ Yarn build:
   needs: []
   script:
     - cd swap
-    - yarn install --cache-folder .yarn
+    - yarn install --frozen-lockfile --cache-folder .yarn
     - yarn build
   retry: 1
 
