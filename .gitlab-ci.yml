@@ -24,7 +24,7 @@ ESLint:
   needs: [Yarn build]
   script:
     - cd swap
-    - yarn install
+    - yarn install --frozen-lockfile --cache-folder .yarn
     - node_modules/eslint/bin/eslint.js .
 
 Prettier:
@@ -44,7 +44,7 @@ Firebase:
     - yarn global add firebase-tools
   script:
     - cd swap
-    - yarn
+    - yarn install --frozen-lockfile --cache-folder .yarn
     - yarn build
     - firebase use default
     - firebase deploy --only hosting --token $FIREBASE_TOKEN
