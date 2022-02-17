@@ -12,12 +12,32 @@ export default function CardOverview() {
 				flexDirection: "column",
 				justifyContent: "center",
 				alignItems: "center",
-				width: "700px",
+				marginLeft: "4em",
+				paddingLeft: "0 !important",
+				width: "600px",
 			}}
 		>
 			<FilterMenu />
 			{/*Annonseliste-Container*/}
-			<Container>
+			<Container
+				sx={{
+					height: "calc(100vh - 300px)",
+					paddingLeft: "0 !important",
+					paddingRight: "0 !important",
+					overflowY: "scroll",
+					"&::-webkit-scrollbar": {
+						width: 7,
+					},
+					"&::-webkit-scrollbar-track": {
+						backgroundColor: "rgb(240,240,240)",
+						borderRadius: "5px",
+					},
+					"&::-webkit-scrollbar-thumb": {
+						backgroundColor: "rgb(225,225,225)",
+						borderRadius: "5px",
+					},
+				}}
+			>
 				<Card
 					sx={{
 						display: "flex",
@@ -26,7 +46,7 @@ export default function CardOverview() {
 						width: "calc(100% - 3em)",
 						height: "12em",
 						margin: "1em auto 0 auto",
-						background: "rgb(250,250,250)",
+						background: "white",
 					}}
 				>
 					<h2>Her kommer kort-komponenten</h2>
@@ -39,20 +59,7 @@ export default function CardOverview() {
 						width: "calc(100% - 3em)",
 						height: "12em",
 						margin: "1em auto 0 auto",
-						background: "rgb(250,250,250)",
-					}}
-				>
-					<h2>Her kommer kort-komponenten</h2>
-				</Card>
-				<Card
-					sx={{
-						display: "flex",
-						justifyContent: "center",
-						alignItems: "center",
-						width: "calc(100% - 3em)",
-						height: "12em",
-						margin: "1em auto 0 auto",
-						background: "rgb(250,250,250)",
+						background: "white",
 					}}
 				>
 					<h2>Her kommer kort-komponenten</h2>
