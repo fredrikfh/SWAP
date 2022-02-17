@@ -1,5 +1,7 @@
 # Swap
 
+###### Check the latest build: https://swap-93d9f.web.app/
+
 ### To run the app
 * run `cd swap`
 * run `yarn`
