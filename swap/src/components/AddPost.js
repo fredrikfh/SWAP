@@ -13,7 +13,6 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import MenuItem from '@mui/material/MenuItem';
 import 'date-fns';
-import 'date-fns';
 
 const style = {
   position: 'absolute',
