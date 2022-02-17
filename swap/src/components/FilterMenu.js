@@ -24,11 +24,7 @@ export default function FilterMenu() {
 	}
 
 	return (
-		<Container
-			sx={{
-				paddingLeft: "0 !important",
-			}}
-		>
+		<Container>
 			{/*Input-Container*/}
 			<Container
 				sx={{
