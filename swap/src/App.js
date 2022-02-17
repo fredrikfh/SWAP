@@ -4,6 +4,7 @@ import "date-fns";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import CardOverview from "./pages/CardOverview";
+import Profile from "./pages/Profile";
 
 export default function App() {
 	return (
@@ -11,6 +12,7 @@ export default function App() {
 			<Navbar />
 			<BrowserRouter>
 				<Routes>
+					<Route path="/" element={<Profile />} />
 					<Route path="/" element={<CardOverview />} />
 				</Routes>
 			</BrowserRouter>
