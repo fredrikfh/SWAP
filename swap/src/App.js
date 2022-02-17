@@ -1,8 +1,9 @@
+import React from "react";
 import "./style/styles.css";
-import AdCard from "./components/AdCard";
+import "date-fns";
 
 function App() {
-	return <AdCard></AdCard>;
+	return <div className="App"></div>;
 }
 
 export default App;

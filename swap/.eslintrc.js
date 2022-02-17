@@ -19,4 +19,5 @@ module.exports = {
 		indent: ["error", "tab"],
 		"no-tabs": 0,
 	},
+	ignorePatterns: ["build/*"],
 };
