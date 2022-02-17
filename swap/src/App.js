@@ -7,9 +7,7 @@ import 'date-fns';
 function App() {
   return (
     <div className="App">
-      <AddPost></AddPost>
-      <AddPost></AddPost>
-      <AdCard></AdCard>
+
     </div>
   );
 }
