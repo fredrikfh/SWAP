@@ -1,14 +1,19 @@
 import React from "react";
 import "./style/styles.css";
 import "date-fns";
-import Profile from "./pages/Profile";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import CardOverview from "./pages/CardOverview";
 
-function App() {
+export default function App() {
 	return (
-		<div>
-			<Profile></Profile>
-		</div>
+		<React.Fragment>
+			<Navbar />
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<CardOverview />} />
+				</Routes>
+			</BrowserRouter>
+		</React.Fragment>
 	);
 }
-
-export default App;
