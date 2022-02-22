@@ -1,8 +1,24 @@
+import { useNavigate } from 'react-router-dom'
+
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
 export default function Navbar() {
+	const navigate = useNavigate();
+
+	function handleClickHome() {
+		navigate('/');
+	}
+
+	function handleClickCreate() {
+		navigate('/create');
+	}
+
+	function handleClickProfile() {
+		navigate('/profile');
+	}
+
 	return (
 		<Container
 			sx={{
@@ -19,7 +35,11 @@ export default function Navbar() {
 				background: "white",
 			}}
 		>
-			<img src="./logo/main_text.svg" style={{ height: "40px" }} />
+			<img 
+				onClick={handleClickHome}
+				src="./logo/main_text.svg" 
+				style={{ height: "40px", cursor: "pointer" }} 
+			/>
 			<Container
 				sx={{
 					display: "flex",
@@ -32,6 +52,7 @@ export default function Navbar() {
 				}}
 			>
 				<Button
+					onClick={handleClickCreate}
 					sx={{
 						background: "teal",
 						color: "white",
@@ -40,13 +61,15 @@ export default function Navbar() {
 					+ Opprett innlegg
 				</Button>
 				<Container
+					onClick={handleClickProfile}
 					sx={{
 						display: "flex",
 						justifyContent: "center",
 						alignItems: "center",
 
-						paddingRight: "0px !important",
+						paddingRight: "0px!important",
 						width: "fit-content",
+						cursor: "pointer",
 					}}
 				>
 					<PersonOutlineIcon />
