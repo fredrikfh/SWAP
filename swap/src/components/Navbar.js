@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
@@ -8,15 +8,15 @@ export default function Navbar() {
 	const navigate = useNavigate();
 
 	function handleClickHome() {
-		navigate('/');
+		navigate("/");
 	}
 
 	function handleClickCreate() {
-		navigate('/create');
+		navigate("/create");
 	}
 
 	function handleClickProfile() {
-		navigate('/profile');
+		navigate("/profile");
 	}
 
 	return (
@@ -35,10 +35,10 @@ export default function Navbar() {
 				background: "white",
 			}}
 		>
-			<img 
+			<img
 				onClick={handleClickHome}
-				src="./logo/main_text.svg" 
-				style={{ height: "40px", cursor: "pointer" }} 
+				src="./logo/main_text.svg"
+				style={{ height: "40px", cursor: "pointer" }}
 			/>
 			<Container
 				sx={{
