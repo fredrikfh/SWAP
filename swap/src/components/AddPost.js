@@ -13,6 +13,8 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import MenuItem from "@mui/material/MenuItem";
 import "date-fns";
+import { db } from "./firebase-config";
+import { collection, addDoc } from "firebase/firestore";
 
 const style = {
 	position: "absolute",
@@ -25,6 +27,7 @@ const style = {
 	boxShadow: 0,
 	p: 4,
 };
+
 function AddPost() {
 	var today = new Date();
 	var month = today.getMonth() + 1;
@@ -37,23 +40,41 @@ function AddPost() {
 
 	const [selectedDate, setSelectedDate] = useState(date);
 
-	const handleLagre = () => {
-		setOpen(false);
-		console.log("lagret");
-	};
-
 	const handleDateChange = (event) => {
 		setSelectedDate(event.target.value);
+		setNewDate(event.target.value);
 	};
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 
-	const [buy, setBuy] = React.useState(true);
-	const changeBuy = () => setBuy(false);
-	const changeSell = () => setBuy(true);
 
 	const [value, setValue] = React.useState("buyBtn");
+
+	const [newTitle, setNewTitle] = useState("");
+	const [newDescription, setNewDescription] = useState("");
+	const [newDate, setNewDate] = useState(date);
+	const [newEventType, setNewEventType] = useState();
+	const [newLocation, setNewLocation] = useState("");
+	const [newVenue, setNewVenue] = useState("");
+	const [newPrice, setNewPrice] = useState(0);
+	const [newSelling, setNewSelling] = useState(true);
+
+	const postsCollectionRef = collection(db, "posts");
+
+	const handleCreate = async () => {
+		await addDoc(postsCollectionRef, {
+			title: newTitle,
+			description: newDescription,
+			date: newDate,
+			eventType: newEventType,
+			location: newLocation,
+			venue: newVenue,
+			price: Number(newPrice),
+			isBuying: Boolean(newSelling),
+		});
+		setOpen(false);
+	};
 
 	const typeList = [
 		{
@@ -82,14 +103,16 @@ function AddPost() {
 
 	const handleChangeType = (event) => {
 		setType(event.target.value);
+		setNewEventType(event.target.value);
 	};
 
 	const handleChange = (event) => {
 		setValue(event.target.value);
 		if (value === "buyBtn") {
-			changeBuy();
+			setNewPrice(null);
+			setNewSelling(false);
 		} else if (value === "sellBtn") {
-			changeSell();
+			setNewSelling(true);
 		}
 	};
 
@@ -141,7 +164,7 @@ function AddPost() {
 							/>
 						</RadioGroup>
 					</FormControl>
-					{buy === true && <></>}
+					{newSelling === true && <></>}
 
 					<Box component="form" noValidate autoComplete="off">
 						<TextField
@@ -150,6 +173,9 @@ function AddPost() {
 							id="outlined-basic"
 							label="Tittel"
 							variant="outlined"
+							onChange={(event) => {
+								setNewTitle(event.target.value);
+							}}
 						/>
 
 						<TextField
@@ -160,6 +186,9 @@ function AddPost() {
 							id="outlined-basic"
 							label="Beskrivelse"
 							variant="outlined"
+							onChange={(event) => {
+								setNewDescription(event.target.value);
+							}}
 						/>
 
 						<TextField
@@ -184,7 +213,7 @@ function AddPost() {
 								id="date"
 								label="Select Date"
 								type="date"
-								defaultValue="2022-01-01"
+								// defaultValue="2022-01-01"
 								value={selectedDate}
 								onChange={handleDateChange}
 								InputLabelProps={{
@@ -192,7 +221,7 @@ function AddPost() {
 								}}
 							/>
 						</form>
-						{buy === false && (
+						{newSelling === false && (
 							<OutlinedInput
 								margin="normal"
 								id="outlined-adornment-weight"
@@ -200,6 +229,9 @@ function AddPost() {
 								aria-describedby="outlined-weight-helper-text"
 								inputProps={{
 									"aria-label": "weight",
+								}}
+								onChange={(event) => {
+									setNewPrice(event.target.value);
 								}}
 							/>
 						)}
@@ -210,11 +242,22 @@ function AddPost() {
 							id="outlined-basic"
 							label="By/sted"
 							variant="outlined"
+							onChange={(event) => {
+								setNewLocation(event.target.value);
+							}}
 						/>
 
-						<TextField fullWidth id="outlined-basic" label="Arena" variant="outlined" />
+						<TextField
+							fullWidth
+							id="outlined-basic"
+							label="Arena"
+							variant="outlined"
+							onChange={(event) => {
+								setNewVenue(event.target.value);
+							}}
+						/>
 					</Box>
-					<Button onClick={handleLagre}>Lagre</Button>
+					<Button onClick={handleCreate}>Lagre</Button>
 				</Box>
 			</Modal>
 		</div>
