@@ -1,7 +1,6 @@
 import Container from "@mui/material/Container";
-import Card from "@mui/material/Card";
-
 import FilterMenu from "../components/FilterMenu";
+import AdCard from "../components/AdCard";
 
 export default function CardOverview() {
 	return (
@@ -10,10 +9,9 @@ export default function CardOverview() {
 			sx={{
 				display: "flex",
 				flexDirection: "column",
-				justifyContent: "center",
-				alignItems: "center",
+				alignItems: "flex-start",
 				marginLeft: "4em",
-				paddingLeft: "0 !important",
+				padding: "0 !important",
 				width: "600px",
 			}}
 		>
@@ -22,48 +20,31 @@ export default function CardOverview() {
 			<Container
 				sx={{
 					height: "calc(100vh - 300px)",
-					paddingLeft: "0 !important",
-					paddingRight: "0 !important",
+					width: "calc(100% - 30px)",
+					padding: "0 !important",
+					marginTop: "1em",
+					marginLeft: "0",
 					overflowY: "scroll",
 					"&::-webkit-scrollbar": {
-						width: 7,
+						width: 6,
 					},
 					"&::-webkit-scrollbar-track": {
 						backgroundColor: "rgb(240,240,240)",
-						borderRadius: "5px",
+						borderRadius: "3px",
 					},
 					"&::-webkit-scrollbar-thumb": {
-						backgroundColor: "rgb(225,225,225)",
-						borderRadius: "5px",
+						backgroundColor: "rgb(220,220,220)",
+						borderRadius: "3px",
 					},
 				}}
 			>
-				<Card
-					sx={{
-						display: "flex",
-						justifyContent: "center",
-						alignItems: "center",
-						width: "calc(100% - 3em)",
-						height: "12em",
-						margin: "1em auto 0 auto",
-						background: "white",
-					}}
-				>
-					<h2>Her kommer kort-komponenten</h2>
-				</Card>
-				<Card
-					sx={{
-						display: "flex",
-						justifyContent: "center",
-						alignItems: "center",
-						width: "calc(100% - 3em)",
-						height: "12em",
-						margin: "1em auto 0 auto",
-						background: "white",
-					}}
-				>
-					<h2>Her kommer kort-komponenten</h2>
-				</Card>
+				<AdCard />
+				<AdCard />
+				<AdCard />
+				<AdCard />
+				<AdCard />
+				<AdCard />
+				<AdCard />
 			</Container>
 		</Container>
 	);
