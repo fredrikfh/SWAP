@@ -56,20 +56,21 @@ export default function CardOverview() {
 			>
 				<div className="adCards">
 					{posts.map((post, index) => {
-						return <AdCard
-							key={index}
-							post={post}
-							sx={{
-								display: "flex",
-								justifyContent: "center",
-								alignItems: "center",
-								width: "calc(100% - 3em)",
-								height: "12em",
-								margin: "1em auto 0 auto",
-								background: "white",
-							}}
-						>
-						</AdCard>;
+						return (
+							<AdCard
+								key={index}
+								post={post}
+								sx={{
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									width: "calc(100% - 3em)",
+									height: "12em",
+									margin: "1em auto 0 auto",
+									background: "white",
+								}}
+							></AdCard>
+						);
 					})}
 				</div>
 				<Card
