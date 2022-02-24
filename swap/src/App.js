@@ -14,6 +14,7 @@ export default function App() {
 				<Routes>
 					<Route path="/profile" element={<Profile />} />
 					<Route path="/" element={<CardOverview />} />
+					<Route path="/" element={<Profile />} />
 				</Routes>
 			</BrowserRouter>
 		</React.Fragment>
