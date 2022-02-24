@@ -21,6 +21,7 @@ export default function FilterSelect(props) {
 				padding: "0 0.4em 0 0.4em",
 				border: "none",
 				borderRadius: "1.1em",
+				background: "#ffe6cb",
 			}}
 			value={type}
 			onChange={handleTypeChange}

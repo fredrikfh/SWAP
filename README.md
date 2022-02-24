@@ -1,10 +1,21 @@
 # Swap
 
-To run checks:
+###### Check the latest build: https://swap-93d9f.web.app/
 
-Prettier: 
-* npx prettier --check .
-* npx prettier --write .
+### To run the app
+* run `cd swap`
+* run `yarn`
+* run `yarn start` (or npm start)
 
-ESLint:
-* npx eslint --fix .
+
+### To run checks:
+
+* `npx prettier --check .`
+* `npx prettier --write .`
+* `npx eslint --fix .`
+
+
+### Adding a new package
+* run `yarn add <package>`
+* run `yarn` (updates yarn.lock)
+* Push `yarn.lock`

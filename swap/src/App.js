@@ -1,23 +1,21 @@
 import React from "react";
 import "./style/styles.css";
 import "date-fns";
-import AddPost from "./components/AddPost";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import CardOverview from "./pages/CardOverview";
+import Profile from "./pages/Profile";
 
-function App() {
-	// useEffect(() => {
-	// 	const getPosts = async () => {
-	// 	  const data = await getDocs(postsCollectionRef);
-	// 	  setPosts(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
-	// 	}
-
-	// 	getPosts()
-	// },[])
-
+export default function App() {
 	return (
-		<div className="App">
-			<AddPost></AddPost>
-		</div>
+		<React.Fragment>
+			<BrowserRouter>
+				<Navbar />
+				<Routes>
+					<Route path="/profile" element={<Profile />} />
+					<Route path="/" element={<CardOverview />} />
+				</Routes>
+			</BrowserRouter>
+		</React.Fragment>
 	);
 }
-
-export default App;
