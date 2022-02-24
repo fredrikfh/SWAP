@@ -1,8 +1,6 @@
 import Container from "@mui/material/Container";
 import FilterMenu from "../components/FilterMenu";
 import AdCard from "../components/AdCard";
-
-import AdCard from "../components/AdCard";
 import { useState, useEffect } from "react";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
@@ -56,12 +54,7 @@ export default function CardOverview() {
 			>
 				<div className="adCards">
 					{posts.map((post, index) => {
-						return (
-							<AdCard
-								key={index}
-								post={post}
-							></AdCard>
-						);
+						return <AdCard key={index} post={post} />;
 					})}
 				</div>
 			</Container>
