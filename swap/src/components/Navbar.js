@@ -1,18 +1,14 @@
 import { useNavigate } from "react-router-dom";
 
 import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import AddPost from "./AddPost";
 
 export default function Navbar() {
 	const navigate = useNavigate();
 
 	function handleClickHome() {
 		navigate("/");
-	}
-
-	function handleClickCreate() {
-		navigate("/create");
 	}
 
 	function handleClickProfile() {
@@ -51,15 +47,7 @@ export default function Navbar() {
 					width: "fit-content",
 				}}
 			>
-				<Button
-					onClick={handleClickCreate}
-					sx={{
-						background: "teal",
-						color: "white",
-					}}
-				>
-					+ Opprett innlegg
-				</Button>
+				<AddPost></AddPost>
 				<Container
 					onClick={handleClickProfile}
 					sx={{

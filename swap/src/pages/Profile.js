@@ -91,6 +91,7 @@ function Profile() {
 						</nav>
 
 						<Button
+							className="tealButtons"
 							sx={{
 								background: "teal",
 								color: "white",
@@ -127,6 +128,7 @@ function Profile() {
 								variant="outlined"
 							/>
 							<Button
+								className="tealButtons"
 								sx={{
 									background: "teal",
 									color: "white",

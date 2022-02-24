@@ -3,3 +3,13 @@ body {
 	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
 		Geneva, Verdana, sans-serif;
 }
+
+.tealButtons {
+	background-color: teal !important;
+	color: white !important;
+}
+
+.tealButtons:hover {
+	background-color: teal !important;
+	opacity: 0.6 !important;
+}

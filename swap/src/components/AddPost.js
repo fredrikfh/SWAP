@@ -13,6 +13,9 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import MenuItem from "@mui/material/MenuItem";
 import "date-fns";
+import { db } from "./firebase-config";
+import { collection, addDoc } from "firebase/firestore";
+import AddIcon from "@mui/icons-material/Add";
 
 const style = {
 	position: "absolute",
@@ -25,6 +28,7 @@ const style = {
 	boxShadow: 0,
 	p: 4,
 };
+
 function AddPost() {
 	var today = new Date();
 	var month = today.getMonth() + 1;
@@ -37,23 +41,40 @@ function AddPost() {
 
 	const [selectedDate, setSelectedDate] = useState(date);
 
-	const handleLagre = () => {
-		setOpen(false);
-		console.log("lagret");
-	};
-
 	const handleDateChange = (event) => {
 		setSelectedDate(event.target.value);
+		setNewDate(event.target.value);
 	};
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 
-	const [buy, setBuy] = React.useState(true);
-	const changeBuy = () => setBuy(false);
-	const changeSell = () => setBuy(true);
-
 	const [value, setValue] = React.useState("buyBtn");
+
+	const [newTitle, setNewTitle] = useState("");
+	const [newDescription, setNewDescription] = useState("");
+	const [newDate, setNewDate] = useState(date);
+	const [newEventType, setNewEventType] = useState();
+	const [newLocation, setNewLocation] = useState("");
+	const [newVenue, setNewVenue] = useState("");
+	const [newPrice, setNewPrice] = useState(0);
+	const [newSelling, setNewSelling] = useState(true);
+
+	const postsCollectionRef = collection(db, "posts");
+
+	const handleCreate = async () => {
+		await addDoc(postsCollectionRef, {
+			title: newTitle,
+			description: newDescription,
+			date: newDate,
+			eventType: newEventType,
+			location: newLocation,
+			venue: newVenue,
+			price: Number(newPrice),
+			isBuying: Boolean(newSelling),
+		});
+		setOpen(false);
+	};
 
 	const typeList = [
 		{
@@ -82,28 +103,34 @@ function AddPost() {
 
 	const handleChangeType = (event) => {
 		setType(event.target.value);
+		setNewEventType(event.target.value);
 	};
 
 	const handleChange = (event) => {
 		setValue(event.target.value);
 		if (value === "buyBtn") {
-			changeBuy();
+			setNewPrice(null);
+			setNewSelling(false);
 		} else if (value === "sellBtn") {
-			changeSell();
+			setNewSelling(true);
 		}
 	};
 
 	return (
 		<div>
 			<Button
+				className="tealButtons"
+				endIcon={<AddIcon />}
+				variant="outlined"
 				sx={{
-					background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+					// bgcolor: "teal",
 					border: 0,
-					borderRadius: 3,
-					boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-					color: "white",
-					height: 48,
-					padding: "0 30px",
+					// color: "white",
+					// height: 48,
+					// "&:hover": {
+					// 	bgcolor: "teal",
+					// 	opacity: 0.6
+					// }
 				}}
 				onClick={handleOpen}
 			>
@@ -141,7 +168,7 @@ function AddPost() {
 							/>
 						</RadioGroup>
 					</FormControl>
-					{buy === true && <></>}
+					{newSelling === true && <></>}
 
 					<Box component="form" noValidate autoComplete="off">
 						<TextField
@@ -150,20 +177,26 @@ function AddPost() {
 							id="outlined-basic"
 							label="Tittel"
 							variant="outlined"
+							onChange={(event) => {
+								setNewTitle(event.target.value);
+							}}
 						/>
 
 						<TextField
-							margin="normal"
+							margin="dense"
 							multiline
 							rows={4}
 							fullWidth
 							id="outlined-basic"
 							label="Beskrivelse"
 							variant="outlined"
+							onChange={(event) => {
+								setNewDescription(event.target.value);
+							}}
 						/>
 
 						<TextField
-							margin="normal"
+							margin="dense"
 							style={{ paddingLeft: "2%" }}
 							id="outlined-select-currency"
 							select
@@ -179,42 +212,60 @@ function AddPost() {
 								</MenuItem>
 							))}
 						</TextField>
-						<form noValidate>
-							<TextField
-								id="date"
-								label="Select Date"
-								type="date"
-								defaultValue="2022-01-01"
-								value={selectedDate}
-								onChange={handleDateChange}
-								InputLabelProps={{
-									shrink: true,
-								}}
-							/>
-						</form>
-						{buy === false && (
+
+						<TextField
+							margin="dense"
+							noValidate
+							id="date"
+							label="Select Date"
+							type="date"
+							// defaultValue="2022-01-01"
+							value={selectedDate}
+							onChange={handleDateChange}
+							InputLabelProps={{
+								shrink: true,
+							}}
+						/>
+
+						{newSelling === false && (
 							<OutlinedInput
-								margin="normal"
+								margin="dense"
 								id="outlined-adornment-weight"
 								endAdornment={<InputAdornment position="end">kr</InputAdornment>}
 								aria-describedby="outlined-weight-helper-text"
 								inputProps={{
 									"aria-label": "weight",
 								}}
+								onChange={(event) => {
+									setNewPrice(event.target.value);
+								}}
 							/>
 						)}
 
 						<TextField
+							margin="dense"
 							required
 							fullWidth
 							id="outlined-basic"
 							label="By/sted"
 							variant="outlined"
+							onChange={(event) => {
+								setNewLocation(event.target.value);
+							}}
 						/>
 
-						<TextField fullWidth id="outlined-basic" label="Arena" variant="outlined" />
+						<TextField
+							margin="dense"
+							fullWidth
+							id="outlined-basic"
+							label="Arena"
+							variant="outlined"
+							onChange={(event) => {
+								setNewVenue(event.target.value);
+							}}
+						/>
 					</Box>
-					<Button onClick={handleLagre}>Lagre</Button>
+					<Button onClick={handleCreate}>Lagre</Button>
 				</Box>
 			</Modal>
 		</div>
