@@ -9,9 +9,10 @@ import Profile from "./pages/Profile";
 export default function App() {
 	return (
 		<React.Fragment>
-			<Navbar />
 			<BrowserRouter>
+				<Navbar />
 				<Routes>
+					<Route path="/profile" element={<Profile />} />
 					<Route path="/" element={<CardOverview />} />
 					<Route path="/" element={<Profile />} />
 				</Routes>
