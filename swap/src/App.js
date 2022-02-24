@@ -12,8 +12,8 @@ export default function App() {
 			<Navbar />
 			<BrowserRouter>
 				<Routes>
-					<Route path="/" element={<Profile />} />
 					<Route path="/" element={<CardOverview />} />
+					<Route path="/" element={<Profile />} />
 				</Routes>
 			</BrowserRouter>
 		</React.Fragment>
