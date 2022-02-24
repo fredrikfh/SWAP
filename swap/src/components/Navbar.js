@@ -47,8 +47,7 @@ export default function Navbar() {
 					width: "fit-content",
 				}}
 			>
-				<AddPost>
-				</AddPost>
+				<AddPost></AddPost>
 				<Container
 					onClick={handleClickProfile}
 					sx={{

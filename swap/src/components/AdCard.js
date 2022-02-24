@@ -95,7 +95,7 @@ function AdCard(props) {
 					</Container>
 				</Container>
 			</CardActions>
-		</Card >
+		</Card>
 	);
 }
 

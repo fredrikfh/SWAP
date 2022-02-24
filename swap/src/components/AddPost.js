@@ -15,7 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import "date-fns";
 import { db } from "./firebase-config";
 import { collection, addDoc } from "firebase/firestore";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
 
 const style = {
 	position: "absolute",
@@ -26,7 +26,7 @@ const style = {
 	bgcolor: "background.paper",
 	border: "2px solid #000",
 	boxShadow: 0,
-	p: 4
+	p: 4,
 };
 
 function AddPost() {
@@ -48,7 +48,6 @@ function AddPost() {
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
-
 
 	const [value, setValue] = React.useState("buyBtn");
 
@@ -269,7 +268,7 @@ function AddPost() {
 					<Button onClick={handleCreate}>Lagre</Button>
 				</Box>
 			</Modal>
-		</div >
+		</div>
 	);
 }
 
