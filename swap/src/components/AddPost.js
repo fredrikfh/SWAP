@@ -15,6 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import "date-fns";
 import { db } from "./firebase-config";
 import { collection, addDoc } from "firebase/firestore";
+import AddIcon from '@mui/icons-material/Add';
 
 const style = {
 	position: "absolute",
@@ -25,7 +26,7 @@ const style = {
 	bgcolor: "background.paper",
 	border: "2px solid #000",
 	boxShadow: 0,
-	p: 4,
+	p: 4
 };
 
 function AddPost() {
@@ -119,14 +120,18 @@ function AddPost() {
 	return (
 		<div>
 			<Button
+				className="tealButtons"
+				endIcon={<AddIcon />}
+				variant="outlined"
 				sx={{
-					background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+					// bgcolor: "teal",
 					border: 0,
-					borderRadius: 3,
-					boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-					color: "white",
-					height: 48,
-					padding: "0 30px",
+					// color: "white",
+					// height: 48,
+					// "&:hover": {
+					// 	bgcolor: "teal",
+					// 	opacity: 0.6
+					// }
 				}}
 				onClick={handleOpen}
 			>
@@ -264,7 +269,7 @@ function AddPost() {
 					<Button onClick={handleCreate}>Lagre</Button>
 				</Box>
 			</Modal>
-		</div>
+		</div >
 	);
 }
 

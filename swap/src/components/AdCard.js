@@ -36,7 +36,7 @@ function AdCard(props) {
 			<CardActionArea>
 				<CardContent>
 					<Typography gutterBottom variant="h5" component="div" sx={{ marginBottom: 0 }}>
-						{props.post.title};
+						{props.post.title}
 					</Typography>
 					<Chip label="Til salgs" color="success" size="small" />
 					<Chip label="Trondheim spektrum" size="small" />
@@ -46,7 +46,7 @@ function AdCard(props) {
 						240 kr
 					</Typography>
 					<Typography variant="body2" color="text.secondary">
-						{props.post.description};
+						{props.post.description}
 					</Typography>
 				</CardContent>
 			</CardActionArea>
@@ -83,6 +83,7 @@ function AdCard(props) {
 					>
 						<FavoriteBorderIcon />
 						<Button
+							className="tealButtons"
 							sx={{
 								background: "teal",
 								color: "white",
@@ -94,7 +95,7 @@ function AdCard(props) {
 					</Container>
 				</Container>
 			</CardActions>
-		</Card>
+		</Card >
 	);
 }
 
