@@ -179,7 +179,7 @@ function AddPost() {
 						/>
 
 						<TextField
-							margin="normal"
+							margin="dense"
 							multiline
 							rows={4}
 							fullWidth
@@ -192,7 +192,7 @@ function AddPost() {
 						/>
 
 						<TextField
-							margin="normal"
+							margin="dense"
 							style={{ paddingLeft: "2%" }}
 							id="outlined-select-currency"
 							select
@@ -208,22 +208,24 @@ function AddPost() {
 								</MenuItem>
 							))}
 						</TextField>
-						<form noValidate>
-							<TextField
-								id="date"
-								label="Select Date"
-								type="date"
-								// defaultValue="2022-01-01"
-								value={selectedDate}
-								onChange={handleDateChange}
-								InputLabelProps={{
-									shrink: true,
-								}}
-							/>
-						</form>
+
+						<TextField
+							margin="dense"
+							noValidate
+							id="date"
+							label="Select Date"
+							type="date"
+							// defaultValue="2022-01-01"
+							value={selectedDate}
+							onChange={handleDateChange}
+							InputLabelProps={{
+								shrink: true,
+							}}
+						/>
+
 						{newSelling === false && (
 							<OutlinedInput
-								margin="normal"
+								margin="dense"
 								id="outlined-adornment-weight"
 								endAdornment={<InputAdornment position="end">kr</InputAdornment>}
 								aria-describedby="outlined-weight-helper-text"
@@ -237,6 +239,7 @@ function AddPost() {
 						)}
 
 						<TextField
+							margin="dense"
 							required
 							fullWidth
 							id="outlined-basic"
@@ -248,6 +251,7 @@ function AddPost() {
 						/>
 
 						<TextField
+							margin="dense"
 							fullWidth
 							id="outlined-basic"
 							label="Arena"
