@@ -7,9 +7,15 @@ import { Button, CardActionArea, CardActions } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import pf_placeholder from "../img/pf_placeholder.png";
 
-function AdCard() {
-	const headline = "Overskrift fra database";
-	const description = "Her kommer en beskrivelse om annonsen osv heehehhe";
+import PropTypes from "prop-types";
+
+AdCard.propTypes = {
+	post: PropTypes.any,
+};
+
+function AdCard(props) {
+	// const headline = "overskrift fra database";
+	// const description = "her kommer en beskrivelse om annonsen osv heehehhe";
 	const tagsList = ["Til salgs", "Trondheim Spektrum", "4.mai"];
 
 	function mapTest() {
@@ -30,7 +36,7 @@ function AdCard() {
 			<CardActionArea>
 				<CardContent>
 					<Typography gutterBottom variant="h5" component="div" sx={{ marginBottom: 0 }}>
-						{headline}
+						{props.post.title};
 					</Typography>
 					<Chip label="Til salgs" color="success" size="small" />
 					<Chip label="Trondheim spektrum" size="small" />
@@ -40,7 +46,7 @@ function AdCard() {
 						240 kr
 					</Typography>
 					<Typography variant="body2" color="text.secondary">
-						{description}
+						{props.post.description};
 					</Typography>
 				</CardContent>
 			</CardActionArea>
