@@ -1,0 +1,10 @@
+{
+	"title": "[Cypress] Selger billett til the Weeknd",
+	"description": "Dette er en testpost fra Cypress (bør slettes)",
+	"price": 1000,
+	"date": "2023-06-10",
+	"event": "Teater",
+	"isBuying": false,
+	"location": "trondheim",
+	"venue": "Trondheim Spektrum"
+}
