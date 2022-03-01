@@ -1,6 +1,7 @@
 stages:
   - Build
   - Lint
+  - Test
   - Deploy
 
 cache:
@@ -21,7 +22,7 @@ Yarn build:
 ESLint:
   image: node
   stage: Lint
-  needs: [Yarn build]
+  needs: []
   script:
     - cd swap
     - yarn install --frozen-lockfile --cache-folder .yarn
@@ -36,10 +37,28 @@ Prettier:
     - npx prettier --check .
   retry: 1
 
+Cypress:
+  image: cypress/base:16.3.0
+  stage: Test
+  needs: []
+  script:
+    - cd swap
+    - yarn add cypress --dev
+    - yarn
+    - yarn start & yarn run cypress run
+    - yarn nyc report --reporter=text-summary
+  retry: 1
+  artifacts:
+    when: always
+    paths:
+      - $CI_BUILDS_DIR/$CI_PROJECT_PATH/swap/cypress/videos/**/*.mp4
+      - $CI_BUILDS_DIR/$CI_PROJECT_PATH/swap/cypress/screenshots/**/*.png
+      - $CI_BUILDS_DIR/$CI_PROJECT_PATH/swap/coverage/*
+
 Firebase:
   image: node:16.3.0
   stage: Deploy
-  needs: [Yarn build, Prettier, ESLint]
+  needs: [Yarn build, Prettier, ESLint, Cypress]
   before_script:
     - yarn global add firebase-tools
   script:
@@ -51,4 +70,5 @@ Firebase:
   only:
     refs:
       - main
-  
+
+

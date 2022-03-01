@@ -122,6 +122,7 @@ function AddPost() {
 				className="tealButtons"
 				endIcon={<AddIcon />}
 				variant="outlined"
+				id="addItemButton"
 				sx={{
 					// bgcolor: "teal",
 					border: 0,
@@ -160,11 +161,13 @@ function AddPost() {
 								value="buyBtn"
 								control={<Radio />}
 								label="kjøpe billett"
+								id="addItemRadioBuy"
 							/>
 							<FormControlLabel
 								value="sellBtn"
 								control={<Radio />}
 								label="selge billett"
+								id="addItemRadioSell"
 							/>
 						</RadioGroup>
 					</FormControl>
@@ -174,7 +177,7 @@ function AddPost() {
 						<TextField
 							required
 							fullWidth
-							id="outlined-basic"
+							id="addItemTitle"
 							label="Tittel"
 							variant="outlined"
 							onChange={(event) => {
@@ -187,7 +190,7 @@ function AddPost() {
 							multiline
 							rows={4}
 							fullWidth
-							id="outlined-basic"
+							id="addItemDescription"
 							label="Beskrivelse"
 							variant="outlined"
 							onChange={(event) => {
@@ -198,7 +201,7 @@ function AddPost() {
 						<TextField
 							margin="dense"
 							style={{ paddingLeft: "2%" }}
-							id="outlined-select-currency"
+							id="addItemEvent"
 							select
 							//label="Velg type arrangement"
 							//label="Select"
@@ -216,7 +219,7 @@ function AddPost() {
 						<TextField
 							margin="dense"
 							noValidate
-							id="date"
+							id="addItemDate"
 							label="Select Date"
 							type="date"
 							// defaultValue="2022-01-01"
@@ -230,7 +233,7 @@ function AddPost() {
 						{newSelling === false && (
 							<OutlinedInput
 								margin="dense"
-								id="outlined-adornment-weight"
+								id="addItemPrice"
 								endAdornment={<InputAdornment position="end">kr</InputAdornment>}
 								aria-describedby="outlined-weight-helper-text"
 								inputProps={{
@@ -246,7 +249,7 @@ function AddPost() {
 							margin="dense"
 							required
 							fullWidth
-							id="outlined-basic"
+							id="addItemLocation"
 							label="By/sted"
 							variant="outlined"
 							onChange={(event) => {
@@ -257,7 +260,7 @@ function AddPost() {
 						<TextField
 							margin="dense"
 							fullWidth
-							id="outlined-basic"
+							id="addItemVenue"
 							label="Arena"
 							variant="outlined"
 							onChange={(event) => {
@@ -265,7 +268,9 @@ function AddPost() {
 							}}
 						/>
 					</Box>
-					<Button onClick={handleCreate}>Lagre</Button>
+					<Button id="addItemCreate" onClick={handleCreate}>
+						Lagre
+					</Button>
 				</Box>
 			</Modal>
 		</div>
