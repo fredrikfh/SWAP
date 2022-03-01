@@ -28,19 +28,31 @@ function Profile() {
 	const phoneNumberRef = useRef("");
 
 	const sendValueMail = () => {
-		setMail(mailRef.current.value);
+		if (mailRef.current.value == "") {
+			setMail(mail);
+		} else {
+			setMail(mailRef.current.value);
+		}
 		console.log(mail);
 		return console.log(mailRef.current.value);
 	};
 
 	const sendValueName = () => {
-		setName(nameRef.current.value);
+		if (nameRef.current.value == "") {
+			setName(name);
+		} else {
+			setName(nameRef.current.value);
+		}
 		console.log(name);
 		return console.log(nameRef.current.value);
 	};
 
 	const sendValuePhoneNumber = () => {
-		setPhoneNumber(phoneNumberRef.current.value);
+		if (phoneNumberRef.current.value == "") {
+			setPhoneNumber(phoneNumber);
+		} else {
+			setPhoneNumber(phoneNumberRef.current.value);
+		}
 		console.log(name);
 		return console.log(nameRef.current.value);
 	};
@@ -106,14 +118,14 @@ function Profile() {
 				{changeMail === true && (
 					<Box>
 						<FormControl>
-							<p>Mail: </p>
+							<p>Navn: </p>
 							<TextField
 								inputRef={nameRef}
-								id="mailEdit"
+								id="navnEdit"
 								label={name}
 								variant="outlined"
 							/>
-							<p>Navn: </p>
+							<p>Mail: </p>
 							<TextField
 								inputRef={mailRef}
 								id="mailEdit"

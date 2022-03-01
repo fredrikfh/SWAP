@@ -13,7 +13,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import MenuItem from "@mui/material/MenuItem";
 import "date-fns";
-import { db } from "./firebase-config";
+import { db } from "../firebase-config";
 import { collection, addDoc } from "firebase/firestore";
 import AddIcon from "@mui/icons-material/Add";
 
