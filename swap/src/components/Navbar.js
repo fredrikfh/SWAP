@@ -50,6 +50,7 @@ export default function Navbar() {
 			>
 				<AddPost></AddPost>
 				<Container
+					id="profileButton"
 					onClick={handleClickProfile}
 					sx={{
 						display: "flex",
