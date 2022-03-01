@@ -1,7 +1,7 @@
 stages:
   - Build
   - Lint
-  - Test
+  - test
   - Deploy
 
 cache:
@@ -22,7 +22,7 @@ Yarn build:
 ESLint:
   image: node
   stage: Lint
-  needs: []
+  needs: [Yarn build]
   script:
     - cd swap
     - yarn install --frozen-lockfile --cache-folder .yarn
@@ -33,20 +33,22 @@ Prettier:
   stage: Lint
   needs: []
   script:
-    - cd swap
-    - npx prettier --check .
+  - cd swap
+  - npx prettier --check .
   retry: 1
 
 Cypress:
   image: cypress/base:16.3.0
-  stage: Test
-  needs: []
+  stage: test
+  needs: [Yarn build]
   script:
     - cd swap
     - yarn add cypress --dev
     - yarn
     - yarn start & yarn run cypress run
     - yarn nyc report --reporter=text-summary
+    #- yarn nyc --reporter text mocha
+    - yarn nyc report --reporter=cobertura
   retry: 1
   artifacts:
     when: always
@@ -54,6 +56,8 @@ Cypress:
       - $CI_BUILDS_DIR/$CI_PROJECT_PATH/swap/cypress/videos/**/*.mp4
       - $CI_BUILDS_DIR/$CI_PROJECT_PATH/swap/cypress/screenshots/**/*.png
       - $CI_BUILDS_DIR/$CI_PROJECT_PATH/swap/coverage/*
+    reports:
+      cobertura: $CI_BUILDS_DIR/$CI_PROJECT_PATH/swap/coverage/cobertura-coverage.xml
 
 Firebase:
   image: node:16.3.0
@@ -71,4 +75,18 @@ Firebase:
     refs:
       - main
 
+#variables:
+#  a11y_urls: "https://swap-93d9f.web.app"
+
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  #- template: "Verify/Accessibility.gitlab-ci.yml"
+    artifacts:
+      name: sast
+      paths:
+        - gl-sast-report.json
+      reports:
+        sast: gl-sast-report.json
+    when: always
 
