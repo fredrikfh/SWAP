@@ -1,7 +1,7 @@
 import Card from "@mui/material/Card";
+import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
