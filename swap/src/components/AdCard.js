@@ -38,7 +38,12 @@ function AdCard(props) {
 			>
 				<CardActionArea>
 					<CardContent>
-						<Typography gutterBottom variant="h5" component="div" sx={{ marginBottom: 0 }}>
+						<Typography
+							gutterBottom
+							variant="h5"
+							component="div"
+							sx={{ marginBottom: 0 }}
+						>
 							{props.post.title}
 						</Typography>
 						<Chip label={props.post.location} size="small" />
@@ -72,7 +77,10 @@ function AdCard(props) {
 								cursor: "pointer",
 							}}
 						>
-							<img src={pf_placeholder} style={{ height: "30px", marginRight: "6px" }} />
+							<img
+								src={pf_placeholder}
+								style={{ height: "30px", marginRight: "6px" }}
+							/>
 							<Typography size="small">Ola Nordmann</Typography>
 						</Container>
 						<Container
@@ -111,7 +119,12 @@ function AdCard(props) {
 			>
 				<CardActionArea>
 					<CardContent>
-						<Typography gutterBottom variant="h5" component="div" sx={{ marginBottom: 0 }}>
+						<Typography
+							gutterBottom
+							variant="h5"
+							component="div"
+							sx={{ marginBottom: 0 }}
+						>
 							{props.post.title}
 						</Typography>
 						<Chip label={props.post.location} size="small" />
@@ -145,7 +158,10 @@ function AdCard(props) {
 								cursor: "pointer",
 							}}
 						>
-							<img src={pf_placeholder} style={{ height: "30px", marginRight: "6px" }} />
+							<img
+								src={pf_placeholder}
+								style={{ height: "30px", marginRight: "6px" }}
+							/>
 							<Typography size="small">Ola Nordmann</Typography>
 						</Container>
 						<Container
