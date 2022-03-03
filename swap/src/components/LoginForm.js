@@ -5,6 +5,9 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import EmailIcon from "@mui/icons-material/Email";
+import PasswordIcon from "@mui/icons-material/Password";
 import Joi from "joi-browser";
 import "../style/styles.css";
 
@@ -89,6 +92,13 @@ const LoginForm = () => {
 					value={user.email}
 					onChange={handleChange}
 					name="email"
+					InputProps={{
+						endAdornment: (
+							<InputAdornment position="end">
+								<EmailIcon />
+							</InputAdornment>
+						),
+					}}
 					sx={{
 						background: "#f0f0f0",
 						marginTop: "1.5em",
@@ -113,6 +123,13 @@ const LoginForm = () => {
 					value={user.password}
 					onChange={handleChange}
 					name="password"
+					InputProps={{
+						endAdornment: (
+							<InputAdornment position="end">
+								<PasswordIcon />
+							</InputAdornment>
+						),
+					}}
 					sx={{
 						background: "#f0f0f0",
 						marginTop: "1.5em",

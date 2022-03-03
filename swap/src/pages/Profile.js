@@ -68,7 +68,7 @@ function Profile() {
 										<ListItemIcon>
 											<PersonIcon />
 										</ListItemIcon>
-										<ListItemText primary={name} />
+										<ListItemText id="profileName" primary={name} />
 									</ListItemButton>
 								</ListItem>
 								<ListItem disablePadding>
@@ -76,7 +76,7 @@ function Profile() {
 										<ListItemIcon>
 											<DraftsIcon />
 										</ListItemIcon>
-										<ListItemText primary={mail} />
+										<ListItemText id="profileMail" primary={mail} />
 									</ListItemButton>
 								</ListItem>
 								<ListItem disablePadding>
@@ -84,7 +84,7 @@ function Profile() {
 										<ListItemIcon>
 											<PhoneIphoneIcon />
 										</ListItemIcon>
-										<ListItemText primary={phoneNumber} />
+										<ListItemText id="profilePhone" primary={phoneNumber} />
 									</ListItemButton>
 								</ListItem>
 							</List>
@@ -96,6 +96,7 @@ function Profile() {
 								background: "teal",
 								color: "white",
 							}}
+							id="editProfile"
 							onClick={() => setChangeMail(!changeMail)}
 						>
 							Rediger profil
@@ -106,29 +107,30 @@ function Profile() {
 				{changeMail === true && (
 					<Box>
 						<FormControl>
-							<p>Mail: </p>
-							<TextField
-								inputRef={nameRef}
-								id="mailEdit"
-								label={name}
-								variant="outlined"
-							/>
 							<p>Navn: </p>
 							<TextField
+								inputRef={nameRef}
+								label={name}
+								variant="outlined"
+								id="profileNameInput"
+							/>
+							<p>Mail: </p>
+							<TextField
 								inputRef={mailRef}
-								id="mailEdit"
 								label={mail}
 								variant="outlined"
+								id="profileMailInput"
 							/>
 							<p>Tlf-nummer: </p>
 							<TextField
 								inputRef={phoneNumberRef}
-								id="mailEdit"
 								label={phoneNumber}
 								variant="outlined"
+								id="profilePhoneInput"
 							/>
 							<Button
 								className="tealButtons"
+								id="saveProfile"
 								sx={{
 									background: "teal",
 									color: "white",

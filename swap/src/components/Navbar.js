@@ -15,6 +15,7 @@ export default function Navbar() {
 		navigate("/profile");
 	}
 
+	// test comment
 	return (
 		<Container
 			sx={{
@@ -49,6 +50,7 @@ export default function Navbar() {
 			>
 				<AddPost></AddPost>
 				<Container
+					id="profileButton"
 					onClick={handleClickProfile}
 					sx={{
 						display: "flex",
