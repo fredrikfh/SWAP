@@ -5,6 +5,11 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import EmailIcon from "@mui/icons-material/Email";
+import PasswordIcon from "@mui/icons-material/Password";
+import BadgeIcon from "@mui/icons-material/Badge";
+import HomeIcon from "@mui/icons-material/Home";
 import Joi from "joi-browser";
 import "../style/styles.css";
 
@@ -90,6 +95,13 @@ const RegisterForm = () => {
 					value={user.email}
 					onChange={handleChange}
 					name="email"
+					InputProps={{
+						endAdornment: (
+							<InputAdornment position="end">
+								<EmailIcon />
+							</InputAdornment>
+						),
+					}}
 					sx={{
 						background: "#f0f0f0",
 						marginTop: "1.5em",
@@ -113,6 +125,13 @@ const RegisterForm = () => {
 					value={user.password}
 					onChange={handleChange}
 					name="password"
+					InputProps={{
+						endAdornment: (
+							<InputAdornment position="end">
+								<PasswordIcon />
+							</InputAdornment>
+						),
+					}}
 					sx={{
 						background: "#f0f0f0",
 						marginTop: "1.5em",
@@ -136,6 +155,13 @@ const RegisterForm = () => {
 					value={user.name}
 					onChange={handleChange}
 					name="name"
+					InputProps={{
+						endAdornment: (
+							<InputAdornment position="end">
+								<BadgeIcon />
+							</InputAdornment>
+						),
+					}}
 					sx={{
 						background: "#f0f0f0",
 						marginTop: "1.5em",
@@ -159,6 +185,13 @@ const RegisterForm = () => {
 					value={user.address}
 					onChange={handleChange}
 					name="address"
+					InputProps={{
+						endAdornment: (
+							<InputAdornment position="end">
+								<HomeIcon />
+							</InputAdornment>
+						),
+					}}
 					sx={{
 						background: "#f0f0f0",
 						marginTop: "1.5em",
