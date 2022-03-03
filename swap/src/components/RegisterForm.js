@@ -72,10 +72,10 @@ const RegisterForm = () => {
 	return (
 		<Card
 			sx={{
-				maxWidth: "500px",
-				margin: "auto",
+				width: "500px",
 				borderRadius: "1em",
 				padding: "16px 16px 32px 16px",
+				margin: "3em 0 0 0",
 			}}
 		>
 			<Container
