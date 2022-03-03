@@ -13,7 +13,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import MenuItem from "@mui/material/MenuItem";
 import "date-fns";
-import { db } from "./firebase-config";
+import { db } from "../firebase-config";
 import { collection, addDoc } from "firebase/firestore";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -63,38 +63,46 @@ function AddPost() {
 	const postsCollectionRef = collection(db, "posts");
 
 	const handleCreate = async () => {
-		await addDoc(postsCollectionRef, {
-			title: newTitle,
-			description: newDescription,
-			date: newDate,
-			eventType: newEventType,
-			location: newLocation,
-			venue: newVenue,
-			price: Number(newPrice),
-			isBuying: Boolean(newSelling),
-		});
-		setOpen(false);
+		if (
+			newTitle != "" &&
+			newDate != "" &&
+			newEventType != "" &&
+			newVenue != "" &&
+			newLocation != ""
+		) {
+			await addDoc(postsCollectionRef, {
+				title: newTitle,
+				description: newDescription,
+				date: newDate,
+				eventType: newEventType,
+				location: newLocation,
+				venue: newVenue,
+				price: Number(newPrice),
+				isBuying: Boolean(newSelling),
+			});
+			setOpen(false);
+		}
 	};
 
 	const typeList = [
 		{
-			value: "consert",
+			value: "Konsert",
 			label: "Konsert",
 		},
 		{
-			value: "theater",
+			value: "Teater",
 			label: "Teater",
 		},
 		{
-			value: "festival",
+			value: "Festival",
 			label: "Festival",
 		},
 		{
-			value: "standup",
+			value: "Stand up",
 			label: "Stand up",
 		},
 		{
-			value: "show",
+			value: "Show",
 			label: "Show",
 		},
 	];
@@ -258,6 +266,7 @@ function AddPost() {
 						/>
 
 						<TextField
+							required
 							margin="dense"
 							fullWidth
 							id="addItemVenue"
