@@ -23,80 +23,156 @@ function AdCard(props) {
 			console.log(tagsList[i]);
 		}
 	}
-	mapTest();
 
-	return (
-		<Card
-			sx={{
-				maxWidth: 528,
-				marginLeft: "24px",
-				marginBottom: "1em",
-			}}
-		>
-			<CardActionArea>
-				<CardContent>
-					<Typography gutterBottom variant="h5" component="div" sx={{ marginBottom: 0 }}>
-						{props.post.title}
-					</Typography>
-					<Chip label="Til salgs" color="success" size="small" />
-					<Chip label="Trondheim spektrum" size="small" />
-					<Chip label="4.mai" size="small" />
-					<Chip label="Konsert" size="small" />
-					<Typography variant="h5" sx={{ fontWeight: "bold", marginTop: "8.4px" }}>
-						240 kr
-					</Typography>
-					<Typography variant="body2" color="text.secondary">
-						{props.post.description}
-					</Typography>
-				</CardContent>
-			</CardActionArea>
-			<CardActions sx={{ padding: "16px" }}>
-				<Container
-					sx={{
-						display: "flex",
-						justifyContent: "space-between",
-						padding: "0 !important",
-						margin: "0 !important",
-						width: "600px",
-					}}
-				>
+	const buying = props.post.isBuying;
+
+	mapTest();
+	if (buying) {
+		return (
+			<Card
+				sx={{
+					maxWidth: 528,
+					marginLeft: "24px",
+					marginBottom: "1em",
+				}}
+			>
+				<CardActionArea>
+					<CardContent>
+						<Typography gutterBottom variant="h5" component="div" sx={{ marginBottom: 0 }}>
+							{props.post.title}
+						</Typography>
+						<Chip label={props.post.location} size="small" />
+						<Chip label={props.post.venue} size="small" />
+						<Chip label={props.post.date} size="small" />
+						<Chip label={props.post.eventType} size="small" />
+						<Typography variant="h5" sx={{ fontWeight: "bold", marginTop: "8.4px" }}>
+							Ønskes kjøpt
+						</Typography>
+						<Typography variant="body2" color="text.secondary">
+							{props.post.description}
+						</Typography>
+					</CardContent>
+				</CardActionArea>
+				<CardActions sx={{ padding: "16px" }}>
 					<Container
 						sx={{
 							display: "flex",
-							alignItems: "center",
+							justifyContent: "space-between",
 							padding: "0 !important",
 							margin: "0 !important",
-							cursor: "pointer",
+							width: "600px",
 						}}
 					>
-						<img src={pf_placeholder} style={{ height: "30px", marginRight: "6px" }} />
-						<Typography size="small">Ola Nordmann</Typography>
-					</Container>
-					<Container
-						sx={{
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "right",
-							padding: "0 !important",
-							margin: "0 !important",
-						}}
-					>
-						<FavoriteBorderIcon />
-						<Button
-							className="tealButtons"
+						<Container
 							sx={{
-								background: "teal",
-								color: "white",
-								marginLeft: "8px",
+								display: "flex",
+								alignItems: "center",
+								padding: "0 !important",
+								margin: "0 !important",
+								cursor: "pointer",
 							}}
 						>
-							Send melding
-						</Button>
+							<img src={pf_placeholder} style={{ height: "30px", marginRight: "6px" }} />
+							<Typography size="small">Ola Nordmann</Typography>
+						</Container>
+						<Container
+							sx={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "right",
+								padding: "0 !important",
+								margin: "0 !important",
+							}}
+						>
+							<FavoriteBorderIcon />
+							<Button
+								className="tealButtons"
+								sx={{
+									background: "teal",
+									color: "white",
+									marginLeft: "8px",
+								}}
+							>
+								Send melding
+							</Button>
+						</Container>
 					</Container>
-				</Container>
-			</CardActions>
-		</Card>
-	);
+				</CardActions>
+			</Card>
+		);
+	} else {
+		return (
+			<Card
+				sx={{
+					maxWidth: 528,
+					marginLeft: "24px",
+					marginBottom: "1em",
+				}}
+			>
+				<CardActionArea>
+					<CardContent>
+						<Typography gutterBottom variant="h5" component="div" sx={{ marginBottom: 0 }}>
+							{props.post.title}
+						</Typography>
+						<Chip label={props.post.location} size="small" />
+						<Chip label={props.post.venue} size="small" />
+						<Chip label={props.post.date} size="small" />
+						<Chip label={props.post.eventType} size="small" />
+						<Typography variant="h5" sx={{ fontWeight: "bold", marginTop: "8.4px" }}>
+							{props.post.price} kr
+						</Typography>
+						<Typography variant="body2" color="text.secondary">
+							{props.post.description}
+						</Typography>
+					</CardContent>
+				</CardActionArea>
+				<CardActions sx={{ padding: "16px" }}>
+					<Container
+						sx={{
+							display: "flex",
+							justifyContent: "space-between",
+							padding: "0 !important",
+							margin: "0 !important",
+							width: "600px",
+						}}
+					>
+						<Container
+							sx={{
+								display: "flex",
+								alignItems: "center",
+								padding: "0 !important",
+								margin: "0 !important",
+								cursor: "pointer",
+							}}
+						>
+							<img src={pf_placeholder} style={{ height: "30px", marginRight: "6px" }} />
+							<Typography size="small">Ola Nordmann</Typography>
+						</Container>
+						<Container
+							sx={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "right",
+								padding: "0 !important",
+								margin: "0 !important",
+							}}
+						>
+							<FavoriteBorderIcon />
+							<Button
+								className="tealButtons"
+								sx={{
+									background: "teal",
+									color: "white",
+									marginLeft: "8px",
+								}}
+							>
+								Send melding
+							</Button>
+						</Container>
+					</Container>
+				</CardActions>
+			</Card>
+		);
+	}
 }
-
 export default AdCard;
