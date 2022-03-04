@@ -7,12 +7,6 @@ import { Button, CardActionArea, CardActions } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import pf_placeholder from "../img/pf_placeholder.png";
 
-import PropTypes from "prop-types";
-
-AdCard.propTypes = {
-	post: PropTypes.any,
-};
-
 function AdCard(props) {
 	// const headline = "overskrift fra database";
 	// const description = "her kommer en beskrivelse om annonsen osv heehehhe";

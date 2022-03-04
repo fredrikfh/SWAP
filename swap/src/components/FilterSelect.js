@@ -10,10 +10,6 @@ export default function FilterSelect(props) {
 		setType(event.target.value);
 	}
 
-	FilterSelect.propTypes = {
-		options: Array,
-	};
-
 	return (
 		<Select
 			sx={{
