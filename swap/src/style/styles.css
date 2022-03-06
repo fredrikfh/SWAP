@@ -13,3 +13,37 @@ body {
 	background-color: teal !important;
 	opacity: 0.6 !important;
 }
+
+.tealButtonPill {
+	color: teal !important;
+}
+
+.cardChip {
+	margin-right: 10px;
+}
+
+.adCardPill {
+	border: solid 1.5px rgb(220, 220, 220) !important;
+	color: rgb(122, 122, 122) !important;
+	background-color: white !important;
+}
+
+#adc-buy {
+	border: solid 2px #c78333;
+	background-color: #fff;
+	color: #c78333;
+	font-weight: 700;
+}
+
+#adc-sell {
+	border: solid 2px #6aa85e;
+	background-color: #fff;
+	color: #6aa85e;
+	font-weight: 700;
+}
+
+.adCardShadow {
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+	-moz-box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+}
