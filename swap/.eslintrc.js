@@ -4,7 +4,9 @@ module.exports = {
 		es2021: true,
 		node: true,
 	},
+
 	extends: ["eslint:recommended", "plugin:react/recommended"],
+
 	parserOptions: {
 		ecmaFeatures: {
 			jsx: true,
@@ -12,7 +14,9 @@ module.exports = {
 		ecmaVersion: "latest",
 		sourceType: "module",
 	},
+
 	plugins: ["react"],
+
 	rules: {
 		"react/prop-types": 0,
 		"react/react-in-jsx-scope": "off",
@@ -20,5 +24,12 @@ module.exports = {
 		indent: ["error", "tab"],
 		"no-tabs": 0,
 	},
+
 	ignorePatterns: ["build/*", "cypress/*"],
+
+	settings: {
+		react: {
+			version: "detect",
+		},
+	},
 };

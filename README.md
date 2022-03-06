@@ -11,6 +11,8 @@
 
 ### Testing:
 
+- Run all tests: `./test.sh`
+
 - Prettier: `npx prettier --check .`
 - Prettier: `npx prettier --write .`
 - Eslint: `npx eslint --fix .`
