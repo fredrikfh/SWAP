@@ -5,11 +5,6 @@ import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import pf_placeholder from "../img/pf_placeholder.png";
-import PropTypes from "prop-types";
-
-AdCard.propTypes = {
-	post: PropTypes.any,
-};
 
 function AdCard(props) {
 	const isBuying = props.post.isBuying;

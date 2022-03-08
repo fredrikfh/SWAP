@@ -18,6 +18,7 @@ module.exports = {
 	plugins: ["react"],
 
 	rules: {
+		"react/prop-types": 0,
 		"react/react-in-jsx-scope": "off",
 		"react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
 		indent: ["error", "tab"],
