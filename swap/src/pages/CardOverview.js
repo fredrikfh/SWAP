@@ -1,3 +1,4 @@
+import React from "react";
 import Container from "@mui/material/Container";
 import FilterMenu from "../components/FilterMenu";
 import AdCard from "../components/AdCard";
