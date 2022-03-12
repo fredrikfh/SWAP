@@ -79,7 +79,7 @@ function AddPost() {
 				venue: newVenue,
 				price: Number(newPrice),
 				isBuying: Boolean(newSelling),
-				createdAt: new Date()
+				createdAt: new Date(),
 			});
 			setOpen(false);
 		}
