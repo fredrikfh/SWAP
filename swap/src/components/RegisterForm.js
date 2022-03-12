@@ -14,12 +14,21 @@ import HomeIcon from "@mui/icons-material/Home";
 import Joi from "joi-browser";
 import "../style/styles.css";
 
+import { auth, createUserDocument } from "../firebase-config";
+import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+
 const RegisterForm = () => {
 	const navigate = useNavigate();
 
 	const [userState, setUserState] = useState({
-		user: { email: "", password: "", name: "", address: "" },
+		userS: { email: "", password: "", name: "", address: "" },
 		errors: {},
+	});
+
+	const [currentUser, setUser] = useState({});
+
+	onAuthStateChanged(auth, (currentUser) => {
+		setUser(currentUser);
 	});
 
 	const schema = {
@@ -31,7 +40,7 @@ const RegisterForm = () => {
 
 	const validate = () => {
 		const options = { abortEarly: false };
-		const { error } = Joi.validate(userState.user, schema, options);
+		const { error } = Joi.validate(userState.userS, schema, options);
 		if (!error) return null;
 
 		const errors = {};
@@ -53,27 +62,40 @@ const RegisterForm = () => {
 		else delete errors[input.name];
 
 		const user = { ...userState };
-		user.user[input.name] = input.value;
+		user.userS[input.name] = input.value;
 		user.errors = errors;
 		setUserState(user);
 	};
 
-	const handleRegister = (e) => {
+	const handleRegister = async (e) => {
 		e.preventDefault();
 
 		const errors = { ...userState };
 		errors["errors"] = validate() || {};
 		setUserState(errors);
-		if (validate()) return;
-
-		console.log("Registered");
+		if (!validate()) {
+			const newName = userState.userS.name;
+			const newLocation = userState.userS.address;
+			try {
+				const { user } = await createUserWithEmailAndPassword(
+					auth,
+					userState.userS.email,
+					userState.userS.password
+				);
+				console.log(user.uid);
+				await createUserDocument(user, { newName, newLocation }).then(navigate("/"));
+				console.log(currentUser?.email);
+			} catch (error) {
+				console.log("error", error);
+			}
+		}
 	};
 
 	const handleLogin = () => {
 		navigate("/login");
 	};
 
-	const { user, errors } = userState;
+	const { userS, errors } = userState;
 
 	return (
 		<Card
@@ -93,7 +115,7 @@ const RegisterForm = () => {
 				<Typography variant="h5">Registrer Bruker</Typography>
 				<TextField
 					label="Epost"
-					value={user.email}
+					value={userS.email}
 					onChange={handleChange}
 					name="email"
 					InputProps={{
@@ -123,7 +145,7 @@ const RegisterForm = () => {
 				)}
 				<TextField
 					label="Passord"
-					value={user.password}
+					value={userS.password}
 					onChange={handleChange}
 					name="password"
 					InputProps={{
@@ -153,7 +175,7 @@ const RegisterForm = () => {
 				)}
 				<TextField
 					label="Navn"
-					value={user.name}
+					value={userS.name}
 					onChange={handleChange}
 					name="name"
 					InputProps={{
@@ -183,7 +205,7 @@ const RegisterForm = () => {
 				)}
 				<TextField
 					label="Adresse"
-					value={user.address}
+					value={userS.address}
 					onChange={handleChange}
 					name="address"
 					InputProps={{

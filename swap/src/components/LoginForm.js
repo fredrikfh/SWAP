@@ -11,14 +11,25 @@ import EmailIcon from "@mui/icons-material/Email";
 import PasswordIcon from "@mui/icons-material/Password";
 import Joi from "joi-browser";
 import "../style/styles.css";
+import {
+	// onAuthStateChanged,
+	signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../firebase-config";
 
 const LoginForm = () => {
 	const navigate = useNavigate();
 
 	const [userState, setUserState] = useState({
-		user: { email: "", password: "" },
+		userS: { email: "", password: "" },
 		errors: {},
 	});
+
+	// const [currentUser, setUser] = useState({});
+
+	// onAuthStateChanged(auth, (currentUser) => {
+	// 	setUser(currentUser);
+	// })
 
 	const schema = {
 		email: Joi.string().required().label("Epost"),
@@ -46,14 +57,26 @@ const LoginForm = () => {
 		navigate("/register");
 	};
 
-	const handleLogin = (e) => {
+	const handleLogin = async (e) => {
 		e.preventDefault();
 		const errors = { ...userState };
 		errors["errors"] = validate() || {};
 		setUserState(errors);
-		if (validate()) return;
+		if (!validate()) {
+			try {
+				const user = await signInWithEmailAndPassword(
+					auth,
+					userState.userS.email,
+					userState.userS.password
+				);
+				console.log(user);
+			} catch (error) {
+				console.log(error.message);
+			}
+		}
 
 		console.log("Logging in");
+		navigate("/");
 	};
 
 	const handleChange = ({ currentTarget: input }) => {
@@ -63,12 +86,12 @@ const LoginForm = () => {
 		else delete errors[input.name];
 
 		const user = { ...userState };
-		user.user[input.name] = input.value;
+		user.userS[input.name] = input.value;
 		user.errors = errors;
 		setUserState(user);
 	};
 
-	const { user, errors } = userState;
+	const { userS, errors } = userState;
 
 	return (
 		<Card
@@ -90,7 +113,7 @@ const LoginForm = () => {
 				</Typography>
 				<TextField
 					label="Epost"
-					value={user.email}
+					value={userS.email}
 					onChange={handleChange}
 					name="email"
 					InputProps={{
@@ -121,7 +144,7 @@ const LoginForm = () => {
 				<TextField
 					label="Passord"
 					type="password"
-					value={user.password}
+					value={userS.password}
 					onChange={handleChange}
 					name="password"
 					InputProps={{
