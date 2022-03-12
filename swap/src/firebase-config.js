@@ -43,7 +43,7 @@ export const createUserDocument = async (user, { newName, newLocation }) => {
 			await setDoc(doc(db, "users", uid), {
 				username: newName,
 				email: user.email,
-				location: newLocation,
+				location: newLocation
 			});
 		} catch (error) {
 			console.log(error);
