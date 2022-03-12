@@ -86,7 +86,7 @@ const RegisterForm = () => {
 					userState.userS.password
 				);
 				console.log(user.uid);
-				await createUserDocument(user, { newName, newLocation });
+				await createUserDocument(user, { newName, newLocation }).then(navigate("/"));
 				console.log(currentUser?.email);
 			} catch (error) {
 				console.log('error', error);
