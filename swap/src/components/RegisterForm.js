@@ -13,11 +13,8 @@ import HomeIcon from "@mui/icons-material/Home";
 import Joi from "joi-browser";
 import "../style/styles.css";
 
-import { auth, createUserDocument } from '../firebase-config';
-import {
-	createUserWithEmailAndPassword,
-	onAuthStateChanged
-} from "firebase/auth";
+import { auth, createUserDocument } from "../firebase-config";
+import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 const RegisterForm = () => {
 	const navigate = useNavigate();
@@ -32,7 +29,6 @@ const RegisterForm = () => {
 	onAuthStateChanged(auth, (currentUser) => {
 		setUser(currentUser);
 	});
-
 
 	const schema = {
 		email: Joi.string().email().required().label("Epost"),
@@ -89,10 +85,9 @@ const RegisterForm = () => {
 				await createUserDocument(user, { newName, newLocation }).then(navigate("/"));
 				console.log(currentUser?.email);
 			} catch (error) {
-				console.log('error', error);
+				console.log("error", error);
 			}
 		}
-
 	};
 
 	const handleLogin = () => {

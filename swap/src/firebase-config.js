@@ -33,22 +33,20 @@ export const createUserDocument = async (user, { newName, newLocation }) => {
 
 	// console.log(snapshot);
 
-
 	if (snapshot.exists) {
 		// const { email } = user;
 		// const { displayName } = additionalData;
 		console.log("Hei");
 
 		try {
-			console.log("Inne i try")
-			await setDoc(doc(db, 'users', uid), {
+			console.log("Inne i try");
+			await setDoc(doc(db, "users", uid), {
 				username: newName,
 				email: user.email,
-				location: newLocation
+				location: newLocation,
 			});
 		} catch (error) {
 			console.log(error);
 		}
 	}
-
-}
+};

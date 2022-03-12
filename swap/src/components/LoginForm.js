@@ -12,7 +12,7 @@ import Joi from "joi-browser";
 import "../style/styles.css";
 import {
 	// onAuthStateChanged,
-	signInWithEmailAndPassword
+	signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../firebase-config";
 
