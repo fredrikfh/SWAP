@@ -11,10 +11,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import PasswordIcon from "@mui/icons-material/Password";
 import Joi from "joi-browser";
 import "../style/styles.css";
-import {
-	onAuthStateChanged,
-	signInWithEmailAndPassword,
-} from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
 
 const LoginForm = () => {
@@ -29,7 +26,7 @@ const LoginForm = () => {
 
 	onAuthStateChanged(auth, (user) => {
 		setUser(user);
-	})
+	});
 
 	const schema = {
 		email: Joi.string().required().label("Epost"),
@@ -68,7 +65,7 @@ const LoginForm = () => {
 					auth,
 					userState.userS.email,
 					userState.userS.password
-				).then(cred => {
+				).then((cred) => {
 					console.log(cred.user);
 				});
 				console.log(user);

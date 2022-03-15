@@ -25,11 +25,8 @@ export default function Navbar() {
 	});
 
 	useEffect(() => {
-		return
+		return;
 	}, [hasLoaded]);
-
-
-
 
 	// test comment
 	return (

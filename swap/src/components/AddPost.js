@@ -81,7 +81,7 @@ function AddPost() {
 				isBuying: Boolean(newSelling),
 				createdAt: new Date(),
 				authorDisplay: auth.currentUser.displayName,
-				author: auth.currentUser.uid
+				author: auth.currentUser.uid,
 			});
 			setOpen(false);
 		}

@@ -81,9 +81,9 @@ const RegisterForm = () => {
 					auth,
 					userState.userS.email,
 					userState.userS.password
-				)
+				);
 				await updateProfile(user, {
-					displayName: newName
+					displayName: newName,
 				});
 				console.log(user.uid);
 				await createUserDocument(user, { newName, newLocation }).then(navigate("/"));
