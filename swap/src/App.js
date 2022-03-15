@@ -42,7 +42,6 @@ export default function App() {
 									<img src="./logo/main_text.svg" width="240px" />
 									<LoginForm />
 								</Container>
-								<Footer />
 							</React.Fragment>
 						}
 					/>
@@ -63,7 +62,6 @@ export default function App() {
 									<img src="./logo/main_text.svg" width="240px" />
 									<RegisterForm />
 								</Container>
-								<Footer />
 							</React.Fragment>
 						}
 					/>
@@ -73,7 +71,6 @@ export default function App() {
 							<React.Fragment>
 								<Navbar />
 								<CardOverview />
-								<Footer />
 							</React.Fragment>
 						}
 					/>

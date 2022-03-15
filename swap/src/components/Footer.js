@@ -7,9 +7,10 @@ const Footer = () => {
 	return (
 		<footer style={{ position: "fixed", bottom: 0 }}>
 			<Box
-				width="100em"
+				width="100vw"
 				sx={{
 					backgroundColor: "#ffe6cb",
+					padding: "40px",
 				}}
 			>
 				<Grid container spacing={0} marginLeft="20px">
