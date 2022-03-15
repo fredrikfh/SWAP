@@ -3,11 +3,19 @@ import { useNavigate } from "react-router-dom";
 
 import Container from "@mui/material/Container";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import LogoutIcon from "@mui/icons-material/Logout";
 import AddPost from "./AddPost";
 import { auth } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 
 export default function Navbar() {
+	const [loggedIn, setLoggedIn] = useState(false);
+
+	// bytt ut denne useeffecten med getonauthstatechanged elns
+	useEffect(() => {
+		setLoggedIn(false);
+	}, [null]);
+
 	const navigate = useNavigate();
 
 	function handleClickHome() {
@@ -61,7 +69,7 @@ export default function Navbar() {
 					width: "fit-content",
 				}}
 			>
-				<AddPost></AddPost>
+				<AddPost />
 				<Container
 					id="profileButton"
 					onClick={handleClickProfile}
@@ -78,6 +86,28 @@ export default function Navbar() {
 					<PersonOutlineIcon />
 					<span>{auth.currentUser?.displayName}</span>
 				</Container>
+				{loggedIn ? (
+					<Container
+						onClick={handleClickSignOut}
+						sx={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+
+							paddingRight: "0px!important",
+							width: "fit-content",
+							cursor: "pointer",
+						}}
+					>
+						<LogoutIcon
+							sx={{
+								height: ".8em",
+								cursor: "pointer",
+							}}
+						/>
+						<span>Logg ut</span>
+					</Container>
+				) : null}
 			</Container>
 		</Container>
 	);
