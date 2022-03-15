@@ -87,14 +87,46 @@ function AdCard(props) {
 					<Container
 						sx={{
 							display: "flex",
+							flexDirection: "column",
 							alignItems: "center",
 							padding: "0 !important",
 							margin: "0 !important",
 							cursor: "pointer",
 						}}
 					>
-						<img src={pf_placeholder} style={{ height: "30px", marginRight: "6px" }} />
-						<Typography size="small">Ola Nordmann</Typography>
+						<Container sx={{display: "flex", alignItems: "flex-end", paddingLeft: "0 !important"}}>
+							<img src={pf_placeholder} style={{ height: "30px", marginRight: "6px" }} />
+							<Typography size="small" sx={{lineHeight: "1em"}}>Ola Nordmann</Typography>
+						</Container>
+						<Container sx={{height: "30px", margin: "5px 0 0 -7px", paddingLeft: "0 !important"}}>
+							<img 
+								src="./logo/rating_bg.svg"
+								style={{
+									position: "absolute", 
+									width: "140px",
+									zIndex: "2",
+								}}
+							/>
+							<Container
+								sx={{
+									position: "absolute",
+
+									width: "100px",
+									height: "24.08px",
+									background: "rgb(255,205,0)",
+									zIndex: "1"
+								}}
+							/>
+							<Container
+								sx={{
+									position: "absolute",
+
+									width: "140px",
+									height: "24.08px",
+									background: "rgb(230,230,230)",
+								}}
+							/>
+						</Container>
 					</Container>
 					<Container
 						sx={{
