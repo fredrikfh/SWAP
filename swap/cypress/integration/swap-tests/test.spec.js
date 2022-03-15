@@ -6,6 +6,8 @@ describe("SWAP", () => {
 		cy.visit("localhost:3000");
 		cy.viewport(1201, 800);
 
+		cy.login();
+
 		cy.createNewPost(
 			kortA.title,
 			kortA.description,

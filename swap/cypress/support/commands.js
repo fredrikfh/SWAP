@@ -30,12 +30,15 @@
 
 // LOGIN
 Cypress.Commands.add("login", () => {
-	cy.visit("http://localhost:3000");
-	cy.contains("Logg inn").click();
-	cy.get("#").type(username);
-	cy.get("#").type(password);
+	cy.visit("http://localhost:3000/login");
+	cy.get('input[name="email"]').type("cypresstest@mail.com");
+	cy.get('input[name="password"]').type("password123");
 	cy.get("#loginButton").click();
-	cy.get("#logoutButton").should("be.visible");
+
+	//cy.get("#").type(username);
+	//cy.get("#").type(password);
+	//cy.get("#loginButton").click();
+	//cy.get("#logoutButton").should("be.visible");
 });
 
 // REGISTER

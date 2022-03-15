@@ -185,6 +185,7 @@ const LoginForm = () => {
 						},
 					}}
 					className="tealButtons"
+					id="loginButton"
 				>
 					Logg inn
 				</Button>
