@@ -94,7 +94,7 @@ function AdCard(props) {
 						}}
 					>
 						<img src={pf_placeholder} style={{ height: "30px", marginRight: "6px" }} />
-						<Typography size="small">Ola Nordmann</Typography>
+						<Typography size="small">{props.post.authorDisplay}</Typography>
 					</Container>
 					<Container
 						sx={{

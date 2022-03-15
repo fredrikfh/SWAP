@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Container from "@mui/material/Container";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import AddPost from "./AddPost";
+import { auth } from "../firebase-config";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function Navbar() {
 	const navigate = useNavigate();
@@ -15,6 +17,19 @@ export default function Navbar() {
 	function handleClickProfile() {
 		navigate("/profile");
 	}
+
+	const [hasLoaded, setHasLoaded] = useState(false);
+
+	onAuthStateChanged(auth, () => {
+		setHasLoaded();
+	});
+
+	useEffect(() => {
+		return
+	}, [hasLoaded]);
+
+
+
 
 	// test comment
 	return (
@@ -64,7 +79,7 @@ export default function Navbar() {
 					}}
 				>
 					<PersonOutlineIcon />
-					<span>Brukernavn</span>
+					<span>{auth.currentUser?.displayName}</span>
 				</Container>
 			</Container>
 		</Container>
