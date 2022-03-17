@@ -6,8 +6,13 @@ import { auth } from "../firebase-config";
 import getPosts from "../components/getPosts";
 import PostContainer from "../components/PostContainer";
 import Profile from "../components/Profile";
+import { useNavigate } from "react-router-dom";
 
 function ProfilePage() {
+	const navigate = useNavigate();
+
+	if (auth.currentUser === null) navigate("/login");
+
 	return (
 		<div>
 			<Profile />
@@ -49,7 +54,7 @@ function ProfilePage() {
 						>
 							<PostContainer
 								posts={getPosts().filter(
-									(post) => post.author === auth.currentUser.uid
+									(post) => post.author === auth.currentUser?.uid
 								)}
 							/>
 						</Container>
@@ -86,7 +91,7 @@ function ProfilePage() {
 						>
 							<PostContainer
 								posts={getPosts().filter(
-									(post) => post.author !== auth.currentUser.uid
+									(post) => post.author !== auth.currentUser?.uid
 								)}
 							/>
 						</Container>
