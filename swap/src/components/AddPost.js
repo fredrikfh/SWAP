@@ -117,6 +117,32 @@ function AddPost() {
 		setNewEventType(event.target.value);
 	};
 
+	const locationList = [
+		{
+			value: "Oslo",
+			label: "Oslo",
+		},
+		{
+			value: "Trondheim",
+			label: "Trondheim",
+		},
+		{
+			value: "Bodø",
+			label: "Bodø",
+		},
+		{
+			value: "Stavanger",
+			label: "Stavanger",
+		},
+	];
+
+	const [location, setLocation] = React.useState("Oslo");
+
+	const handleChangeLocation = (event) => {
+		setLocation(event.target.value);
+		setNewLocation(event.target.value);
+	};
+
 	const handleChange = (event) => {
 		setValue(event.target.value);
 		if (value === "buyBtn") {
@@ -258,15 +284,19 @@ function AddPost() {
 
 						<TextField
 							margin="dense"
-							required
-							fullWidth
+							style={{ paddingLeft: "2%" }}
 							id="addItemLocation"
-							label="By/sted"
-							variant="outlined"
-							onChange={(event) => {
-								setNewLocation(event.target.value);
-							}}
-						/>
+							select
+							value={location}
+							onChange={handleChangeLocation}
+							helperText="Velg by"
+						>
+							{locationList.map((location) => (
+								<MenuItem key={location.value} value={location.value}>
+									{location.label}
+								</MenuItem>
+							))}
+						</TextField>
 
 						<TextField
 							required
