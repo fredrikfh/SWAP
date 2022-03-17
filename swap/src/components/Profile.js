@@ -20,30 +20,34 @@ const Profile = () => {
 	};
 
 	return (
-		<Grid container direction="row" justifyContent="center" alignItems="center" margin="20px">
+		<Grid container direction="row" justifyContent="center" alignItems="center" padding="20px">
 			<NameAvatar name={name} diameter={100} />
 			<Grid id="top-row" item>
-				<Grid item xs={12} marginLeft="20px" marginRight="10px" marginTop="5px">
+				<Grid item xs={12} paddingLeft="20px" paddingRight="10px" paddingTop="5px">
 					<PersonIcon />
 				</Grid>
-				<Grid item xs={12} marginLeft="20px" marginRight="10px" marginTop="5px">
+				<Grid item xs={12} paddingLeft="20px" paddingRight="10px" paddingTop="5px">
 					<DraftsIcon />
 				</Grid>
-				<Grid item xs={12} marginLeft="20px" marginRight="10px" marginTop="5px">
+				<Grid item xs={12} paddingLeft="20px" paddingRight="10px" paddingTop="5px">
 					<PhoneIphoneIcon />
 				</Grid>
 			</Grid>
 			<Grid id="bottom-row" item>
-				<Grid item xs={12} marginLeft="10px" marginRight="20px" marginTop="5px">
-					<Typography fontSize={18} fontWeight={600}>
+				<Grid item xs={12} paddingLeft="10px" paddingRight="20px" paddingTop="5px">
+					<Typography id={"profileName"} fontSize={18} fontWeight={600}>
 						{name}
 					</Typography>
 				</Grid>
-				<Grid item xs={12} marginLeft="10px" marginRight="20px" marginTop="5px">
-					<Typography fontSize={18}>{email}</Typography>
+				<Grid item xs={12} paddingLeft="10px" paddingRight="20px" paddingTop="5px">
+					<Typography id={"profileMail"} fontSize={18}>
+						{email}
+					</Typography>
 				</Grid>
-				<Grid item xs={12} marginLeft="10px" marginRight="20px" marginTop="5px">
-					<Typography fontSize={18}>{"Telefonnummer"}</Typography>
+				<Grid item xs={12} paddingLeft="10px" paddingRight="20px" paddingTop="5px">
+					<Typography id={"profilePhone"} fontSize={18}>
+						{"Telefonnummer"}
+					</Typography>
 				</Grid>
 			</Grid>
 			<Button
@@ -53,7 +57,7 @@ const Profile = () => {
 					color: "white",
 				}}
 				id="editProfile"
-				margin="20px"
+				padding="20px"
 				onClick={handleClick}
 			>
 				<EditIcon />
