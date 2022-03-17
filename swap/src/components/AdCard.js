@@ -5,9 +5,13 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
 import { Button, CardActionArea, CardActions } from "@mui/material";
-import pf_placeholder from "../img/pf_placeholder.png";
+import NameAvatar from "./NameAvatar";
+import { auth } from "../firebase-config";
 
 function AdCard(props) {
+	const uid = auth.currentUser === null ? "Loading..." : auth.currentUser.uid;
+	const user = auth.currentUser === null ? "Loading..." : auth.currentUser;
+
 	const isBuying = props.post.isBuying;
 
 	const date = new Date(props.post.date);
@@ -48,7 +52,7 @@ function AdCard(props) {
 		<Card
 			sx={{
 				maxWidth: 528,
-				marginLeft: "24px",
+				marginLeft: "0em",
 				marginBottom: "1em",
 				background: "rgba(255,255,255,0.7)",
 				backdropFilter: "blur( 9px )",
@@ -99,8 +103,10 @@ function AdCard(props) {
 							cursor: "pointer",
 						}}
 					>
-						<img src={pf_placeholder} style={{ height: "30px", marginRight: "6px" }} />
-						<Typography size="small">Ola Nordmann</Typography>
+						<NameAvatar name={props.post.authorDisplay} diameter={35} />
+						<Typography size="small" marginLeft="10px">
+							{props.post.authorDisplay}
+						</Typography>
 					</Container>
 					<Container
 						sx={{
@@ -111,21 +117,23 @@ function AdCard(props) {
 							margin: "0 !important",
 						}}
 					>
-						<Button
-							disableElevation
-							variant="text"
-							color="success"
-							className="tealButtonPill"
-							sx={{
-								margin: "0px 8px 0 0",
-							}}
-						>
-							<i
-								className="fal fa-comment"
-								style={{ margin: "0 10px 0 0px", fontSize: "20px" }}
-							/>
-							Kontakt
-						</Button>
+						{!(uid === props.post.author || user === null || user === "Loading...") && (
+							<Button
+								disableElevation
+								variant="text"
+								color="success"
+								className="tealButtonPill"
+								sx={{
+									margin: "0px 8px 0 0",
+								}}
+							>
+								<i
+									className="fal fa-comment"
+									style={{ margin: "0 10px 0 0px", fontSize: "20px" }}
+								/>
+								Kontakt
+							</Button>
+						)}
 					</Container>
 				</Container>
 			</CardActions>

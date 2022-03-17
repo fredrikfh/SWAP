@@ -8,14 +8,15 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import EmailIcon from "@mui/icons-material/Email";
-import PasswordIcon from "@mui/icons-material/Password";
 import BadgeIcon from "@mui/icons-material/Badge";
 import HomeIcon from "@mui/icons-material/Home";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Joi from "joi-browser";
 import "../style/styles.css";
 
 import { auth, createUserDocument } from "../firebase-config";
-import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth";
 
 const RegisterForm = () => {
 	const navigate = useNavigate();
@@ -23,6 +24,10 @@ const RegisterForm = () => {
 	const [userState, setUserState] = useState({
 		userS: { email: "", password: "", name: "", address: "" },
 		errors: {},
+	});
+
+	const [visible, setVisibility] = useState({
+		showPassword: false,
 	});
 
 	const [currentUser, setUser] = useState({});
@@ -82,6 +87,9 @@ const RegisterForm = () => {
 					userState.userS.email,
 					userState.userS.password
 				);
+				await updateProfile(user, {
+					displayName: newName,
+				});
 				console.log(user.uid);
 				await createUserDocument(user, { newName, newLocation }).then(navigate("/"));
 				console.log(currentUser?.email);
@@ -93,6 +101,11 @@ const RegisterForm = () => {
 
 	const handleLogin = () => {
 		navigate("/login");
+	};
+
+	const handleVisible = () => {
+		const showPassword = !visible.showPassword;
+		setVisibility({ showPassword });
 	};
 
 	const { userS, errors } = userState;
@@ -151,13 +164,25 @@ const RegisterForm = () => {
 					value={userS.password}
 					onChange={handleChange}
 					name="password"
+					type={visible.showPassword ? "text" : "password"}
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
-								<PasswordIcon />
+								{visible.showPassword ? (
+									<Visibility
+										onClick={handleVisible}
+										style={{ cursor: "pointer" }}
+									/>
+								) : (
+									<VisibilityOff
+										onClick={handleVisible}
+										style={{ cursor: "pointer" }}
+									/>
+								)}
 							</InputAdornment>
 						),
 					}}
+					style={{ cursor: "pointer" }}
 					sx={{
 						marginTop: "1.5em",
 					}}

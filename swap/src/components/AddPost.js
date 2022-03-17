@@ -13,7 +13,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import MenuItem from "@mui/material/MenuItem";
 import "date-fns";
-import { db } from "../firebase-config";
+import { auth, db } from "../firebase-config";
 import { collection, addDoc } from "firebase/firestore";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -79,6 +79,9 @@ function AddPost() {
 				venue: newVenue,
 				price: Number(newPrice),
 				isBuying: Boolean(newSelling),
+				createdAt: new Date(),
+				authorDisplay: auth.currentUser.displayName,
+				author: auth.currentUser.uid,
 			});
 			setOpen(false);
 		}

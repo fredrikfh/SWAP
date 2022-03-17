@@ -8,13 +8,11 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import EmailIcon from "@mui/icons-material/Email";
-import PasswordIcon from "@mui/icons-material/Password";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Joi from "joi-browser";
 import "../style/styles.css";
-import {
-	// onAuthStateChanged,
-	signInWithEmailAndPassword,
-} from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
 
 const LoginForm = () => {
@@ -25,11 +23,15 @@ const LoginForm = () => {
 		errors: {},
 	});
 
-	// const [currentUser, setUser] = useState({});
+	const [currentUser, setUser] = useState({});
 
-	// onAuthStateChanged(auth, (currentUser) => {
-	// 	setUser(currentUser);
-	// })
+	const [visible, setVisibility] = useState({
+		showPassword: false,
+	});
+
+	onAuthStateChanged(auth, (user) => {
+		setUser(user);
+	});
 
 	const schema = {
 		email: Joi.string().required().label("Epost"),
@@ -68,8 +70,11 @@ const LoginForm = () => {
 					auth,
 					userState.userS.email,
 					userState.userS.password
-				);
+				).then((cred) => {
+					console.log(cred.user);
+				});
 				console.log(user);
+				console.log(currentUser?.password);
 			} catch (error) {
 				console.log(error.message);
 			}
@@ -89,6 +94,11 @@ const LoginForm = () => {
 		user.userS[input.name] = input.value;
 		user.errors = errors;
 		setUserState(user);
+	};
+
+	const handleVisible = () => {
+		const showPassword = !visible.showPassword;
+		setVisibility({ showPassword });
 	};
 
 	const { userS, errors } = userState;
@@ -144,17 +154,28 @@ const LoginForm = () => {
 				)}
 				<TextField
 					label="Passord"
-					type="password"
+					type={visible.showPassword ? "text" : "password"}
 					value={userS.password}
 					onChange={handleChange}
 					name="password"
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
-								<PasswordIcon />
+								{visible.showPassword ? (
+									<Visibility
+										onClick={handleVisible}
+										style={{ cursor: "pointer" }}
+									/>
+								) : (
+									<VisibilityOff
+										onClick={handleVisible}
+										style={{ cursor: "pointer" }}
+									/>
+								)}
 							</InputAdornment>
 						),
 					}}
+					style={{ cursor: "pointer" }}
 					sx={{
 						marginTop: "1.5em",
 					}}
@@ -185,6 +206,7 @@ const LoginForm = () => {
 						},
 					}}
 					className="tealButtons"
+					id="loginButton"
 				>
 					Logg inn
 				</Button>
