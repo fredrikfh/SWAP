@@ -4,14 +4,15 @@ import FilterMenu from "../components/FilterMenu";
 import AdCard from "../components/AdCard";
 import { useState, useEffect } from "react";
 import { db } from "../firebase-config";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 
 export default function CardOverview() {
 	const [posts, setPosts] = useState([]);
 	const postsCollectionRef = collection(db, "posts");
 	useEffect(() => {
 		const getPosts = async () => {
-			const data = await getDocs(postsCollectionRef);
+			const q = query(postsCollectionRef, orderBy("createdAt", "desc"));
+			const data = await getDocs(q);
 			setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 		};
 

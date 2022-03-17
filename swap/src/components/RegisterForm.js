@@ -15,7 +15,7 @@ import Joi from "joi-browser";
 import "../style/styles.css";
 
 import { auth, createUserDocument } from "../firebase-config";
-import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth";
 
 const RegisterForm = () => {
 	const navigate = useNavigate();
@@ -82,6 +82,9 @@ const RegisterForm = () => {
 					userState.userS.email,
 					userState.userS.password
 				);
+				await updateProfile(user, {
+					displayName: newName,
+				});
 				console.log(user.uid);
 				await createUserDocument(user, { newName, newLocation }).then(navigate("/"));
 				console.log(currentUser?.email);

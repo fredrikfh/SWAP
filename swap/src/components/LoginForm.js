@@ -11,10 +11,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import PasswordIcon from "@mui/icons-material/Password";
 import Joi from "joi-browser";
 import "../style/styles.css";
-import {
-	// onAuthStateChanged,
-	signInWithEmailAndPassword,
-} from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
 
 const LoginForm = () => {
@@ -25,11 +22,11 @@ const LoginForm = () => {
 		errors: {},
 	});
 
-	// const [currentUser, setUser] = useState({});
+	const [currentUser, setUser] = useState({});
 
-	// onAuthStateChanged(auth, (currentUser) => {
-	// 	setUser(currentUser);
-	// })
+	onAuthStateChanged(auth, (user) => {
+		setUser(user);
+	});
 
 	const schema = {
 		email: Joi.string().required().label("Epost"),
@@ -68,8 +65,11 @@ const LoginForm = () => {
 					auth,
 					userState.userS.email,
 					userState.userS.password
-				);
+				).then((cred) => {
+					console.log(cred.user);
+				});
 				console.log(user);
+				console.log(currentUser?.password);
 			} catch (error) {
 				console.log(error.message);
 			}
@@ -185,6 +185,7 @@ const LoginForm = () => {
 						},
 					}}
 					className="tealButtons"
+					id="loginButton"
 				>
 					Logg inn
 				</Button>
