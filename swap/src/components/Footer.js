@@ -14,7 +14,7 @@ const Footer = () => {
 					marginTop: "37px",
 				}}
 			>
-				<Grid container spacing={0} paddingLeft="20px" >
+				<Grid container spacing={0} paddingLeft="20px">
 					<img src="./logo/black_text.svg" style={{ height: "30px", margin: "15px" }} />
 					<Grid id="top-row" item>
 						<Grid item xs={12} marginLeft="20px">

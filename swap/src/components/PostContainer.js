@@ -24,7 +24,7 @@ export default function PostContainer(props) {
 						backgroundColor: "rgb(0,0,0,0.2)",
 						borderRadius: "3px",
 					},
-				}
+				},
 			}}
 		>
 			<div className="adCards">
