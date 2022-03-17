@@ -35,7 +35,7 @@ export default function Navbar() {
 	useEffect(() => {
 		return;
 	}, [hasLoaded]);
-	
+
 	function handleClickSignOut() {
 		// håndter utlogging i firebase
 		console.log("Logger ut");
