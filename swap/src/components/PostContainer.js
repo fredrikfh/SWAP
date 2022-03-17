@@ -6,23 +6,25 @@ export default function PostContainer(props) {
 	return props === null ? null : (
 		<Container
 			sx={{
-				height: "calc(100vh - 300px)",
+				height: "calc(100vh - 350px)",
 				width: "calc(100% - 30px)",
-				padding: "0 !important",
+				padding: "0 0 0 24px !important",
 				marginTop: "1em",
 				marginLeft: "0",
 				overflowY: "scroll",
 				"&::-webkit-scrollbar": {
-					width: 6,
+					width: "6px",
 				},
-				"&::-webkit-scrollbar-track": {
-					backgroundColor: "rgb(0,0,0,0.2)",
-					borderRadius: "3px",
-				},
-				"&::-webkit-scrollbar-thumb": {
-					backgroundColor: "rgb(0,0,0,0.2)",
-					borderRadius: "3px",
-				},
+				"&:hover": {
+					"&::-webkit-scrollbar-track": {
+						backgroundColor: "rgb(0,0,0,0.2)",
+						borderRadius: "3px",
+					},
+					"&::-webkit-scrollbar-thumb": {
+						backgroundColor: "rgb(0,0,0,0.2)",
+						borderRadius: "3px",
+					},
+				}
 			}}
 		>
 			<div className="adCards">

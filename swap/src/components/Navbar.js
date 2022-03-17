@@ -46,11 +46,6 @@ export default function Navbar() {
 		return;
 	}, [hasLoaded]);
 
-	function handleClickSignOut() {
-		// håndter utlogging i firebase
-		console.log("Logger ut");
-	}
-
 	// test comment
 	return (
 		<Container

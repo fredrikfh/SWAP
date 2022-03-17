@@ -25,19 +25,19 @@ body {
 .adCardPill {
 	border: solid 1.5px rgba(20, 20, 20, 0.1) !important;
 	color: rgb(50, 50, 50) !important;
-	background-color: none !important;
+	background-color: rgba(0,0,0,0) !important;
 }
 
 #adc-buy {
 	border: solid 2px #c78333;
-	background-color: none;
+	background-color: rgba(0,0,0,0) !important;
 	color: #c78333;
 	font-weight: 700;
 }
 
 #adc-sell {
 	border: solid 2px #6aa85e;
-	background-color: none;
+	background-color: rgba(0,0,0,0) !important;
 	color: #6aa85e;
 	font-weight: 700;
 }

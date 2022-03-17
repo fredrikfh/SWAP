@@ -1,5 +1,6 @@
 body {
 	margin: 0;
+	overflow-x: hidden;
 }
 
 body::before {
@@ -11,7 +12,8 @@ body::before {
 	width: 100vw;
 	height: 100vh;
 	background: url(./img/bakgrunn.jpg) no-repeat center center;
-	filter: blur(0px) opacity(0.8) grayscale(1);
+	background-size: cover;
+	filter: opacity(0.8) grayscale(1);
 }
 
 body::after {
