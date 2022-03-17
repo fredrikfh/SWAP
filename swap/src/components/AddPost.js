@@ -285,7 +285,7 @@ function AddPost() {
 						<TextField
 							margin="dense"
 							style={{ paddingLeft: "2%" }}
-							id="addItemEvent"
+							id="addItemLocation"
 							select
 							value={location}
 							onChange={handleChangeLocation}

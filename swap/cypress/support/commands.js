@@ -67,7 +67,7 @@ Cypress.Commands.add(
 		cy.get("#addItemDescription").type(description);
 		cy.get("#addItemDate").type(date);
 		cy.get("#addItemEvent").type(event + "{enter}");
-		cy.get("#addItemLocation").type(location);
+		cy.get("#addItemLocation").type(location + "{enter}");
 		cy.get("#addItemVenue").type(venue);
 		cy.get("#addItemCreate").click();
 	}
