@@ -114,7 +114,9 @@ const RegisterForm = () => {
 					flexDirection: "column",
 				}}
 			>
-				<Typography variant="h5" sx={{marginTop: "24px"}}>Registrer Bruker</Typography>
+				<Typography variant="h5" sx={{ marginTop: "24px" }}>
+					Registrer Bruker
+				</Typography>
 				<TextField
 					label="Epost"
 					value={userS.email}

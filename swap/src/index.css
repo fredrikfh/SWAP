@@ -7,7 +7,7 @@ body::before {
 	display: block;
 	position: fixed;
 	top: 0;
-	content: ' ';
+	content: " ";
 	width: 100vw;
 	height: 100vh;
 	background: url(./img/bakgrunn.jpg) no-repeat center center;
@@ -19,7 +19,7 @@ body::after {
 	display: block;
 	position: fixed;
 	top: 0;
-	content: ' ';
+	content: " ";
 	width: 100vw;
 	height: 100vh;
 	background: rgba(255, 190, 70, 0.2);

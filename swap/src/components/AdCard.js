@@ -55,7 +55,7 @@ function AdCard(props) {
 
 				"&:last-child": {
 					marginBottom: 0,
-				}
+				},
 			}}
 			className="adCardShadow"
 		>

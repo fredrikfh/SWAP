@@ -30,7 +30,7 @@ export default function Navbar() {
 				paddingLeft: "6em !important",
 				paddingRight: "6em !important",
 				background: "white",
-				boxShadow: "0px -2px 10px 1px rgba(0,0,0,0.3)"
+				boxShadow: "0px -2px 10px 1px rgba(0,0,0,0.3)",
 			}}
 		>
 			<img
