@@ -55,7 +55,7 @@ function AddPost() {
 	const [newDescription, setNewDescription] = useState("");
 	const [newDate, setNewDate] = useState(date);
 	const [newEventType, setNewEventType] = useState();
-	const [newCity, setNewCity] = useState("");
+	const [newLocation, setNewLocation] = useState("");
 	const [newVenue, setNewVenue] = useState("");
 	const [newPrice, setNewPrice] = useState(0);
 	const [newSelling, setNewSelling] = useState(true);
@@ -68,14 +68,14 @@ function AddPost() {
 			newDate != "" &&
 			newEventType != "" &&
 			newVenue != "" &&
-			newCity != ""
+			newLocation != ""
 		) {
 			await addDoc(postsCollectionRef, {
 				title: newTitle,
 				description: newDescription,
 				date: newDate,
 				eventType: newEventType,
-				location: newCity,
+				location: newLocation,
 				venue: newVenue,
 				price: Number(newPrice),
 				isBuying: Boolean(newSelling),
@@ -117,7 +117,7 @@ function AddPost() {
 		setNewEventType(event.target.value);
 	};
 
-	const cityList = [
+	const locationList = [
 		{
 			value: "Oslo",
 			label: "Oslo",
@@ -136,11 +136,11 @@ function AddPost() {
 		},
 	];
 
-	const [location, setCity] = React.useState("Oslo");
+	const [location, setLocation] = React.useState("Oslo");
 
-	const handleChangeCity = (event) => {
-		setCity(event.target.value);
-		setNewCity(event.target.value);
+	const handleChangeLocation = (event) => {
+		setLocation(event.target.value);
+		setNewLocation(event.target.value);
 	};
 
 	const handleChange = (event) => {
@@ -288,10 +288,10 @@ function AddPost() {
 							id="addItemEvent"
 							select
 							value={location}
-							onChange={handleChangeCity}
+							onChange={handleChangeLocation}
 							helperText="Velg by"
 						>
-							{cityList.map((location) => (
+							{locationList.map((location) => (
 								<MenuItem key={location.value} value={location.value}>
 									{location.label}
 								</MenuItem>
