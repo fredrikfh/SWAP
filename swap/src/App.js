@@ -3,6 +3,7 @@ import "./style/styles.css";
 import "date-fns";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import CardOverview from "./pages/CardOverview";
 import Profile from "./pages/Profile";
 import LoginForm from "./components/LoginForm";
@@ -20,43 +21,48 @@ export default function App() {
 							<React.Fragment>
 								<Navbar />
 								<Profile />
+								<Footer />
 							</React.Fragment>
 						}
 					/>
 					<Route
 						path="/login"
 						element={
-							<Container
-								sx={{
-									display: "flex",
-									flexDirection: "column",
-									justifyContent: "center",
-									alignItems: "center",
-									width: "100vw;",
-									height: "100vh",
-								}}
-							>
-								<img src="./logo/main_text.svg" width="240px" />
-								<LoginForm />
-							</Container>
+							<React.Fragment>
+								<Container
+									sx={{
+										display: "flex",
+										flexDirection: "column",
+										justifyContent: "center",
+										alignItems: "center",
+										width: "100vw;",
+										height: "100vh",
+									}}
+								>
+									<img src="./logo/main_text.svg" width="240px" />
+									<LoginForm />
+								</Container>
+							</React.Fragment>
 						}
 					/>
 					<Route
 						path="/register"
 						element={
-							<Container
-								sx={{
-									display: "flex",
-									flexDirection: "column",
-									justifyContent: "center",
-									alignItems: "center",
-									width: "100vw;",
-									height: "100vh",
-								}}
-							>
-								<img src="./logo/main_text.svg" width="240px" />
-								<RegisterForm />
-							</Container>
+							<React.Fragment>
+								<Container
+									sx={{
+										display: "flex",
+										flexDirection: "column",
+										justifyContent: "center",
+										alignItems: "center",
+										width: "100vw;",
+										height: "100vh",
+									}}
+								>
+									<img src="./logo/main_text.svg" width="240px" />
+									<RegisterForm />
+								</Container>
+							</React.Fragment>
 						}
 					/>
 					<Route
