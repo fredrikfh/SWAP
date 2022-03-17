@@ -31,6 +31,7 @@ function ProfilePage() {
 							align="center"
 							margin="20px"
 							sx={{
+								lineHeight: "2.2em",
 								height: "2.2em",
 								padding: "0 0.4em 0 0.4em",
 								border: "none",
@@ -68,6 +69,7 @@ function ProfilePage() {
 							align="center"
 							margin="20px"
 							sx={{
+								lineHeight: "2.2em",
 								height: "2.2em",
 								padding: "0 0.4em 0 0.4em",
 								border: "none",

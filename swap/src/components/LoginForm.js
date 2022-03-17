@@ -110,6 +110,8 @@ const LoginForm = () => {
 				margin: "3em 0 0 0",
 				borderRadius: "1em",
 				padding: "16px 16px 32px 16px",
+				background: "rgba(255,255,255,0.6)",
+				backdropFilter: "blur( 9px )",
 			}}
 		>
 			<Container
@@ -134,7 +136,6 @@ const LoginForm = () => {
 						),
 					}}
 					sx={{
-						background: "#f0f0f0",
 						marginTop: "1.5em",
 					}}
 				/>
@@ -176,7 +177,6 @@ const LoginForm = () => {
 					}}
 					style={{ cursor: "pointer" }}
 					sx={{
-						background: "#f0f0f0",
 						marginTop: "1.5em",
 					}}
 				/>

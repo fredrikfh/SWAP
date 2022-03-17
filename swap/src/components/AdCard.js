@@ -54,10 +54,20 @@ function AdCard(props) {
 				maxWidth: 528,
 				marginLeft: "0em",
 				marginBottom: "1em",
+				background: "rgba(255,255,255,0.7)",
+				backdropFilter: "blur( 12px )",
+
+				"&:last-child": {
+					marginBottom: 0,
+				},
 			}}
 			className="adCardShadow"
 		>
-			<CardActionArea>
+			<CardActionArea
+				sx={{
+					pointer: "crosshair !important",
+				}}
+			>
 				<CardContent>
 					<Typography
 						gutterBottom

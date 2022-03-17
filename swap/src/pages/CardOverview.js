@@ -12,8 +12,7 @@ export default function CardOverview() {
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "flex-start",
-				marginLeft: "4em",
-				padding: "0 !important",
+				padding: "0 0 0 14px !important",
 				width: "600px",
 			}}
 		>
