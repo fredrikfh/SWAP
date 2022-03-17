@@ -51,7 +51,7 @@ function AdCard(props) {
 	return (
 		<Card
 			sx={{
-				maxWidth: 528,
+				maxWidth: 514,
 				marginLeft: "0em",
 				marginBottom: "1em",
 				background: "rgba(255,255,255,0.7)",
