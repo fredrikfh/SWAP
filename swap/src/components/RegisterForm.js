@@ -104,6 +104,8 @@ const RegisterForm = () => {
 				borderRadius: "1em",
 				padding: "16px 16px 32px 16px",
 				margin: "3em 0 0 0",
+				background: "rgba(255,255,255,0.6)",
+				backdropFilter: "blur( 9px )",
 			}}
 		>
 			<Container
@@ -112,7 +114,7 @@ const RegisterForm = () => {
 					flexDirection: "column",
 				}}
 			>
-				<Typography variant="h5">Registrer Bruker</Typography>
+				<Typography variant="h5" sx={{marginTop: "24px"}}>Registrer Bruker</Typography>
 				<TextField
 					label="Epost"
 					value={userS.email}
@@ -126,7 +128,6 @@ const RegisterForm = () => {
 						),
 					}}
 					sx={{
-						background: "#f0f0f0",
 						marginTop: "1.5em",
 					}}
 				/>
@@ -156,7 +157,6 @@ const RegisterForm = () => {
 						),
 					}}
 					sx={{
-						background: "#f0f0f0",
 						marginTop: "1.5em",
 					}}
 				/>
@@ -186,7 +186,6 @@ const RegisterForm = () => {
 						),
 					}}
 					sx={{
-						background: "#f0f0f0",
 						marginTop: "1.5em",
 					}}
 				/>
@@ -216,7 +215,6 @@ const RegisterForm = () => {
 						),
 					}}
 					sx={{
-						background: "#f0f0f0",
 						marginTop: "1.5em",
 					}}
 				/>

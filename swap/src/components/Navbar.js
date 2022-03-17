@@ -24,13 +24,13 @@ export default function Navbar() {
 				justifyContent: "space-between",
 				alignItems: "center",
 
-				marginTop: "1.5em",
-				height: "65px",
-				width: "calc(100% - 8em)",
+				padding: "1.5em",
+				width: "100%",
 				maxWidth: "100% !important",
-				marginLeft: "4em",
-				marginRight: "4em !important",
+				paddingLeft: "6em !important",
+				paddingRight: "6em !important",
 				background: "white",
+				boxShadow: "0px -2px 10px 1px rgba(0,0,0,0.3)"
 			}}
 		>
 			<img

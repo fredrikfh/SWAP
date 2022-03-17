@@ -25,7 +25,6 @@ export default function CardOverview() {
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "flex-start",
-				marginLeft: "4em",
 				padding: "0 !important",
 				width: "600px",
 			}}
@@ -44,11 +43,11 @@ export default function CardOverview() {
 						width: 6,
 					},
 					"&::-webkit-scrollbar-track": {
-						backgroundColor: "rgb(240,240,240)",
+						backgroundColor: "rgb(0,0,0,0.2)",
 						borderRadius: "3px",
 					},
 					"&::-webkit-scrollbar-thumb": {
-						backgroundColor: "rgb(220,220,220)",
+						backgroundColor: "rgb(0,0,0,0.2)",
 						borderRadius: "3px",
 					},
 				}}

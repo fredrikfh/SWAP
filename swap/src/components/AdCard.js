@@ -50,6 +50,12 @@ function AdCard(props) {
 				maxWidth: 528,
 				marginLeft: "24px",
 				marginBottom: "1em",
+				background: "rgba(255,255,255,0.7)",
+				backdropFilter: "blur( 9px )",
+
+				"&:last-child": {
+					marginBottom: 0,
+				}
 			}}
 			className="adCardShadow"
 		>
