@@ -55,7 +55,7 @@ function AddPost() {
 	const [newDescription, setNewDescription] = useState("");
 	const [newDate, setNewDate] = useState(date);
 	const [newEventType, setNewEventType] = useState();
-	const [newLocation, setNewLocation] = useState("");
+	const [newCity, setNewCity] = useState("");
 	const [newVenue, setNewVenue] = useState("");
 	const [newPrice, setNewPrice] = useState(0);
 	const [newSelling, setNewSelling] = useState(true);
@@ -68,14 +68,14 @@ function AddPost() {
 			newDate != "" &&
 			newEventType != "" &&
 			newVenue != "" &&
-			newLocation != ""
+			newCity != ""
 		) {
 			await addDoc(postsCollectionRef, {
 				title: newTitle,
 				description: newDescription,
 				date: newDate,
 				eventType: newEventType,
-				location: newLocation,
+				location: newCity,
 				venue: newVenue,
 				price: Number(newPrice),
 				isBuying: Boolean(newSelling),
@@ -115,6 +115,32 @@ function AddPost() {
 	const handleChangeType = (event) => {
 		setType(event.target.value);
 		setNewEventType(event.target.value);
+	};
+
+	const cityList = [
+		{
+			value: "Oslo",
+			label: "Oslo",
+		},
+		{
+			value: "Trondheim",
+			label: "Trondheim",
+		},
+		{
+			value: "Bodø",
+			label: "Bodø",
+		},
+		{
+			value: "Stavanger",
+			label: "Stavanger",
+		},
+	];
+
+	const [location, setCity] = React.useState("Oslo");
+
+	const handleChangeCity = (event) => {
+		setCity(event.target.value);
+		setNewCity(event.target.value);
 	};
 
 	const handleChange = (event) => {
@@ -258,15 +284,19 @@ function AddPost() {
 
 						<TextField
 							margin="dense"
-							required
-							fullWidth
-							id="addItemLocation"
-							label="By/sted"
-							variant="outlined"
-							onChange={(event) => {
-								setNewLocation(event.target.value);
-							}}
-						/>
+							style={{ paddingLeft: "2%" }}
+							id="addItemEvent"
+							select
+							value={location}
+							onChange={handleChangeCity}
+							helperText="Velg by"
+						>
+							{cityList.map((location) => (
+								<MenuItem key={location.value} value={location.value}>
+									{location.label}
+								</MenuItem>
+							))}
+						</TextField>
 
 						<TextField
 							required
