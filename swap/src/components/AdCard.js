@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
 import CardContent from "@mui/material/CardContent";
@@ -6,6 +6,9 @@ import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import pf_placeholder from "../img/pf_placeholder.png";
+import { db } from "../firebase-config";
+import { collection, getDocs } from "firebase/firestore";
+import { color } from "@mui/system";
 
 function AdCard(props) {
 	const isBuying = props.post.isBuying;
@@ -14,6 +17,9 @@ function AdCard(props) {
 	const day = date.toLocaleString("default", { day: "numeric" });
 	const month = date.toLocaleString("default", { month: "long" });
 	const year = date.toLocaleString("default", { year: "numeric" });
+
+	// example: 169JOvPdmhZCFVuJXVq9bP414jA2
+	const userid = props.post.author;
 
 	const Chips = () => {
 		return (
@@ -40,6 +46,46 @@ function AdCard(props) {
 		return (
 			<Typography variant="h5" sx={{ marginTop: "12px" }}>
 				{isBuying ? "" : props.post.price + " kr"}
+			</Typography>
+		);
+	};
+
+	const Rating = () => {
+
+		const [reviews, setReviews] = useState([]);
+		const reviewsCollectionRef = collection(db, "reviews");
+		let avg = 0;
+
+		useEffect(() => {
+			const getReviews = async () => {
+				const data = await getDocs(reviewsCollectionRef);
+				setReviews(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+			};
+
+			getReviews();
+		}, []);
+
+		var counter = 0;
+		var stars = 0;
+
+		reviews.forEach((value) => {
+			if (value.sellerId == userid) {
+				counter++;
+				stars += value.stars;
+			}
+		});
+
+		avg = stars / counter;
+		var rows = [];
+		let s = <i className="fas fa-star"></i>;
+
+		for (let i = 0; i < avg; i++) {
+			rows.push(s);
+		}
+
+		return (
+			<Typography size="small" sx={{ lineHeight: "1em", color: '#008080', width: '100px' }}>
+				{rows}
 			</Typography>
 		);
 	};
@@ -94,38 +140,21 @@ function AdCard(props) {
 							cursor: "pointer",
 						}}
 					>
-						<Container sx={{display: "flex", alignItems: "flex-end", paddingLeft: "0 !important"}}>
-							<img src={pf_placeholder} style={{ height: "30px", marginRight: "6px" }} />
-							<Typography size="small" sx={{lineHeight: "1em"}}>Ola Nordmann</Typography>
-						</Container>
-						<Container sx={{height: "30px", margin: "5px 0 0 -7px", paddingLeft: "0 !important"}}>
-							<img 
-								src="./logo/rating_bg.svg"
-								style={{
-									position: "absolute", 
-									width: "140px",
-									zIndex: "2",
-								}}
+						<Container
+							sx={{
+								display: "flex",
+								alignItems: "flex-end",
+								paddingLeft: "0 !important",
+							}}
+						>
+							<img
+								src={pf_placeholder}
+								style={{ height: "30px", marginRight: "6px" }}
 							/>
-							<Container
-								sx={{
-									position: "absolute",
-
-									width: "100px",
-									height: "24.08px",
-									background: "rgb(255,205,0)",
-									zIndex: "1"
-								}}
-							/>
-							<Container
-								sx={{
-									position: "absolute",
-
-									width: "140px",
-									height: "24.08px",
-									background: "rgb(230,230,230)",
-								}}
-							/>
+							<Typography size="small" sx={{ lineHeight: "1em", width: '150px' }}>
+								Ola Nordmann
+							</Typography>
+							<Rating />
 						</Container>
 					</Container>
 					<Container

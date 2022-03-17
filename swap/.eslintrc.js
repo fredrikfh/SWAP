@@ -23,6 +23,7 @@ module.exports = {
 		"react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
 		indent: ["error", "tab"],
 		"no-tabs": 0,
+		"no-unused-vars": "off",
 	},
 
 	ignorePatterns: ["build/*", "cypress/*"],
