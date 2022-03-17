@@ -8,7 +8,8 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import EmailIcon from "@mui/icons-material/Email";
-import PasswordIcon from "@mui/icons-material/Password";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Joi from "joi-browser";
 import "../style/styles.css";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
@@ -23,6 +24,10 @@ const LoginForm = () => {
 	});
 
 	const [currentUser, setUser] = useState({});
+
+	const [visible, setVisibility] = useState({
+		showPassword: false,
+	});
 
 	onAuthStateChanged(auth, (user) => {
 		setUser(user);
@@ -91,6 +96,11 @@ const LoginForm = () => {
 		setUserState(user);
 	};
 
+	const handleVisible = () => {
+		const showPassword = !visible.showPassword;
+		setVisibility({ showPassword });
+	};
+
 	const { userS, errors } = userState;
 
 	return (
@@ -143,17 +153,28 @@ const LoginForm = () => {
 				)}
 				<TextField
 					label="Passord"
-					type="password"
+					type={visible.showPassword ? "text" : "password"}
 					value={userS.password}
 					onChange={handleChange}
 					name="password"
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
-								<PasswordIcon />
+								{visible.showPassword ? (
+									<Visibility
+										onClick={handleVisible}
+										style={{ cursor: "pointer" }}
+									/>
+								) : (
+									<VisibilityOff
+										onClick={handleVisible}
+										style={{ cursor: "pointer" }}
+									/>
+								)}
 							</InputAdornment>
 						),
 					}}
+					style={{ cursor: "pointer" }}
 					sx={{
 						background: "#f0f0f0",
 						marginTop: "1.5em",

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Container from "@mui/material/Container";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import Button from "@mui/material/Button";
+import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AddPost from "./AddPost";
 import { auth } from "../firebase-config";
@@ -25,6 +26,15 @@ export default function Navbar() {
 	function handleClickProfile() {
 		navigate("/profile");
 	}
+
+	function handleClickSignOut() {
+		// håndter utlogging i firebase
+		console.log("Logger ut");
+	}
+
+	const handleLogin = () => {
+		navigate("/login");
+	};
 
 	const [hasLoaded, setHasLoaded] = useState(false);
 
@@ -74,23 +84,39 @@ export default function Navbar() {
 					width: "fit-content",
 				}}
 			>
-				<AddPost />
-				<Container
-					id="profileButton"
-					onClick={handleClickProfile}
-					sx={{
-						display: "flex",
-						justifyContent: "center",
-						alignItems: "center",
+				{!(auth.currentUser === null) ? (
+					<AddPost />
+				) : (
+					<Button
+						className="tealButtons"
+						variant="outlined"
+						id="addItemButton"
+						sx={{
+							border: 0,
+						}}
+						onClick={handleLogin}
+					>
+						Logg inn
+					</Button>
+				)}
+				{!(auth.currentUser === null) && (
+					<Container
+						id="profileButton"
+						onClick={handleClickProfile}
+						sx={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
 
-						paddingRight: "0px!important",
-						width: "fit-content",
-						cursor: "pointer",
-					}}
-				>
-					<PersonOutlineIcon />
-					<span>{auth.currentUser?.displayName}</span>
-				</Container>
+							paddingRight: "0px!important",
+							width: "fit-content",
+							cursor: "pointer",
+						}}
+					>
+						<PersonIcon />
+						<span>{auth.currentUser?.displayName}</span>
+					</Container>
+				)}
 				{loggedIn ? (
 					<Container
 						onClick={handleClickSignOut}
