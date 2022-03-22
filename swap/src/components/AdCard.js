@@ -1,4 +1,5 @@
-import { React, useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
 import CardContent from "@mui/material/CardContent";
@@ -8,7 +9,27 @@ import { Button, CardActionArea, CardActions } from "@mui/material";
 import pf_placeholder from "../img/pf_placeholder.png";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
-import { color } from "@mui/system";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+// import { color } from "@mui/system";
+import Rating from "@mui/material/Rating";
+import { auth, createReviewDocument } from '../firebase-config'; // auth.currentUser() gir currentuser
+
+const style = {
+	position: "absolute",
+	top: "50%",
+	left: "50%",
+	transform: "translate(-50%, -50%)",
+	width: 400,
+	bgcolor: "background.paper",
+	border: "2px solid #000",
+	boxShadow: 0,
+	p: 4,
+};
+
+const starStyle = {
+	color: "yellow"
+}
 
 function AdCard(props) {
 	const isBuying = props.post.isBuying;
@@ -18,8 +39,7 @@ function AdCard(props) {
 	const month = date.toLocaleString("default", { month: "long" });
 	const year = date.toLocaleString("default", { year: "numeric" });
 
-	// example: 169JOvPdmhZCFVuJXVq9bP414jA2
-	const userid = props.post.author;
+	const userid = props.post.author; // example: 169JOvPdmhZCFVuJXVq9bP414jA2
 
 	const Chips = () => {
 		return (
@@ -51,10 +71,8 @@ function AdCard(props) {
 	};
 
 	const Rating = () => {
-
 		const [reviews, setReviews] = useState([]);
 		const reviewsCollectionRef = collection(db, "reviews");
-		let avg = 0;
 
 		useEffect(() => {
 			const getReviews = async () => {
@@ -65,28 +83,69 @@ function AdCard(props) {
 			getReviews();
 		}, []);
 
-		var counter = 0;
-		var stars = 0;
-
-		reviews.forEach((value) => {
-			if (value.sellerId == userid) {
-				counter++;
-				stars += value.stars;
-			}
-		});
-
-		avg = stars / counter;
-		var rows = [];
-		let s = <i className="fas fa-star"></i>;
-
-		for (let i = 0; i < avg; i++) {
-			rows.push(s);
+		function getAvg() {
+			var counter = 0;
+			var stars = 0;
+			reviews.forEach((value) => {
+				if (value.sellerId == userid) {
+					counter++;
+					stars += value.stars;
+				}
+			});
+			return stars / counter;
 		}
 
+		// return the review if user has review, else false
+		function userHasReview() {
+			reviews.forEach((value) => {
+				if (value.reviewerId == currentUser.id) { // usikker på om denne funker!
+					return true;
+				}
+			});
+			return false;
+		}
+
+		const currentUser = auth.currentUser();
+		// todo: 
+		// find currentUser id
+		// if id has a review, make stars blue
+		// else make stars yellow
+
+		let ratingToDisplay = 0;
+		if (userHasReview) {
+			// finn brukerens anmeldelse og vis stjernene i blått
+			reviews.forEach((value) => {
+				if (value.reviewerId == currentUser.id) { // usikker på om argumentene er de samme som i databasen
+					ratingToDisplay = value.stars;
+				}
+			});
+			// TODO: make stars blue
+		} else {
+			return getAvg();
+		}
+
+		const [avgRating, setValue] = React.useState(ratingToDisplay);
+
+		function addReview(stars) {
+			// send review med reviewerId, stars, sellerId
+			createReviewDocument(currentUser.id, stars, userid);
+		}
+
+		
 		return (
-			<Typography size="small" sx={{ lineHeight: "1em", color: '#008080', width: '100px' }}>
-				{rows}
-			</Typography>
+			<>
+				<Box sx={{ "& > legend": { mt: 2 } }} />
+				<Rating
+					id="starRating"
+					name="simple-controlled"
+					value={avgRating}
+					onChange={(event, newValue) => {
+						setValue(newValue);
+						addReview(newValue);
+						// color = blue;
+					}}
+				/>
+			</>
 		);
 	};
 
@@ -151,7 +210,7 @@ function AdCard(props) {
 								src={pf_placeholder}
 								style={{ height: "30px", marginRight: "6px" }}
 							/>
-							<Typography size="small" sx={{ lineHeight: "1em", width: '150px' }}>
+							<Typography size="small" sx={{ lineHeight: "1em", width: "150px" }}>
 								Ola Nordmann
 							</Typography>
 							<Rating />

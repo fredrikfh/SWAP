@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { setDoc, doc, getDoc, getFirestore } from "@firebase/firestore";
+import { setDoc, addDoc, doc, getDoc, getFirestore } from "@firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
@@ -21,18 +21,9 @@ export { db, auth };
 
 export const createUserDocument = async (user, { newName, newLocation }) => {
 	if (!user) return;
-
 	const uid = user.uid;
-	console.log(uid);
-
-	console.log("Ja");
-
 	const userRef = doc(db, `users/${user.uid}`);
-
 	const snapshot = await getDoc(userRef);
-
-	// console.log(snapshot);
-
 	if (snapshot.exists) {
 		// const { email } = user;
 		// const { displayName } = additionalData;
@@ -44,6 +35,26 @@ export const createUserDocument = async (user, { newName, newLocation }) => {
 				username: newName,
 				email: user.email,
 				location: newLocation,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	}
+};
+
+export const createReviewDocument = async (user, { reviewerId, sellerId, stars }) => {
+	if (!user) return;
+
+	const uid = user.uid;
+	const userRef = doc(db, `reviews/${user.uid}`);
+	const snapshot = await getDoc(userRef);
+
+	if (snapshot.exists) {
+		try {
+			await addDoc(doc(db, "reviews"), {
+				reviewerId: uid,
+				stars: stars,
+				sellerId: sellerId,
 			});
 		} catch (error) {
 			console.log(error);
