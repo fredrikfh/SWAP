@@ -86,7 +86,7 @@ function AdCard(props) {
 		const [reviews, setReviews] = useState([]);
 		const reviewsCollectionRef = collection(db, "reviews");
 
-		console.log(currentUser)
+		console.log(currentUser);
 
 		useEffect(() => {
 			const getReviews = async () => {
@@ -145,7 +145,6 @@ function AdCard(props) {
 			ratingToDisplay = getAvg();
 		}
 
-
 		const [displayRating, setValue] = useState(ratingToDisplay);
 
 		function addReview(stars) {
@@ -153,8 +152,6 @@ function AdCard(props) {
 			createReviewDocument(currentUser.uid, stars, userid);
 		}
 
-
-		
 		return (
 			<>
 				<Box sx={{ "& > legend": { mt: 2 } }} />
