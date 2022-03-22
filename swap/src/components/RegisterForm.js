@@ -8,14 +8,15 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import EmailIcon from "@mui/icons-material/Email";
-import PasswordIcon from "@mui/icons-material/Password";
 import BadgeIcon from "@mui/icons-material/Badge";
 import HomeIcon from "@mui/icons-material/Home";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Joi from "joi-browser";
 import "../style/styles.css";
 
 import { auth, createUserDocument } from "../firebase-config";
-import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth";
 
 const RegisterForm = () => {
 	const navigate = useNavigate();
@@ -23,6 +24,10 @@ const RegisterForm = () => {
 	const [userState, setUserState] = useState({
 		userS: { email: "", password: "", name: "", address: "" },
 		errors: {},
+	});
+
+	const [visible, setVisibility] = useState({
+		showPassword: false,
 	});
 
 	const [currentUser, setUser] = useState({});
@@ -82,6 +87,9 @@ const RegisterForm = () => {
 					userState.userS.email,
 					userState.userS.password
 				);
+				await updateProfile(user, {
+					displayName: newName,
+				});
 				console.log(user.uid);
 				await createUserDocument(user, { newName, newLocation }).then(navigate("/"));
 				console.log(currentUser?.email);
@@ -95,6 +103,11 @@ const RegisterForm = () => {
 		navigate("/login");
 	};
 
+	const handleVisible = () => {
+		const showPassword = !visible.showPassword;
+		setVisibility({ showPassword });
+	};
+
 	const { userS, errors } = userState;
 
 	return (
@@ -104,6 +117,8 @@ const RegisterForm = () => {
 				borderRadius: "1em",
 				padding: "16px 16px 32px 16px",
 				margin: "3em 0 0 0",
+				background: "rgba(255,255,255,0.6)",
+				backdropFilter: "blur( 9px )",
 			}}
 		>
 			<Container
@@ -112,7 +127,9 @@ const RegisterForm = () => {
 					flexDirection: "column",
 				}}
 			>
-				<Typography variant="h5">Registrer Bruker</Typography>
+				<Typography variant="h5" sx={{ marginTop: "24px" }}>
+					Registrer Bruker
+				</Typography>
 				<TextField
 					label="Epost"
 					value={userS.email}
@@ -126,7 +143,6 @@ const RegisterForm = () => {
 						),
 					}}
 					sx={{
-						background: "#f0f0f0",
 						marginTop: "1.5em",
 					}}
 				/>
@@ -148,15 +164,26 @@ const RegisterForm = () => {
 					value={userS.password}
 					onChange={handleChange}
 					name="password"
+					type={visible.showPassword ? "text" : "password"}
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
-								<PasswordIcon />
+								{visible.showPassword ? (
+									<Visibility
+										onClick={handleVisible}
+										style={{ cursor: "pointer" }}
+									/>
+								) : (
+									<VisibilityOff
+										onClick={handleVisible}
+										style={{ cursor: "pointer" }}
+									/>
+								)}
 							</InputAdornment>
 						),
 					}}
+					style={{ cursor: "pointer" }}
 					sx={{
-						background: "#f0f0f0",
 						marginTop: "1.5em",
 					}}
 				/>
@@ -186,7 +213,6 @@ const RegisterForm = () => {
 						),
 					}}
 					sx={{
-						background: "#f0f0f0",
 						marginTop: "1.5em",
 					}}
 				/>
@@ -216,7 +242,6 @@ const RegisterForm = () => {
 						),
 					}}
 					sx={{
-						background: "#f0f0f0",
 						marginTop: "1.5em",
 					}}
 				/>

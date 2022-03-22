@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Container from "@mui/material/Container";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import Button from "@mui/material/Button";
+import PersonIcon from "@mui/icons-material/Person";
+import LogoutIcon from "@mui/icons-material/Logout";
 import AddPost from "./AddPost";
+import { auth } from "../firebase-config";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function Navbar() {
+	const [loggedIn, setLoggedIn] = useState(false);
+
+	// bytt ut denne useeffecten med getonauthstatechanged elns
+	useEffect(() => {
+		setLoggedIn(false);
+	}, [null]);
+
 	const navigate = useNavigate();
 
 	function handleClickHome() {
@@ -16,6 +27,25 @@ export default function Navbar() {
 		navigate("/profile");
 	}
 
+	function handleClickSignOut() {
+		// håndter utlogging i firebase
+		console.log("Logger ut");
+	}
+
+	const handleLogin = () => {
+		navigate("/login");
+	};
+
+	const [hasLoaded, setHasLoaded] = useState(false);
+
+	onAuthStateChanged(auth, () => {
+		setHasLoaded();
+	});
+
+	useEffect(() => {
+		return;
+	}, [hasLoaded]);
+
 	// test comment
 	return (
 		<Container
@@ -24,13 +54,13 @@ export default function Navbar() {
 				justifyContent: "space-between",
 				alignItems: "center",
 
-				marginTop: "1.5em",
-				height: "65px",
-				width: "calc(100% - 8em)",
+				padding: "1.5em",
+				width: "100%",
 				maxWidth: "100% !important",
-				marginLeft: "4em",
-				marginRight: "4em !important",
+				paddingLeft: "6em !important",
+				paddingRight: "6em !important",
 				background: "white",
+				boxShadow: "0px -2px 10px 1px rgba(0,0,0,0.3)",
 			}}
 		>
 			<img
@@ -49,23 +79,61 @@ export default function Navbar() {
 					width: "fit-content",
 				}}
 			>
-				<AddPost></AddPost>
-				<Container
-					id="profileButton"
-					onClick={handleClickProfile}
-					sx={{
-						display: "flex",
-						justifyContent: "center",
-						alignItems: "center",
+				{!(auth.currentUser === null) ? (
+					<AddPost />
+				) : (
+					<Button
+						className="tealButtons"
+						variant="outlined"
+						id="addItemButton"
+						sx={{
+							border: 0,
+						}}
+						onClick={handleLogin}
+					>
+						Logg inn
+					</Button>
+				)}
+				{!(auth.currentUser === null) && (
+					<Container
+						id="profileButton"
+						onClick={handleClickProfile}
+						sx={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
 
-						paddingRight: "0px!important",
-						width: "fit-content",
-						cursor: "pointer",
-					}}
-				>
-					<PersonOutlineIcon />
-					<span>Brukernavn</span>
-				</Container>
+							paddingRight: "0px!important",
+							width: "fit-content",
+							cursor: "pointer",
+						}}
+					>
+						<PersonIcon />
+						<span>{auth.currentUser?.displayName}</span>
+					</Container>
+				)}
+				{loggedIn ? (
+					<Container
+						onClick={handleClickSignOut}
+						sx={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+
+							paddingRight: "0px!important",
+							width: "fit-content",
+							cursor: "pointer",
+						}}
+					>
+						<LogoutIcon
+							sx={{
+								height: ".8em",
+								cursor: "pointer",
+							}}
+						/>
+						<span>Logg ut</span>
+					</Container>
+				) : null}
 			</Container>
 		</Container>
 	);

@@ -47,7 +47,6 @@ export default function FilterMenu() {
 						margin: "1em 0 1em 0",
 						width: "100%",
 						height: "3em",
-						background: "rgb(245,245,245)",
 						borderRadius: "5px",
 					}}
 					placeholder="Søk..."
