@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { auth } from "../firebase-config";
-import getPosts from "../components/getPosts";
+import { getPosts, getInactivePosts } from "../components/getPosts";
 import PostContainer from "../components/PostContainer";
 import Profile from "../components/Profile";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +39,7 @@ function ProfilePage() {
 								background: "#ffe6cb",
 							}}
 						>
-							Aktive Biletter
+							Aktive Billetter
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
@@ -77,7 +77,7 @@ function ProfilePage() {
 								background: "#ffe6cb",
 							}}
 						>
-							Solgte Biletter
+							Solgte Billetter
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
@@ -92,8 +92,8 @@ function ProfilePage() {
 							}}
 						>
 							<PostContainer
-								posts={getPosts().filter(
-									(post) => post.author !== auth.currentUser?.uid
+								posts={getInactivePosts().filter(
+									(post) => post.author == auth.currentUser?.uid
 								)}
 							/>
 						</Container>
