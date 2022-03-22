@@ -22,7 +22,7 @@ const RegisterForm = () => {
 	const navigate = useNavigate();
 
 	const [userState, setUserState] = useState({
-		userS: { email: "", password: "", name: "", address: "" },
+		userS: { email: "", password: "", name: "", tlfNr: "" },
 		errors: {},
 	});
 
@@ -40,7 +40,7 @@ const RegisterForm = () => {
 		email: Joi.string().email().required().label("Epost"),
 		password: Joi.string().min(8).required().label("Passord"),
 		name: Joi.string().required().label("Navn"),
-		address: Joi.string().required().label("Adresse"),
+		tlfNr: Joi.number().integer().required().label("Telefonnummer"),
 	};
 
 	const validate = () => {
@@ -80,7 +80,7 @@ const RegisterForm = () => {
 		setUserState(errors);
 		if (!validate()) {
 			const newName = userState.userS.name;
-			const newLocation = userState.userS.address;
+			const newTlfNr = userState.userS.tlfNr;
 			try {
 				const { user } = await createUserWithEmailAndPassword(
 					auth,
@@ -91,7 +91,7 @@ const RegisterForm = () => {
 					displayName: newName,
 				});
 				console.log(user.uid);
-				await createUserDocument(user, { newName, newLocation }).then(navigate("/"));
+				await createUserDocument(user, { newName, newTlfNr }).then(navigate("/"));
 				console.log(currentUser?.email);
 			} catch (error) {
 				console.log("error", error);
@@ -230,10 +230,10 @@ const RegisterForm = () => {
 					</Typography>
 				)}
 				<TextField
-					label="Adresse"
-					value={userS.address}
+					label="Telefonnummer"
+					value={userS.tlfNr}
 					onChange={handleChange}
-					name="address"
+					name="tlfNr"
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
@@ -245,7 +245,7 @@ const RegisterForm = () => {
 						marginTop: "1.5em",
 					}}
 				/>
-				{errors.address && (
+				{errors.tlfNr && (
 					<Typography
 						variant="h7"
 						sx={{
@@ -255,7 +255,7 @@ const RegisterForm = () => {
 							marginTop: "0.2em",
 						}}
 					>
-						{errors.address}
+						{errors.tlfNr}
 					</Typography>
 				)}
 				<Button
