@@ -7,7 +7,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AddPost from "./AddPost";
 import { auth } from "../firebase-config";
-import { onAuthStateChanged } from "firebase/auth";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Navbar() {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -34,10 +34,7 @@ export default function Navbar() {
 
 	const [hasLoaded, setHasLoaded] = useState(false);
 
-	onAuthStateChanged(auth, () => {
-		setHasLoaded();
-		auth.currentUser ? setLoggedIn(true) : setLoggedIn(false);
-	});
+	const { currentUser } = useAuth();
 
 	useEffect(() => {
 		return;
@@ -76,7 +73,7 @@ export default function Navbar() {
 					width: "fit-content",
 				}}
 			>
-				{!(auth.currentUser === null) ? (
+				{currentUser && currentUser.uid ? (
 					<AddPost />
 				) : (
 					<Button
@@ -91,7 +88,7 @@ export default function Navbar() {
 						Logg inn
 					</Button>
 				)}
-				{!(auth.currentUser === null) && (
+				{currentUser && currentUser.uid && (
 					<Container
 						id="profileButton"
 						onClick={handleClickProfile}
@@ -106,7 +103,7 @@ export default function Navbar() {
 						}}
 					>
 						<PersonIcon />
-						<span>{auth.currentUser?.displayName}</span>
+						<span>{currentUser?.displayName}</span>
 					</Container>
 				)}
 				{loggedIn ? (

@@ -13,10 +13,12 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 // import { color } from "@mui/system";
 import Rating from "@mui/material/Rating";
-import { auth, createReviewDocument } from "../firebase-config"; // auth.currentUser() gir currentuser
+import { auth, createReviewDocument } from "../firebase-config"; // currentUser() gir currentuser
 import Contact from "../components/Contact";
 import NameAvatar from "./NameAvatar";
 import { onAuthStateChanged } from "firebase/auth";
+import { useAuth } from "../contexts/AuthContext";
+import { isFunction } from "joi-browser";
 
 const style = {
 	position: "absolute",
@@ -35,8 +37,7 @@ const starStyle = {
 };
 
 function AdCard(props) {
-	const uid = auth.currentUser === null ? "Loading..." : auth.currentUser.uid;
-	const user = auth.currentUser === null ? "Loading..." : auth.currentUser;
+	const { currentUser } = useAuth();
 
 	const isBuying = props.post.isBuying;
 
@@ -47,12 +48,10 @@ function AdCard(props) {
 
 	const userid = props.post.author; // example: 169JOvPdmhZCFVuJXVq9bP414jA2
 
-	onAuthStateChanged(auth, () => {
-		/* console.log(auth.currentUser.uid); */
+	/* onAuthStateChanged(auth, () => {
+		console.log(currentUser.uid);
 		console.log("HEI");
-	});
-
-	console.log("HEI");
+	}); */
 
 	const Chips = () => {
 		return (
@@ -83,10 +82,11 @@ function AdCard(props) {
 		);
 	};
 
-	const Rating = () => {
+	const RatingWrapper = () => {
 		const [reviews, setReviews] = useState([]);
 		const reviewsCollectionRef = collection(db, "reviews");
-	
+
+		console.log(currentUser)
 
 		useEffect(() => {
 			const getReviews = async () => {
@@ -95,7 +95,7 @@ function AdCard(props) {
 			};
 
 			getReviews();
-		}, [null]);
+		}, []);
 
 		function getAvg() {
 			var counter = 0;
@@ -110,18 +110,20 @@ function AdCard(props) {
 		}
 
 		// return the review if user has review, else false
-		
 		function userHasReview() {
+			if (!currentUser) {
+				return false;
+			}
+
 			reviews.forEach((value) => {
-				if (value.reviewerId == auth.currentUser.uid) {
+				if (value.reviewerId == currentUser.uid) {
 					return true;
 				}
 			});
 			return false;
 		}
-		
 
-		// let currentUser = auth.currentUser;
+		// 	// let currentUser = currentUser;
 
 		// todo:
 		// find currentUser id
@@ -129,11 +131,11 @@ function AdCard(props) {
 		// else make stars yellow
 
 		let ratingToDisplay = 4;
-		
+
 		if (userHasReview) {
 			// finn brukerens anmeldelse og vis stjernene i blått
 			reviews.forEach((value) => {
-				if (value.reviewerId == auth.currentUser.uid) {
+				if (value.reviewerId == currentUser.uid) {
 					// usikker på om argumentene er de samme som i databasen
 					ratingToDisplay = value.stars;
 				}
@@ -142,16 +144,17 @@ function AdCard(props) {
 		} else {
 			ratingToDisplay = getAvg();
 		}
-		
+
+
 		const [displayRating, setValue] = useState(ratingToDisplay);
 
-		
 		function addReview(stars) {
 			// send review med reviewerId, stars, sellerId
-			createReviewDocument(auth.currentUser.uid, stars, userid);
+			createReviewDocument(currentUser.uid, stars, userid);
 		}
-	
 
+
+		
 		return (
 			<>
 				<Box sx={{ "& > legend": { mt: 2 } }} />
@@ -161,7 +164,7 @@ function AdCard(props) {
 					value={displayRating}
 					onChange={(event, newValue) => {
 						setValue(newValue);
-						// addReview(newValue);
+						addReview(newValue);
 						// color = blue;
 					}}
 				/>
@@ -233,7 +236,7 @@ function AdCard(props) {
 						<Typography size="small" marginLeft="10px">
 							{props.post.authorDisplay}
 						</Typography>
-						<Rating />
+						<RatingWrapper />
 					</Container>
 					<Container
 						sx={{
@@ -244,9 +247,9 @@ function AdCard(props) {
 							margin: "0 !important",
 						}}
 					>
-						{!(uid === props.post.author || user === null || user === "Loading...") && (
+						{/* {!(uid === props.post.author || user === null || user === "Loading...") && (
 							<Contact data={props.post}></Contact>
-						)}
+						)} */}
 					</Container>
 				</Container>
 			</CardActions>
