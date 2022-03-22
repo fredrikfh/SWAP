@@ -24,8 +24,8 @@ export default function Navbar() {
 
 	function handleClickSignOut() {
 		auth.signOut().then(() => {
-			navigate("/login")
-		})
+			navigate("/login");
+		});
 	}
 
 	const handleLogin = () => {
@@ -36,7 +36,7 @@ export default function Navbar() {
 
 	onAuthStateChanged(auth, () => {
 		setHasLoaded();
-		auth.currentUser ? setLoggedIn(true) : setLoggedIn(false)
+		auth.currentUser ? setLoggedIn(true) : setLoggedIn(false);
 	});
 
 	useEffect(() => {
