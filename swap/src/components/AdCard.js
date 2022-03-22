@@ -14,6 +14,9 @@ import Box from "@mui/material/Box";
 // import { color } from "@mui/system";
 import Rating from "@mui/material/Rating";
 import { auth, createReviewDocument } from "../firebase-config"; // auth.currentUser() gir currentuser
+import Contact from "../components/Contact";
+import NameAvatar from "./NameAvatar";
+import { onAuthStateChanged } from "firebase/auth";
 
 const style = {
 	position: "absolute",
@@ -30,10 +33,6 @@ const style = {
 const starStyle = {
 	color: "yellow",
 };
-import { CardActionArea, CardActions } from "@mui/material";
-import Contact from "../components/Contact";
-import NameAvatar from "./NameAvatar";
-import { auth } from "../firebase-config";
 
 function AdCard(props) {
 	const uid = auth.currentUser === null ? "Loading..." : auth.currentUser.uid;
@@ -47,6 +46,13 @@ function AdCard(props) {
 	const year = date.toLocaleString("default", { year: "numeric" });
 
 	const userid = props.post.author; // example: 169JOvPdmhZCFVuJXVq9bP414jA2
+
+	onAuthStateChanged(auth, () => {
+		/* console.log(auth.currentUser.uid); */
+		console.log("HEI");
+	});
+
+	console.log("HEI");
 
 	const Chips = () => {
 		return (
@@ -80,6 +86,7 @@ function AdCard(props) {
 	const Rating = () => {
 		const [reviews, setReviews] = useState([]);
 		const reviewsCollectionRef = collection(db, "reviews");
+	
 
 		useEffect(() => {
 			const getReviews = async () => {
@@ -88,7 +95,7 @@ function AdCard(props) {
 			};
 
 			getReviews();
-		}, []);
+		}, [null]);
 
 		function getAvg() {
 			var counter = 0;
@@ -103,42 +110,47 @@ function AdCard(props) {
 		}
 
 		// return the review if user has review, else false
+		
 		function userHasReview() {
 			reviews.forEach((value) => {
-				if (value.reviewerId == currentUser.id) {
-					// usikker på om denne funker!
+				if (value.reviewerId == auth.currentUser.uid) {
 					return true;
 				}
 			});
 			return false;
 		}
+		
 
-		const currentUser = auth.currentUser();
+		// let currentUser = auth.currentUser;
+
 		// todo:
 		// find currentUser id
 		// if id has a review, make stars blue
 		// else make stars yellow
 
-		let ratingToDisplay = 0;
+		let ratingToDisplay = 4;
+		
 		if (userHasReview) {
 			// finn brukerens anmeldelse og vis stjernene i blått
 			reviews.forEach((value) => {
-				if (value.reviewerId == currentUser.id) {
+				if (value.reviewerId == auth.currentUser.uid) {
 					// usikker på om argumentene er de samme som i databasen
 					ratingToDisplay = value.stars;
 				}
 			});
 			// TODO: make stars blue
 		} else {
-			return getAvg();
+			ratingToDisplay = getAvg();
 		}
+		
+		const [displayRating, setValue] = useState(ratingToDisplay);
 
-		const [avgRating, setValue] = React.useState(ratingToDisplay);
-
+		
 		function addReview(stars) {
 			// send review med reviewerId, stars, sellerId
-			createReviewDocument(currentUser.id, stars, userid);
+			createReviewDocument(auth.currentUser.uid, stars, userid);
 		}
+	
 
 		return (
 			<>
@@ -146,10 +158,10 @@ function AdCard(props) {
 				<Rating
 					id="starRating"
 					name="simple-controlled"
-					value={avgRating}
+					value={displayRating}
 					onChange={(event, newValue) => {
 						setValue(newValue);
-						addReview(newValue);
+						// addReview(newValue);
 						// color = blue;
 					}}
 				/>
