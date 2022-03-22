@@ -1,3 +1,28 @@
 body {
 	margin: 0;
+	overflow-x: hidden;
+}
+
+body::before {
+	z-index: -2;
+	display: block;
+	position: fixed;
+	top: 0;
+	content: " ";
+	width: 100vw;
+	height: 100vh;
+	background: url(./img/bakgrunn.jpg) no-repeat center center;
+	background-size: cover;
+	filter: opacity(0.8) grayscale(1);
+}
+
+body::after {
+	z-index: -1;
+	display: block;
+	position: fixed;
+	top: 0;
+	content: " ";
+	width: 100vw;
+	height: 100vh;
+	background: rgba(255, 190, 70, 0.2);
 }

@@ -13,7 +13,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import MenuItem from "@mui/material/MenuItem";
 import "date-fns";
-import { db } from "../firebase-config";
+import { auth, db } from "../firebase-config";
 import { collection, addDoc } from "firebase/firestore";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -79,6 +79,12 @@ function AddPost() {
 				venue: newVenue,
 				price: Number(newPrice),
 				isBuying: Boolean(newSelling),
+				createdAt: new Date(),
+				authorDisplay: auth.currentUser.displayName,
+				author: auth.currentUser.uid,
+				email: auth.currentUser.email,
+				tlfNr: auth.currentUser.phoneNumber,
+				active: true,
 			});
 			setOpen(false);
 		}
@@ -112,6 +118,32 @@ function AddPost() {
 	const handleChangeType = (event) => {
 		setType(event.target.value);
 		setNewEventType(event.target.value);
+	};
+
+	const locationList = [
+		{
+			value: "Oslo",
+			label: "Oslo",
+		},
+		{
+			value: "Trondheim",
+			label: "Trondheim",
+		},
+		{
+			value: "Bodø",
+			label: "Bodø",
+		},
+		{
+			value: "Stavanger",
+			label: "Stavanger",
+		},
+	];
+
+	const [location, setLocation] = React.useState("Oslo");
+
+	const handleChangeLocation = (event) => {
+		setLocation(event.target.value);
+		setNewLocation(event.target.value);
 	};
 
 	const handleChange = (event) => {
@@ -255,15 +287,19 @@ function AddPost() {
 
 						<TextField
 							margin="dense"
-							required
-							fullWidth
+							style={{ paddingLeft: "2%" }}
 							id="addItemLocation"
-							label="By/sted"
-							variant="outlined"
-							onChange={(event) => {
-								setNewLocation(event.target.value);
-							}}
-						/>
+							select
+							value={location}
+							onChange={handleChangeLocation}
+							helperText="Velg by"
+						>
+							{locationList.map((location) => (
+								<MenuItem key={location.value} value={location.value}>
+									{location.label}
+								</MenuItem>
+							))}
+						</TextField>
 
 						<TextField
 							required

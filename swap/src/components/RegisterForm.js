@@ -8,21 +8,26 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import EmailIcon from "@mui/icons-material/Email";
-import PasswordIcon from "@mui/icons-material/Password";
 import BadgeIcon from "@mui/icons-material/Badge";
 import HomeIcon from "@mui/icons-material/Home";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Joi from "joi-browser";
 import "../style/styles.css";
 
 import { auth, createUserDocument } from "../firebase-config";
-import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth";
 
 const RegisterForm = () => {
 	const navigate = useNavigate();
 
 	const [userState, setUserState] = useState({
-		userS: { email: "", password: "", name: "", address: "" },
+		userS: { email: "", password: "", name: "", tlfNr: "" },
 		errors: {},
+	});
+
+	const [visible, setVisibility] = useState({
+		showPassword: false,
 	});
 
 	const [currentUser, setUser] = useState({});
@@ -35,7 +40,7 @@ const RegisterForm = () => {
 		email: Joi.string().email().required().label("Epost"),
 		password: Joi.string().min(8).required().label("Passord"),
 		name: Joi.string().required().label("Navn"),
-		address: Joi.string().required().label("Adresse"),
+		tlfNr: Joi.number().integer().required().label("Telefonnummer"),
 	};
 
 	const validate = () => {
@@ -75,15 +80,18 @@ const RegisterForm = () => {
 		setUserState(errors);
 		if (!validate()) {
 			const newName = userState.userS.name;
-			const newLocation = userState.userS.address;
+			const newTlfNr = userState.userS.tlfNr;
 			try {
 				const { user } = await createUserWithEmailAndPassword(
 					auth,
 					userState.userS.email,
 					userState.userS.password
 				);
+				await updateProfile(user, {
+					displayName: newName,
+				});
 				console.log(user.uid);
-				await createUserDocument(user, { newName, newLocation }).then(navigate("/"));
+				await createUserDocument(user, { newName, newTlfNr }).then(navigate("/"));
 				console.log(currentUser?.email);
 			} catch (error) {
 				console.log("error", error);
@@ -95,6 +103,11 @@ const RegisterForm = () => {
 		navigate("/login");
 	};
 
+	const handleVisible = () => {
+		const showPassword = !visible.showPassword;
+		setVisibility({ showPassword });
+	};
+
 	const { userS, errors } = userState;
 
 	return (
@@ -104,6 +117,8 @@ const RegisterForm = () => {
 				borderRadius: "1em",
 				padding: "16px 16px 32px 16px",
 				margin: "3em 0 0 0",
+				background: "rgba(255,255,255,0.6)",
+				backdropFilter: "blur( 9px )",
 			}}
 		>
 			<Container
@@ -112,7 +127,9 @@ const RegisterForm = () => {
 					flexDirection: "column",
 				}}
 			>
-				<Typography variant="h5">Registrer Bruker</Typography>
+				<Typography variant="h5" sx={{ marginTop: "24px" }}>
+					Registrer Bruker
+				</Typography>
 				<TextField
 					label="Epost"
 					value={userS.email}
@@ -126,7 +143,6 @@ const RegisterForm = () => {
 						),
 					}}
 					sx={{
-						background: "#f0f0f0",
 						marginTop: "1.5em",
 					}}
 				/>
@@ -148,15 +164,26 @@ const RegisterForm = () => {
 					value={userS.password}
 					onChange={handleChange}
 					name="password"
+					type={visible.showPassword ? "text" : "password"}
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
-								<PasswordIcon />
+								{visible.showPassword ? (
+									<Visibility
+										onClick={handleVisible}
+										style={{ cursor: "pointer" }}
+									/>
+								) : (
+									<VisibilityOff
+										onClick={handleVisible}
+										style={{ cursor: "pointer" }}
+									/>
+								)}
 							</InputAdornment>
 						),
 					}}
+					style={{ cursor: "pointer" }}
 					sx={{
-						background: "#f0f0f0",
 						marginTop: "1.5em",
 					}}
 				/>
@@ -186,7 +213,6 @@ const RegisterForm = () => {
 						),
 					}}
 					sx={{
-						background: "#f0f0f0",
 						marginTop: "1.5em",
 					}}
 				/>
@@ -204,10 +230,10 @@ const RegisterForm = () => {
 					</Typography>
 				)}
 				<TextField
-					label="Adresse"
-					value={userS.address}
+					label="Telefonnummer"
+					value={userS.tlfNr}
 					onChange={handleChange}
-					name="address"
+					name="tlfNr"
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
@@ -216,11 +242,10 @@ const RegisterForm = () => {
 						),
 					}}
 					sx={{
-						background: "#f0f0f0",
 						marginTop: "1.5em",
 					}}
 				/>
-				{errors.address && (
+				{errors.tlfNr && (
 					<Typography
 						variant="h7"
 						sx={{
@@ -230,7 +255,7 @@ const RegisterForm = () => {
 							marginTop: "0.2em",
 						}}
 					>
-						{errors.address}
+						{errors.tlfNr}
 					</Typography>
 				)}
 				<Button

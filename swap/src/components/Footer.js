@@ -5,17 +5,18 @@ import Typography from "@mui/material/Typography";
 
 const Footer = () => {
 	return (
-		<footer style={{ position: "fixed", bottom: 0 }}>
+		<footer style={{ width: "100vw" }}>
 			<Box
-				width="100vw"
 				sx={{
+					width: "100vw",
 					backgroundColor: "#ffe6cb",
-					padding: "40px",
+					padding: "15px 0 15px 0",
+					marginTop: "37px",
 				}}
 			>
-				<Grid container spacing={0} marginLeft="20px">
+				<Grid container spacing={0} paddingLeft="20px">
 					<img src="./logo/black_text.svg" style={{ height: "30px", margin: "15px" }} />
-					<Grid id="top-row" item spacing={0}>
+					<Grid id="top-row" item>
 						<Grid item xs={12} marginLeft="20px">
 							<Typography fontSize={12} fontWeight={600}>
 								© Swap AS
@@ -31,7 +32,7 @@ const Footer = () => {
 							<Typography fontSize={10}>7034 Trondheim</Typography>
 						</Grid>
 					</Grid>
-					<Grid id="bottom-row" item spacing={0}>
+					<Grid id="bottom-row" item>
 						<Grid item xs={12} marginLeft="20px">
 							<Typography fontSize={12} fontWeight={600}>
 								Kontakt Oss

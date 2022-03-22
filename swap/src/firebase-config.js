@@ -19,7 +19,7 @@ const auth = getAuth(app);
 
 export { db, auth };
 
-export const createUserDocument = async (user, { newName, newLocation }) => {
+export const createUserDocument = async (user, { newName, newTlfNr }) => {
 	if (!user) return;
 	const uid = user.uid;
 	const userRef = doc(db, `users/${user.uid}`);
@@ -34,7 +34,7 @@ export const createUserDocument = async (user, { newName, newLocation }) => {
 			await setDoc(doc(db, "users", uid), {
 				username: newName,
 				email: user.email,
-				location: newLocation,
+				tlfNr: newTlfNr,
 			});
 		} catch (error) {
 			console.log(error);

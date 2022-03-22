@@ -13,7 +13,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 // import { color } from "@mui/system";
 import Rating from "@mui/material/Rating";
-import { auth, createReviewDocument } from '../firebase-config'; // auth.currentUser() gir currentuser
+import { auth, createReviewDocument } from "../firebase-config"; // auth.currentUser() gir currentuser
 
 const style = {
 	position: "absolute",
@@ -28,10 +28,17 @@ const style = {
 };
 
 const starStyle = {
-	color: "yellow"
-}
+	color: "yellow",
+};
+import { CardActionArea, CardActions } from "@mui/material";
+import Contact from "../components/Contact";
+import NameAvatar from "./NameAvatar";
+import { auth } from "../firebase-config";
 
 function AdCard(props) {
+	const uid = auth.currentUser === null ? "Loading..." : auth.currentUser.uid;
+	const user = auth.currentUser === null ? "Loading..." : auth.currentUser;
+
 	const isBuying = props.post.isBuying;
 
 	const date = new Date(props.post.date);
@@ -98,7 +105,8 @@ function AdCard(props) {
 		// return the review if user has review, else false
 		function userHasReview() {
 			reviews.forEach((value) => {
-				if (value.reviewerId == currentUser.id) { // usikker på om denne funker!
+				if (value.reviewerId == currentUser.id) {
+					// usikker på om denne funker!
 					return true;
 				}
 			});
@@ -106,7 +114,7 @@ function AdCard(props) {
 		}
 
 		const currentUser = auth.currentUser();
-		// todo: 
+		// todo:
 		// find currentUser id
 		// if id has a review, make stars blue
 		// else make stars yellow
@@ -115,7 +123,8 @@ function AdCard(props) {
 		if (userHasReview) {
 			// finn brukerens anmeldelse og vis stjernene i blått
 			reviews.forEach((value) => {
-				if (value.reviewerId == currentUser.id) { // usikker på om argumentene er de samme som i databasen
+				if (value.reviewerId == currentUser.id) {
+					// usikker på om argumentene er de samme som i databasen
 					ratingToDisplay = value.stars;
 				}
 			});
@@ -131,7 +140,6 @@ function AdCard(props) {
 			createReviewDocument(currentUser.id, stars, userid);
 		}
 
-		
 		return (
 			<>
 				<Box sx={{ "& > legend": { mt: 2 } }} />
@@ -152,13 +160,23 @@ function AdCard(props) {
 	return (
 		<Card
 			sx={{
-				maxWidth: 528,
-				marginLeft: "24px",
+				maxWidth: 514,
+				marginLeft: "0em",
 				marginBottom: "1em",
+				background: "rgba(255,255,255,0.7)",
+				backdropFilter: "blur( 12px )",
+
+				"&:last-child": {
+					marginBottom: 0,
+				},
 			}}
 			className="adCardShadow"
 		>
-			<CardActionArea>
+			<CardActionArea
+				sx={{
+					pointer: "crosshair !important",
+				}}
+			>
 				<CardContent>
 					<Typography
 						gutterBottom
@@ -199,22 +217,11 @@ function AdCard(props) {
 							cursor: "pointer",
 						}}
 					>
-						<Container
-							sx={{
-								display: "flex",
-								alignItems: "flex-end",
-								paddingLeft: "0 !important",
-							}}
-						>
-							<img
-								src={pf_placeholder}
-								style={{ height: "30px", marginRight: "6px" }}
-							/>
-							<Typography size="small" sx={{ lineHeight: "1em", width: "150px" }}>
-								Ola Nordmann
-							</Typography>
-							<Rating />
-						</Container>
+						<NameAvatar name={props.post.authorDisplay} diameter={35} />
+						<Typography size="small" marginLeft="10px">
+							{props.post.authorDisplay}
+						</Typography>
+						<Rating />
 					</Container>
 					<Container
 						sx={{
@@ -225,21 +232,9 @@ function AdCard(props) {
 							margin: "0 !important",
 						}}
 					>
-						<Button
-							disableElevation
-							variant="text"
-							color="success"
-							className="tealButtonPill"
-							sx={{
-								margin: "0px 8px 0 0",
-							}}
-						>
-							<i
-								className="fal fa-comment"
-								style={{ margin: "0 10px 0 0px", fontSize: "20px" }}
-							/>
-							Kontakt
-						</Button>
+						{!(uid === props.post.author || user === null || user === "Loading...") && (
+							<Contact data={props.post}></Contact>
+						)}
 					</Container>
 				</Container>
 			</CardActions>

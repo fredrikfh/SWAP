@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import CardOverview from "./pages/CardOverview";
-import Profile from "./pages/Profile";
+import ProfilePage from "./pages/ProfilePage";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import Container from "@mui/material/Container";
@@ -20,7 +20,7 @@ export default function App() {
 						element={
 							<React.Fragment>
 								<Navbar />
-								<Profile />
+								<ProfilePage />
 								<Footer />
 							</React.Fragment>
 						}
@@ -42,6 +42,7 @@ export default function App() {
 									<img src="./logo/main_text.svg" width="240px" />
 									<LoginForm />
 								</Container>
+								<Footer />
 							</React.Fragment>
 						}
 					/>
@@ -62,6 +63,7 @@ export default function App() {
 									<img src="./logo/main_text.svg" width="240px" />
 									<RegisterForm />
 								</Container>
+								<Footer />
 							</React.Fragment>
 						}
 					/>
@@ -71,6 +73,7 @@ export default function App() {
 							<React.Fragment>
 								<Navbar />
 								<CardOverview />
+								<Footer />
 							</React.Fragment>
 						}
 					/>
