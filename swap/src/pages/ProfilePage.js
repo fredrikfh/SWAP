@@ -39,7 +39,7 @@ function ProfilePage() {
 								background: "#ffe6cb",
 							}}
 						>
-							Aktive Billetter
+							Aktive Annonser
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
@@ -77,7 +77,7 @@ function ProfilePage() {
 								background: "#ffe6cb",
 							}}
 						>
-							Solgte Billetter
+							Tidligere Annonser
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
