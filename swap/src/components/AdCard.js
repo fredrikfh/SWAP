@@ -5,7 +5,6 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
 import { CardActionArea, CardActions } from "@mui/material";
-import pf_placeholder from "../img/pf_placeholder.png";
 import Contact from "../components/Contact";
 import NameAvatar from "./NameAvatar";
 import { auth } from "../firebase-config";

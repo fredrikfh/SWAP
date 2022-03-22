@@ -4,15 +4,10 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Chip from "@mui/material/Chip";
-
-import TextField from "@mui/material/TextField";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputAdornment from "@mui/material/InputAdornment";
-import MenuItem from "@mui/material/MenuItem";
+import NameAvatar from "./NameAvatar";
 import "date-fns";
-import { db } from "../firebase-config";
-import { collection, addDoc } from "firebase/firestore";
 import AddIcon from "@mui/icons-material/Add";
+import Container from "@mui/material/Container";
 
 const style = {
 	position: "absolute",
@@ -28,7 +23,7 @@ const style = {
 
 function Contact(data) {
 	const postTitle = data.data.title;
-	console.log(data.data.location);
+	console.log(data.data);
 
 	const isBuying = data.data.isBuying;
 
@@ -94,10 +89,22 @@ function Contact(data) {
 						{postTitle}
 					</Typography>
 					<Chips />
-					<Typography>Her kommer profilen.</Typography>
-					<Typography>Beskrivelse:</Typography>
+					<Container
+						sx={{
+							display: "flex",
+							alignItems: "center",
+							padding: "0 !important",
+							margin: "0 !important",
+							cursor: "pointer",
+						}}
+					>
+						<NameAvatar name={data.data.authorDisplay} diameter={35} />
+						<Typography size="small" marginLeft="10px">
+							{data.data.authorDisplay}
+						</Typography>
+					</Container>
 					<Typography>{data.data.description}</Typography>
-					<Typography>Her kommer kontaktinformasjon.</Typography>
+					<Typography>Mail: {data.data.email}</Typography>
 				</Box>
 			</Modal>
 		</div>
