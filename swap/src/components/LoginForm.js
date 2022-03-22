@@ -84,6 +84,12 @@ const LoginForm = () => {
 		console.log("Logging in");
 	};
 
+	const handleCardKeyDown = (e) => {
+		if(e.key == "Enter") {
+			handleLogin(e);
+		}
+	}
+
 	const handleChange = ({ currentTarget: input }) => {
 		const errors = { ...userState.errors };
 		const errorMessage = validateProperty(input);
@@ -113,6 +119,7 @@ const LoginForm = () => {
 				background: "rgba(255,255,255,0.6)",
 				backdropFilter: "blur( 9px )",
 			}}
+			onKeyDown={handleCardKeyDown}
 		>
 			<Container
 				sx={{

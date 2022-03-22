@@ -103,6 +103,12 @@ const RegisterForm = () => {
 		navigate("/login");
 	};
 
+	const handleCardKeyDown = (e) => {
+		if(e.key == "Enter") {
+			handleRegister(e);
+		}
+	}
+
 	const handleVisible = () => {
 		const showPassword = !visible.showPassword;
 		setVisibility({ showPassword });
@@ -120,6 +126,7 @@ const RegisterForm = () => {
 				background: "rgba(255,255,255,0.6)",
 				backdropFilter: "blur( 9px )",
 			}}
+			onKeyDown={handleCardKeyDown}
 		>
 			<Container
 				sx={{
