@@ -83,6 +83,7 @@ function AddPost() {
 				authorDisplay: auth.currentUser.displayName,
 				author: auth.currentUser.uid,
 				email: auth.currentUser.email,
+				tlfNr: auth.currentUser.phoneNumber,
 				active: true,
 			});
 			setOpen(false);

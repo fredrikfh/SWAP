@@ -60,7 +60,7 @@
 	},
 	"devDependencies": {
 		"@cypress/code-coverage": "^3.9.12",
-		"cypress": "^9.5.0",
+		"cypress": "^9.5.2",
 		"nyc": "^15.1.0"
 	}
 }
