@@ -84,8 +84,7 @@ function AddPost() {
 				author: auth.currentUser.uid,
 				email: auth.currentUser.email,
 				tlfNr: auth.currentUser.phoneNumber,
-				active: true
-
+				active: true,
 			});
 			setOpen(false);
 		}

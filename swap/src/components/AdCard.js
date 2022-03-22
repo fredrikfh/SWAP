@@ -4,7 +4,8 @@ import Container from "@mui/material/Container";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import { CardActionArea, CardActions } from "@mui/material";
+import Contact from "../components/Contact";
 import NameAvatar from "./NameAvatar";
 import { auth } from "../firebase-config";
 
@@ -122,21 +123,7 @@ function AdCard(props) {
 						}}
 					>
 						{!(uid === props.post.author || user === null || user === "Loading...") && (
-							<Button
-								disableElevation
-								variant="text"
-								color="success"
-								className="tealButtonPill"
-								sx={{
-									margin: "0px 8px 0 0",
-								}}
-							>
-								<i
-									className="fal fa-comment"
-									style={{ margin: "0 10px 0 0px", fontSize: "20px" }}
-								/>
-								Kontakt
-							</Button>
+							<Contact data={props.post}></Contact>
 						)}
 					</Container>
 				</Container>
