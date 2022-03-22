@@ -89,6 +89,7 @@ const RegisterForm = () => {
 				);
 				await updateProfile(user, {
 					displayName: newName,
+					phoneNumber: newTlfNr,
 				});
 				console.log(user.uid);
 				await createUserDocument(user, { newName, newTlfNr }).then(navigate("/"));
