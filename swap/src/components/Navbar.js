@@ -12,11 +12,6 @@ import { onAuthStateChanged } from "firebase/auth";
 export default function Navbar() {
 	const [loggedIn, setLoggedIn] = useState(false);
 
-	// bytt ut denne useeffecten med getonauthstatechanged elns
-	useEffect(() => {
-		setLoggedIn(false);
-	}, [null]);
-
 	const navigate = useNavigate();
 
 	function handleClickHome() {
@@ -28,8 +23,9 @@ export default function Navbar() {
 	}
 
 	function handleClickSignOut() {
-		// håndter utlogging i firebase
-		console.log("Logger ut");
+		auth.signOut().then(() => {
+			navigate("/login")
+		})
 	}
 
 	const handleLogin = () => {
@@ -40,6 +36,7 @@ export default function Navbar() {
 
 	onAuthStateChanged(auth, () => {
 		setHasLoaded();
+		auth.currentUser ? setLoggedIn(true) : setLoggedIn(false)
 	});
 
 	useEffect(() => {
