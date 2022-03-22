@@ -72,6 +72,7 @@ const LoginForm = () => {
 					userState.userS.password
 				).then((cred) => {
 					console.log(cred.user);
+					navigate("/");
 				});
 				console.log(user);
 				console.log(currentUser?.password);
@@ -81,7 +82,6 @@ const LoginForm = () => {
 		}
 
 		console.log("Logging in");
-		navigate("/");
 	};
 
 	const handleChange = ({ currentTarget: input }) => {
