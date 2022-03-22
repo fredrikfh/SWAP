@@ -23,7 +23,7 @@ const style = {
 
 function Contact(data) {
 	const postTitle = data.data.title;
-	console.log(data.data);
+	//console.log(data.data);
 
 	const isBuying = data.data.isBuying;
 
