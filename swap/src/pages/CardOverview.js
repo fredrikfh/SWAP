@@ -1,8 +1,6 @@
 import React from "react";
 import Container from "@mui/material/Container";
 import FilterMenu from "../components/FilterMenu";
-import { getPosts } from "../components/getPosts";
-import PostContainer from "../components/PostContainer";
 
 export default function CardOverview() {
 	return (
@@ -17,8 +15,6 @@ export default function CardOverview() {
 			}}
 		>
 			<FilterMenu />
-			{/*Annonseliste-Container*/}
-			<PostContainer posts={getPosts()} />
 		</Container>
 	);
 }

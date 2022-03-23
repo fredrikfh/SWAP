@@ -4,7 +4,7 @@ import Container from "@mui/material/Container";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
-import { CardActionArea, CardActions } from "@mui/material";
+import { Button, CardActions } from "@mui/material";
 import Contact from "../components/Contact";
 import NameAvatar from "./NameAvatar";
 import { auth } from "../firebase-config";
@@ -64,31 +64,21 @@ function AdCard(props) {
 			}}
 			className="adCardShadow"
 		>
-			<CardActionArea
-				sx={{
-					pointer: "crosshair !important",
-				}}
-			>
-				<CardContent>
-					<Typography
-						gutterBottom
-						variant="h5"
-						component="div"
-						sx={{ fontWeight: "600", marginBottom: 0 }}
-					>
-						{props.post.title}
-					</Typography>
-					<Chips />
-					<Price />
-					<Typography
-						variant="body2"
-						color="text.secondary"
-						style={{ marginTop: "10px" }}
-					>
-						{props.post.description}
-					</Typography>
-				</CardContent>
-			</CardActionArea>
+			<CardContent>
+				<Typography
+					gutterBottom
+					variant="h5"
+					component="div"
+					sx={{ fontWeight: "600", marginBottom: 0 }}
+				>
+					{props.post.title}
+				</Typography>
+				<Chips />
+				<Price />
+				<Typography variant="body2" color="text.secondary" style={{ marginTop: "10px" }}>
+					{props.post.description}
+				</Typography>
+			</CardContent>
 			<CardActions sx={{ padding: "16px" }}>
 				<Container
 					sx={{
@@ -108,10 +98,12 @@ function AdCard(props) {
 							cursor: "pointer",
 						}}
 					>
-						<NameAvatar name={props.post.authorDisplay} diameter={35} />
-						<Typography size="small" marginLeft="10px">
-							{props.post.authorDisplay}
-						</Typography>
+						<Button>
+							<NameAvatar name={props.post.authorDisplay} diameter={35} />
+							<Typography variant="body2" color="text.secondary" marginLeft="10px">
+								{props.post.authorDisplay.split(" ")[0]}
+							</Typography>
+						</Button>
 					</Container>
 					<Container
 						sx={{
