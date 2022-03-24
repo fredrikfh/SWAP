@@ -99,7 +99,7 @@ function AdCard(props) {
 						</Typography>
 					</Grid>
 					<Grid item>
-						{auth.currentUser.uid === props.post.author &&
+						{uid === props.post.author &&
 							props.post.isBuying === false &&
 							props.post.active === true && <MarkSoldButton post={props.post} />}
 					</Grid>
