@@ -1,19 +1,26 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
-import { Button, CardActions } from "@mui/material";
-import Contact from "../components/Contact";
+import { Button, CardActionArea, CardActions } from "@mui/material";
+import { db } from "../firebase-config";
+import { collection, getDocs, setDoc, addDoc, doc } from "firebase/firestore";
+import Box from "@mui/material/Box";
+import Rating from "@mui/material/Rating";
+import { auth, createReviewDocument } from "../firebase-config"; // currentUser() gir currentuser
 import NameAvatar from "./NameAvatar";
-import { auth } from "../firebase-config";
+import { onAuthStateChanged } from "firebase/auth";
+import { useAuth } from "../contexts/AuthContext";
+import { isFunction } from "joi-browser";
+import Contact from "../components/Contact";
 import MarkSoldButton from "./MarkSoldButton";
 
 function AdCard(props) {
-	const uid = auth.currentUser === null ? "Loading..." : auth.currentUser.uid;
-	const user = auth.currentUser === null ? "Loading..." : auth.currentUser;
+	const { currentUser } = useAuth();
 
 	const isBuying = props.post.isBuying;
 	const isActive = props.post.active;
@@ -23,6 +30,27 @@ function AdCard(props) {
 	const month = date.toLocaleString("default", { month: "long" });
 	const year = date.toLocaleString("default", { year: "numeric" });
 
+	const userid = props.post.author; // example: 169JOvPdmhZCFVuJXVq9bP414jA2
+
+	/* onAuthStateChanged(auth, () => {
+		console.log(currentUser.uid);
+		console.log("HEI");
+	}); */
+
+	const getReviews = () => {
+		const [reviews, setReviews] = useState([]);
+		const reviewsCollectionRef = collection(db, "reviews");
+
+		useEffect(() => {
+			const getReviews = async () => {
+				const data = await getDocs(reviewsCollectionRef);
+				setReviews(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+			};
+			getReviews();
+		}, []);
+
+		return reviews;
+	};
 	function chipLabel() {
 		if (isActive) {
 			return isBuying ? "Ønskes kjøpt" : "Til salgs";
@@ -65,6 +93,94 @@ function AdCard(props) {
 		);
 	};
 
+	const RatingWrapper = () => {
+		let reviews = getReviews();
+
+		function getAvg() {
+			var counter = 0;
+			var stars = 0;
+			reviews.forEach((value) => {
+				if (value.sellerId == userid) {
+					counter++;
+					stars += value.stars;
+				}
+			});
+			return stars / counter;
+		}
+
+		function userHasReview() {
+			let hasReview = false;
+			reviews.forEach((value) => {
+				if (value.reviewerId == currentUser.uid && value.sellerId == userid) {
+					hasReview = true;
+				}
+			});
+			return hasReview;
+		}
+
+		let ratingToDisplay = 0;
+		function updateRatingToDisplay() {
+			if (userHasReview() === true) {
+				reviews.forEach((value) => {
+					if (value.reviewerId == currentUser.uid && value.sellerId == userid) {
+						ratingToDisplay = value.stars;
+					}
+				});
+			} else {
+				ratingToDisplay = getAvg();
+			}
+		}
+
+		updateRatingToDisplay();
+
+		const [displayRating, setValue] = useState(0);
+
+		useEffect(() => {
+			setValue(ratingToDisplay);
+		}, [ratingToDisplay]);
+
+		const addReview = async (stars) => {
+			if (userHasReview() === true) {
+				let previousReview = null;
+
+				reviews.forEach((value) => {
+					if (value.reviewerId == currentUser.uid && value.sellerId == userid) {
+						previousReview = value;
+					}
+				});
+
+				await setDoc(doc(db, "reviews", previousReview.id), {
+					reviewerId: currentUser.uid,
+					stars: stars,
+					sellerId: userid,
+				});
+			} else {
+				await addDoc(collection(db, "reviews"), {
+					reviewerId: currentUser.uid,
+					stars: stars,
+					sellerId: userid,
+				});
+			}
+		};
+
+		return (
+			<>
+				<Box sx={{ "& > legend": { mt: 2 } }} />
+				<Rating
+					style={userHasReview() ? { color: "teal" } : { color: "orange" }}
+					id="starRating"
+					name="simple-controlled"
+					value={displayRating}
+					onChange={(event, newValue) => {
+						addReview(newValue);
+						updateRatingToDisplay();
+						setValue(newValue);
+					}}
+				/>
+			</>
+		);
+	};
+
 	return (
 		<Card
 			sx={{
@@ -99,7 +215,7 @@ function AdCard(props) {
 						</Typography>
 					</Grid>
 					<Grid item>
-						{uid === props.post.author &&
+						{currentUser.uid === props.post.author &&
 							props.post.isBuying === false &&
 							props.post.active === true && <MarkSoldButton post={props.post} />}
 					</Grid>
@@ -123,6 +239,7 @@ function AdCard(props) {
 					<Container
 						sx={{
 							display: "flex",
+							flexDirection: "row",
 							alignItems: "center",
 							padding: "0 !important",
 							margin: "0 !important",
@@ -131,10 +248,16 @@ function AdCard(props) {
 					>
 						<Button>
 							<NameAvatar name={props.post.authorDisplay} diameter={35} />
-							<Typography variant="body2" color="text.secondary" marginLeft="10px">
+							<Typography
+								variant="body2"
+								color="text.secondary"
+								marginLeft="10px"
+								paddingRight="20px"
+							>
 								{props.post.authorDisplay.split(" ")[0]}
 							</Typography>
 						</Button>
+						<RatingWrapper />
 					</Container>
 					<Container
 						sx={{
@@ -145,9 +268,9 @@ function AdCard(props) {
 							margin: "0 !important",
 						}}
 					>
-						{!(uid === props.post.author || user === null || user === "Loading...") && (
+						{/* {!(uid === props.post.author || user === null || user === "Loading...") && (
 							<Contact data={props.post}></Contact>
-						)}
+						)} */}
 					</Container>
 				</Container>
 			</CardActions>

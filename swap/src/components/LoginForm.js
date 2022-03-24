@@ -14,23 +14,20 @@ import Joi from "joi-browser";
 import "../style/styles.css";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
+import { useAuth } from "../contexts/AuthContext";
 
 const LoginForm = () => {
 	const navigate = useNavigate();
+
+	const { login, currentUser, logout } = useAuth();
 
 	const [userState, setUserState] = useState({
 		userS: { email: "", password: "" },
 		errors: {},
 	});
 
-	const [currentUser, setUser] = useState({});
-
 	const [visible, setVisibility] = useState({
 		showPassword: false,
-	});
-
-	onAuthStateChanged(auth, (user) => {
-		setUser(user);
 	});
 
 	const schema = {
@@ -66,15 +63,10 @@ const LoginForm = () => {
 		setUserState(errors);
 		if (!validate()) {
 			try {
-				const user = await signInWithEmailAndPassword(
-					auth,
-					userState.userS.email,
-					userState.userS.password
-				).then((cred) => {
-					console.log(cred.user);
+				login(userState.userS.email, userState.userS.password).then((cred) => {
+					console.log("currentuser is now:" + currentUser.uid);
 					navigate("/");
 				});
-				console.log(user);
 				console.log(currentUser?.password);
 			} catch (error) {
 				console.log(error.message);

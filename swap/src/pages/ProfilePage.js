@@ -7,11 +7,14 @@ import { getPosts, getInactivePosts } from "../components/getPosts";
 import PostContainer from "../components/PostContainer";
 import Profile from "../components/Profile";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 function ProfilePage() {
 	const navigate = useNavigate();
 
-	if (auth.currentUser === null) navigate("/login");
+	const { currentUser } = useAuth();
+
+	if (!currentUser) navigate("/login");
 
 	return (
 		<div>
