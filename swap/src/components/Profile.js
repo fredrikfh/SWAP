@@ -7,14 +7,10 @@ import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
 import NameAvatar from "./NameAvatar";
-import { auth } from "../firebase-config";
+import { useAuth } from "../contexts/AuthContext";
 
 const Profile = () => {
-	const { currentUser } = auth;
-
-	const name = currentUser === null ? "Loading..." : currentUser.displayName;
-	const email = currentUser === null ? "Loading..." : currentUser.email;
-
+	const { currentUser } = useAuth();
 	const handleClick = () => {
 		return;
 	};
@@ -36,12 +32,12 @@ const Profile = () => {
 			<Grid id="bottom-row" item>
 				<Grid item xs={12} paddingLeft="10px" paddingRight="20px" paddingTop="5px">
 					<Typography id={"profileName"} fontSize={18} fontWeight={600}>
-						{name}
+						{currentUser ? currentUser.displayName : "Not logged in"}
 					</Typography>
 				</Grid>
 				<Grid item xs={12} paddingLeft="10px" paddingRight="20px" paddingTop="5px">
 					<Typography id={"profileMail"} fontSize={18}>
-						{email}
+						{currentUser ? currentUser.email : "Not logged in"}
 					</Typography>
 				</Grid>
 				<Grid item xs={12} paddingLeft="10px" paddingRight="20px" paddingTop="5px">

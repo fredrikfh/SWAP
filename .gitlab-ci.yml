@@ -1,6 +1,4 @@
 stages:
-  - Build
-  - Lint
   - test
   - Deploy
 
@@ -12,7 +10,7 @@ cache:
 
 Yarn build:
   image: node:16.3.0
-  stage: Build
+  stage: test
   script:
     - cd swap
     - yarn install --frozen-lockfile --cache-folder .yarn
@@ -21,8 +19,8 @@ Yarn build:
 
 ESLint:
   image: node
-  stage: Lint
-  needs: [Yarn build]
+  stage: test
+  needs: []
   script:
     - cd swap
     - yarn install --frozen-lockfile --cache-folder .yarn
@@ -30,7 +28,7 @@ ESLint:
 
 Prettier:
   image: node:16.3.0
-  stage: Lint
+  stage: test
   needs: []
   script:
   - cd swap
@@ -40,7 +38,8 @@ Prettier:
 Cypress:
   image: cypress/base:16.3.0
   stage: test
-  needs: [Yarn build]
+  needs: []
+  allow_failure: true
   script:
     - cd swap
     - yarn add cypress --dev
@@ -62,7 +61,7 @@ Cypress:
 Firebase:
   image: node:16.3.0
   stage: Deploy
-  needs: [Yarn build, Prettier, ESLint, Cypress]
+  needs: [Yarn build, Prettier, ESLint]
   before_script:
     - yarn global add firebase-tools
   script:

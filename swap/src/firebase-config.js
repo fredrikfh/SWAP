@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { setDoc, doc, getDoc, getFirestore } from "@firebase/firestore";
+import { setDoc, addDoc, doc, getDoc, getFirestore } from "@firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
@@ -13,7 +13,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
 const auth = getAuth(app);
 
@@ -21,18 +20,9 @@ export { db, auth };
 
 export const createUserDocument = async (user, { newName, newTlfNr }) => {
 	if (!user) return;
-
 	const uid = user.uid;
-	console.log(uid);
-
-	console.log("Ja");
-
 	const userRef = doc(db, `users/${user.uid}`);
-
 	const snapshot = await getDoc(userRef);
-
-	// console.log(snapshot);
-
 	if (snapshot.exists) {
 		// const { email } = user;
 		// const { displayName } = additionalData;
