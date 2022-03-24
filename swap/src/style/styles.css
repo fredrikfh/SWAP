@@ -14,6 +14,14 @@ body {
 	opacity: 0.6 !important;
 }
 
+.tealIcons {
+	color: teal !important;
+}
+
+.tealIcons:hover {
+	opacity: 0.6 !important;
+}
+
 .sellButtons {
 	background-color: rgb(251, 191, 146) !important;
 	color: rgb(59, 36, 36) !important;
@@ -53,9 +61,9 @@ body {
 }
 
 #adc-sold {
-	border: solid 2px #c72525;
+	border: solid 2px #808080;
 	background-color: rgba(0, 0, 0, 0) !important;
-	color: #c72525;
+	color: #808080;
 	font-weight: 700;
 }
 

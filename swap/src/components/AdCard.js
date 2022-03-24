@@ -9,7 +9,11 @@ import { Button, CardActions } from "@mui/material";
 import Contact from "../components/Contact";
 import NameAvatar from "./NameAvatar";
 import { auth } from "../firebase-config";
-import MarkSoldButton from "./MarkSoldButton";
+import SellIcon from "@mui/icons-material/Sell";
+import Popover from "@mui/material/Popover";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase-config";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 function AdCard(props) {
 	const uid = auth.currentUser === null ? "Loading..." : auth.currentUser.uid;
@@ -28,7 +32,7 @@ function AdCard(props) {
 			return isBuying ? "Ønskes kjøpt" : "Til salgs";
 		}
 		if (!isActive) {
-			return "Solgt";
+			return isBuying ? "Kjøpt" : "Solgt";
 		}
 	}
 
@@ -36,9 +40,7 @@ function AdCard(props) {
 		if (isActive) {
 			return isBuying ? "adc-buy" : "adc-sell";
 		}
-		if (!isActive) {
-			return "adc-sold";
-		}
+		return "adc-sold";
 	}
 
 	const Chips = () => {
@@ -63,6 +65,24 @@ function AdCard(props) {
 				{isBuying ? "" : props.post.price + " kr"}
 			</Typography>
 		);
+	};
+
+	const [anchorEl, setAnchorEl] = React.useState(null);
+
+	const handlePopoverOpen = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handlePopoverClose = () => {
+		setAnchorEl(null);
+	};
+
+	const open = Boolean(anchorEl);
+
+	const handleSell = async () => {
+		const ref = doc(db, `posts/${props.post.id}`);
+		await updateDoc(ref, { active: false });
+		window.location.reload();
 	};
 
 	return (
@@ -98,10 +118,54 @@ function AdCard(props) {
 							{props.post.title}
 						</Typography>
 					</Grid>
-					<Grid item>
+					<Grid item onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
 						{uid === props.post.author &&
 							props.post.isBuying === false &&
-							props.post.active === true && <MarkSoldButton post={props.post} />}
+							props.post.active === true && (
+							<SellIcon
+								className="tealIcons"
+								onClick={handleSell}
+								sx={{ cursor: "pointer" }}
+							/>
+						)}
+						{uid === props.post.author &&
+							props.post.isBuying === true &&
+							props.post.active === true && (
+							<ShoppingCartIcon
+								className="tealIcons"
+								onClick={handleSell}
+								sx={{ cursor: "pointer" }}
+							/>
+						)}
+						<Popover
+							id="mouse-over-popover"
+							sx={{
+								pointerEvents: "none",
+							}}
+							open={open}
+							anchorEl={anchorEl}
+							anchorOrigin={{
+								vertical: "bottom",
+								horizontal: "left",
+							}}
+							transformOrigin={{
+								vertical: "top",
+								horizontal: "left",
+							}}
+							onClose={handlePopoverClose}
+							disableRestoreFocus
+						>
+							{uid === props.post.author &&
+								props.post.isBuying === false &&
+								props.post.active === true && (
+								<Typography sx={{ p: 1 }}>Marker som solgt</Typography>
+							)}
+							{uid === props.post.author &&
+								props.post.isBuying === true &&
+								props.post.active === true && (
+								<Typography sx={{ p: 1 }}>Marker som kjøpt</Typography>
+							)}
+						</Popover>
 					</Grid>
 				</Grid>
 				<Chips />

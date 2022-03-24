@@ -10,7 +10,7 @@ import PostContainer from "../components/PostContainer";
 
 export default function FilterMenu() {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [price, setPrice] = useState("Selges");
+	const [price, setPrice] = useState("Til salgs");
 	const [eventType, setEventType] = useState("Alle arrangementstyper");
 	const [location, setLocation] = useState("Alle byer");
 
@@ -27,8 +27,8 @@ export default function FilterMenu() {
 	}
 
 	function handlePriceSelect(price) {
-		if (price === "Selges") {
-			setPrice("Selges");
+		if (price === "Til salgs") {
+			setPrice("Til salgs");
 		}
 		if (price === "Under 800kr") {
 			setPrice(800);
@@ -63,7 +63,7 @@ export default function FilterMenu() {
 	function filter(searchInput = "") {
 		var filtered = initPosts;
 
-		if (price === "Selges") {
+		if (price === "Til salgs") {
 			filtered = filtered.filter((p) => {
 				return p.isBuying === false;
 			});
@@ -75,7 +75,7 @@ export default function FilterMenu() {
 			});
 		}
 
-		if (price !== "Selges" && price !== "Ønskes kjøpt" && filtered.length !== 0) {
+		if (price !== "Til salgs" && price !== "Ønskes kjøpt" && filtered.length !== 0) {
 			filtered = filtered.filter((p) => {
 				return p.price <= price && p.isBuying === false;
 			});
@@ -154,7 +154,7 @@ export default function FilterMenu() {
 					<FilterSelect
 						onItemSelect={handlePriceSelect}
 						options={[
-							"Selges",
+							"Til salgs",
 							"Ønskes kjøpt",
 							"Under 800kr",
 							"Under 400kr",
@@ -180,13 +180,13 @@ export default function FilterMenu() {
 			</Container>
 
 			{filter(searchTerm).length !== 0 &&
-				price === "Selges" &&
+				price === "Til salgs" &&
 				eventType === "Alle arrangementstyper" &&
 				location === "Alle byer" && <PostContainer posts={filter(searchTerm)} />}
 
 			{filter(searchTerm).length !== 0 &&
 				!(
-					price === "Selges" &&
+					price === "Til salgs" &&
 					eventType === "Alle arrangementstyper" &&
 					location === "Alle byer"
 				) && <PostContainer posts={filter(searchTerm)} />}
@@ -199,6 +199,7 @@ export default function FilterMenu() {
 					}}
 				>
 					<Alert
+						className="noResult"
 						severity="info"
 						sx={{
 							width: "400%",

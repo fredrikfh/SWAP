@@ -60,20 +60,9 @@ function Contact(data) {
 	return (
 		<div>
 			<Button
-				className="tealButtons"
+				className="tealIcons"
 				endIcon={<AddIcon />}
 				variant="outlined"
-				id="addItemButton"
-				sx={{
-					// bgcolor: "teal",
-					border: 0,
-					// color: "white",
-					// height: 48,
-					// "&:hover": {
-					// 	bgcolor: "teal",
-					// 	opacity: 0.6
-					// }
-				}}
 				onClick={handleOpen}
 			>
 				Kontakt
