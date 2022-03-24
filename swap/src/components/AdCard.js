@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
@@ -8,27 +9,42 @@ import { Button, CardActions } from "@mui/material";
 import Contact from "../components/Contact";
 import NameAvatar from "./NameAvatar";
 import { auth } from "../firebase-config";
+import MarkSoldButton from "./MarkSoldButton";
 
 function AdCard(props) {
 	const uid = auth.currentUser === null ? "Loading..." : auth.currentUser.uid;
 	const user = auth.currentUser === null ? "Loading..." : auth.currentUser;
 
 	const isBuying = props.post.isBuying;
+	const isActive = props.post.active;
 
 	const date = new Date(props.post.date);
 	const day = date.toLocaleString("default", { day: "numeric" });
 	const month = date.toLocaleString("default", { month: "long" });
 	const year = date.toLocaleString("default", { year: "numeric" });
 
+	function chipLabel() {
+		if (isActive) {
+			return isBuying ? "Ønskes kjøpt" : "Til salgs";
+		}
+		if (!isActive) {
+			return "Solgt";
+		}
+	}
+
+	function chipColor() {
+		if (isActive) {
+			return isBuying ? "adc-buy" : "adc-sell";
+		}
+		if (!isActive) {
+			return "adc-sold";
+		}
+	}
+
 	const Chips = () => {
 		return (
 			<div style={{ margin: "8px 0" }}>
-				<Chip
-					label={isBuying ? "Ønskes kjøpt" : "Til salgs"}
-					size="small"
-					className="cardChip"
-					id={isBuying ? "adc-buy" : "adc-sell"}
-				/>
+				<Chip label={chipLabel()} size="small" className="cardChip" id={chipColor()} />
 				<Chip label={props.post.location} size="small" className="cardChip adCardPill" />
 				<Chip label={props.post.venue} size="small" className="cardChip adCardPill" />
 				<Chip
@@ -65,14 +81,29 @@ function AdCard(props) {
 			className="adCardShadow"
 		>
 			<CardContent>
-				<Typography
-					gutterBottom
-					variant="h5"
-					component="div"
-					sx={{ fontWeight: "600", marginBottom: 0 }}
+				<Grid
+					container
+					direction="row"
+					justifyContent="space-between"
+					alignItems="center"
+					wrap="nowrap"
 				>
-					{props.post.title}
-				</Typography>
+					<Grid item zeroMinWidth>
+						<Typography
+							gutterBottom
+							variant="h5"
+							component="div"
+							sx={{ fontWeight: "600", marginBottom: 0 }}
+						>
+							{props.post.title}
+						</Typography>
+					</Grid>
+					<Grid item>
+						{auth.currentUser.uid === props.post.author &&
+							props.post.isBuying === false &&
+							props.post.active === true && <MarkSoldButton post={props.post} />}
+					</Grid>
+				</Grid>
 				<Chips />
 				<Price />
 				<Typography variant="body2" color="text.secondary" style={{ marginTop: "10px" }}>

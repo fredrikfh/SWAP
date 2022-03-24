@@ -46,7 +46,7 @@ const Profile = () => {
 				</Grid>
 				<Grid item xs={12} paddingLeft="10px" paddingRight="20px" paddingTop="5px">
 					<Typography id={"profilePhone"} fontSize={18}>
-						{"Telefonnummer"}
+						{"46509581"}
 					</Typography>
 				</Grid>
 			</Grid>

@@ -88,6 +88,7 @@ function AddPost() {
 			});
 			setOpen(false);
 		}
+		window.location.reload();
 	};
 
 	const typeList = [
