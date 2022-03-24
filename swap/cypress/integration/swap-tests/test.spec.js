@@ -69,7 +69,6 @@ describe("SWAP", () => {
 
 		cy.get("#profileName").contains("CypressTest");
 		cy.get("#profileMail").contains("cypresstest@mail.com");
-		cy.get("#profilePhone").contains("Telefonnummer");
 
 		// cy.get("#editProfile").click();
 
