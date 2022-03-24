@@ -14,6 +14,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Joi from "joi-browser";
 import "../style/styles.css";
+import { useAuth } from "../contexts/AuthContext";
 
 import { auth, createUserDocument } from "../firebase-config";
 import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth";
@@ -30,11 +31,8 @@ const RegisterForm = () => {
 		showPassword: false,
 	});
 
-	const [currentUser, setUser] = useState({});
-
-	onAuthStateChanged(auth, (currentUser) => {
-		setUser(currentUser);
-	});
+	//TODO currentuser
+	const { currentUser } = useAuth();
 
 	const schema = {
 		email: Joi.string().email().required().label("Epost"),
@@ -82,6 +80,7 @@ const RegisterForm = () => {
 			const newName = userState.userS.name;
 			const newTlfNr = userState.userS.tlfNr;
 			try {
+				//TODO flytt til context
 				const { user } = await createUserWithEmailAndPassword(
 					auth,
 					userState.userS.email,
