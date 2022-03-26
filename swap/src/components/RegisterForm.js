@@ -89,7 +89,7 @@ const RegisterForm = () => {
 				await updateProfile(user, {
 					displayName: newName,
 				});
-				console.log(user.uid);
+				// console.log(user.uid);
 				await createUserDocument(user, { newName, newTlfNr }).then(navigate("/"));
 				console.log(currentUser?.email);
 			} catch (error) {

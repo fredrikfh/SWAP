@@ -33,9 +33,9 @@ function AdCard(props) {
 	const userid = props.post.author; // example: 169JOvPdmhZCFVuJXVq9bP414jA2
 
 	/* onAuthStateChanged(auth, () => {
-		console.log(currentUser.uid);
-		console.log("HEI");
-	}); */
+        console.log(currentUser.uid);
+        console.log("HEI");
+    }); */
 
 	const getReviews = () => {
 		const [reviews, setReviews] = useState([]);
@@ -94,6 +94,10 @@ function AdCard(props) {
 	};
 
 	const RatingWrapper = () => {
+		if (currentUser === null) {
+			return null;
+		}
+
 		let reviews = getReviews();
 
 		function getAvg() {
@@ -181,100 +185,206 @@ function AdCard(props) {
 		);
 	};
 
-	return (
-		<Card
-			sx={{
-				maxWidth: 514,
-				marginLeft: "0em",
-				marginBottom: "1em",
-				background: "rgba(255,255,255,0.7)",
-				backdropFilter: "blur( 12px )",
+	if (currentUser === null) {
+		return (
+			<Card
+				sx={{
+					maxWidth: 514,
+					marginLeft: "0em",
+					marginBottom: "1em",
+					background: "rgba(255,255,255,0.7)",
+					backdropFilter: "blur( 12px )",
 
-				"&:last-child": {
-					marginBottom: 0,
-				},
-			}}
-			className="adCardShadow"
-		>
-			<CardContent>
-				<Grid
-					container
-					direction="row"
-					justifyContent="space-between"
-					alignItems="center"
-					wrap="nowrap"
-				>
-					<Grid item zeroMinWidth>
-						<Typography
-							gutterBottom
-							variant="h5"
-							component="div"
-							sx={{ fontWeight: "600", marginBottom: 0 }}
-						>
-							{props.post.title}
-						</Typography>
-					</Grid>
-					<Grid item>
-						{currentUser.uid === props.post.author &&
-							props.post.isBuying === false &&
-							props.post.active === true && <MarkSoldButton post={props.post} />}
-					</Grid>
-				</Grid>
-				<Chips />
-				<Price />
-				<Typography variant="body2" color="text.secondary" style={{ marginTop: "10px" }}>
-					{props.post.description}
-				</Typography>
-			</CardContent>
-			<CardActions sx={{ padding: "16px" }}>
-				<Container
-					sx={{
-						display: "flex",
-						justifyContent: "space-between",
-						padding: "0 !important",
-						margin: "0 !important",
-						width: "600px",
-					}}
-				>
-					<Container
-						sx={{
-							display: "flex",
-							flexDirection: "row",
-							alignItems: "center",
-							padding: "0 !important",
-							margin: "0 !important",
-							cursor: "pointer",
-						}}
+					"&:last-child": {
+						marginBottom: 0,
+					},
+				}}
+				className="adCardShadow"
+			>
+				<CardContent>
+					<Grid
+						container
+						direction="row"
+						justifyContent="space-between"
+						alignItems="center"
+						wrap="nowrap"
 					>
-						<Button>
-							<NameAvatar name={props.post.authorDisplay} diameter={35} />
+						<Grid item zeroMinWidth>
 							<Typography
-								variant="body2"
-								color="text.secondary"
-								marginLeft="10px"
-								paddingRight="20px"
+								gutterBottom
+								variant="h5"
+								component="div"
+								sx={{ fontWeight: "600", marginBottom: 0 }}
 							>
-								{props.post.authorDisplay.split(" ")[0]}
+								{props.post.title}
 							</Typography>
-						</Button>
-						<RatingWrapper />
-					</Container>
+						</Grid>
+						<Grid item>
+							{/* {currentUser.uid === props.post.author &&
+                                props.post.isBuying === false &&
+                                props.post.active === true && <MarkSoldButton post={props.post} />} */}
+						</Grid>
+					</Grid>
+					<Chips />
+					<Price />
+					<Typography
+						variant="body2"
+						color="text.secondary"
+						style={{ marginTop: "10px" }}
+					>
+						{props.post.description}
+					</Typography>
+				</CardContent>
+				<CardActions sx={{ padding: "16px" }}>
 					<Container
 						sx={{
 							display: "flex",
-							alignItems: "center",
-							justifyContent: "right",
+							justifyContent: "space-between",
 							padding: "0 !important",
 							margin: "0 !important",
+							width: "600px",
 						}}
 					>
-						{/* {!(uid === props.post.author || user === null || user === "Loading...") && (
-							<Contact data={props.post}></Contact>
-						)} */}
+						<Container
+							sx={{
+								display: "flex",
+								flexDirection: "row",
+								alignItems: "center",
+								padding: "0 !important",
+								margin: "0 !important",
+								cursor: "pointer",
+							}}
+						>
+							<Button>
+								<NameAvatar name={props.post.authorDisplay} diameter={35} />
+								<Typography
+									variant="body2"
+									color="text.secondary"
+									marginLeft="10px"
+									paddingRight="20px"
+								>
+									{props.post.authorDisplay.split(" ")[0]}
+								</Typography>
+							</Button>
+							<RatingWrapper />
+						</Container>
+						<Container
+							sx={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "right",
+								padding: "0 !important",
+								margin: "0 !important",
+							}}
+						>
+							{/* {!(uid === props.post.author || user === null || user === "Loading...") && (
+                                <Contact data={props.post}></Contact>
+                            )} */}
+						</Container>
 					</Container>
-				</Container>
-			</CardActions>
-		</Card>
-	);
+				</CardActions>
+			</Card>
+		);
+	} else {
+		return (
+			<Card
+				sx={{
+					maxWidth: 514,
+					marginLeft: "0em",
+					marginBottom: "1em",
+					background: "rgba(255,255,255,0.7)",
+					backdropFilter: "blur( 12px )",
+
+					"&:last-child": {
+						marginBottom: 0,
+					},
+				}}
+				className="adCardShadow"
+			>
+				<CardContent>
+					<Grid
+						container
+						direction="row"
+						justifyContent="space-between"
+						alignItems="center"
+						wrap="nowrap"
+					>
+						<Grid item zeroMinWidth>
+							<Typography
+								gutterBottom
+								variant="h5"
+								component="div"
+								sx={{ fontWeight: "600", marginBottom: 0 }}
+							>
+								{props.post.title}
+							</Typography>
+						</Grid>
+						<Grid item>
+							{currentUser.uid === props.post.author &&
+								props.post.isBuying === false &&
+								props.post.active === true && <MarkSoldButton post={props.post} />}
+						</Grid>
+					</Grid>
+					<Chips />
+					<Price />
+					<Typography
+						variant="body2"
+						color="text.secondary"
+						style={{ marginTop: "10px" }}
+					>
+						{props.post.description}
+					</Typography>
+				</CardContent>
+				<CardActions sx={{ padding: "16px" }}>
+					<Container
+						sx={{
+							display: "flex",
+							justifyContent: "space-between",
+							padding: "0 !important",
+							margin: "0 !important",
+							width: "600px",
+						}}
+					>
+						<Container
+							sx={{
+								display: "flex",
+								flexDirection: "row",
+								alignItems: "center",
+								padding: "0 !important",
+								margin: "0 !important",
+								cursor: "pointer",
+							}}
+						>
+							<Button>
+								<NameAvatar name={props.post.authorDisplay} diameter={35} />
+								<Typography
+									variant="body2"
+									color="text.secondary"
+									marginLeft="10px"
+									paddingRight="20px"
+								>
+									{props.post.authorDisplay.split(" ")[0]}
+								</Typography>
+							</Button>
+							<RatingWrapper />
+						</Container>
+						<Container
+							sx={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "right",
+								padding: "0 !important",
+								margin: "0 !important",
+							}}
+						>
+							{/* {!(uid === props.post.author || user === null || user === "Loading...") && (
+                                <Contact data={props.post}></Contact>
+                            )} */}
+						</Container>
+					</Container>
+				</CardActions>
+			</Card>
+		);
+	}
 }
 export default AdCard;

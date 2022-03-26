@@ -10,6 +10,7 @@ import { auth } from "../firebase-config";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Navbar() {
+	const { currentUser } = useAuth();
 	const [loggedIn, setLoggedIn] = useState(false);
 
 	const navigate = useNavigate();
@@ -26,6 +27,7 @@ export default function Navbar() {
 		auth.signOut().then(() => {
 			navigate("/login");
 		});
+		console.log("hei");
 	}
 
 	const handleLogin = () => {
@@ -33,8 +35,6 @@ export default function Navbar() {
 	};
 
 	const [hasLoaded, setHasLoaded] = useState(false);
-
-	const { currentUser } = useAuth();
 
 	useEffect(() => {
 		return;

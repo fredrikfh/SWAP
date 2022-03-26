@@ -31,10 +31,12 @@ export function AuthProvider({ children }) {
 				console.log("errorCode: " + errorCode, "errorMessage: " + errorMessage);
 			});
 	}
+
 	function logout() {
 		clearSessionStorage();
 		return auth.signOut();
 	}
+
 	function clearSessionStorage() {
 		sessionStorage.clear();
 	}
@@ -48,16 +50,19 @@ export function AuthProvider({ children }) {
 		});
 		return unsubscribe;
 	}, []);
+
 	useEffect(() => {
 		if (currentUser) {
 			setLoading(false);
 		}
 	}, [currentUser]);
+
 	const value = {
 		currentUser,
 		login,
 		logout,
 	};
+
 	return (
 		<AuthContext.Provider value={value}>
 			{loading ? <LoadingAuthIndicator /> : children}
