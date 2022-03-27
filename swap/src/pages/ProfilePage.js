@@ -58,7 +58,7 @@ function ProfilePage() {
 						>
 							<PostContainer
 								posts={getPosts().filter(
-									(post) => post.author === auth.currentUser?.uid
+									(post) => post.author === currentUser?.uid
 								)}
 							/>
 						</Container>
@@ -96,7 +96,7 @@ function ProfilePage() {
 						>
 							<PostContainer
 								posts={getInactivePosts().filter(
-									(post) => post.author == auth.currentUser?.uid
+									(post) => post.author == currentUser?.uid
 								)}
 							/>
 						</Container>

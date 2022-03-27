@@ -16,6 +16,7 @@ import "date-fns";
 import { auth, db } from "../firebase-config";
 import { collection, addDoc } from "firebase/firestore";
 import AddIcon from "@mui/icons-material/Add";
+import { useAuth } from "../contexts/AuthContext";
 
 const style = {
 	position: "absolute",
@@ -30,6 +31,7 @@ const style = {
 };
 
 function AddPost() {
+	const { currentUser } = useAuth();
 	var today = new Date();
 	var month = today.getMonth() + 1;
 
@@ -80,10 +82,10 @@ function AddPost() {
 				price: Number(newPrice),
 				isBuying: Boolean(newSelling),
 				createdAt: new Date(),
-				authorDisplay: auth.currentUser.displayName,
-				author: auth.currentUser.uid,
-				email: auth.currentUser.email,
-				tlfNr: auth.currentUser.phoneNumber,
+				authorDisplay: currentUser.displayName,
+				author: currentUser.uid,
+				email: currentUser.email,
+				tlfNr: currentUser.phoneNumber,
 				active: true,
 			});
 			setOpen(false);

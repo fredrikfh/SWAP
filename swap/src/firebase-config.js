@@ -26,7 +26,6 @@ export const createUserDocument = async (user, { newName, newTlfNr }) => {
 	if (snapshot.exists) {
 		// const { email } = user;
 		// const { displayName } = additionalData;
-		console.log("Hei");
 
 		try {
 			console.log("Inne i try");
