@@ -4,6 +4,11 @@ body {
 		Geneva, Verdana, sans-serif;
 }
 
+.noResult {
+	background-color: rgb(255, 255, 255) !important;
+	color: white !important;
+}
+
 .tealButtons {
 	background-color: teal !important;
 	color: white !important;
@@ -15,12 +20,18 @@ body {
 }
 
 .sellButtons {
-	background-color: rgb(251, 191, 146) !important;
-	color: rgb(59, 36, 36) !important;
+	color: teal !important;
 }
 
 .sellButtons:hover {
-	background-color: rgb(251, 191, 146) !important;
+	opacity: 0.6 !important;
+}
+
+.contactButtons {
+	color: teal !important;
+}
+
+.contactButtons:hover {
 	opacity: 0.6 !important;
 }
 
@@ -53,9 +64,9 @@ body {
 }
 
 #adc-sold {
-	border: solid 2px #c72525;
+	border: solid 2px #808080;
 	background-color: rgba(0, 0, 0, 0) !important;
-	color: #c72525;
+	color: #808080;
 	font-weight: 700;
 }
 

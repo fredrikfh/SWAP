@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import { db } from "../firebase-config";
-import { collection, getDocs, setDoc, addDoc, doc } from "firebase/firestore";
+import { collection, getDocs, setDoc, addDoc, doc, updateDoc } from "firebase/firestore";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import { auth, createReviewDocument } from "../firebase-config"; // currentUser() gir currentuser
@@ -17,7 +17,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useAuth } from "../contexts/AuthContext";
 import { isFunction } from "joi-browser";
 import Contact from "../components/Contact";
-import MarkSoldButton from "./MarkSoldButton";
+import SellIcon from "@mui/icons-material/Sell";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Tooltip from "@mui/material/Tooltip";
 
 function AdCard(props) {
 	const { currentUser } = useAuth();
@@ -36,6 +38,13 @@ function AdCard(props) {
         console.log(currentUser.uid);
         console.log("HEI");
     }); */
+
+	const handleClick = async () => {
+		const ref = doc(db, `posts/${props.post.id}`);
+		await updateDoc(ref, { active: false });
+		console.log("TEST");
+		window.location.reload();
+	};
 
 	const getReviews = () => {
 		const [reviews, setReviews] = useState([]);
@@ -56,7 +65,7 @@ function AdCard(props) {
 			return isBuying ? "Ønskes kjøpt" : "Til salgs";
 		}
 		if (!isActive) {
-			return "Solgt";
+			return isBuying ? "Kjøpt" : "Solgt";
 		}
 	}
 
@@ -255,7 +264,11 @@ function AdCard(props) {
 								cursor: "pointer",
 							}}
 						>
-							<Button>
+							<Button
+								onClick={() => {
+									console.log(currentUser);
+								}}
+							>
 								<NameAvatar name={props.post.authorDisplay} diameter={35} />
 								<Typography
 									variant="body2"
@@ -268,7 +281,7 @@ function AdCard(props) {
 							</Button>
 							<RatingWrapper />
 						</Container>
-						<Container
+						{/* <Container
 							sx={{
 								display: "flex",
 								alignItems: "center",
@@ -277,10 +290,8 @@ function AdCard(props) {
 								margin: "0 !important",
 							}}
 						>
-							{/* {!(uid === props.post.author || user === null || user === "Loading...") && (
-                                <Contact data={props.post}></Contact>
-                            )} */}
-						</Container>
+							{!(currentUser.uid === userid || currentUser === null) && (<Contact data={props.post}></Contact>)}
+						</Container> */}
 					</Container>
 				</CardActions>
 			</Card>
@@ -319,10 +330,24 @@ function AdCard(props) {
 								{props.post.title}
 							</Typography>
 						</Grid>
-						<Grid item>
+						<Grid item marginRight="25px">
 							{currentUser.uid === props.post.author &&
 								props.post.isBuying === false &&
-								props.post.active === true && <MarkSoldButton post={props.post} />}
+								props.post.active === true && (
+									<Tooltip title="Marker som solgt" arrow>
+										<SellIcon className={"sellButtons"} onClick={handleClick} />
+									</Tooltip>
+								)}
+							{currentUser.uid === props.post.author &&
+								props.post.isBuying === true &&
+								props.post.active === true && (
+									<Tooltip title="Marker som kjøpt" arrow>
+										<ShoppingCartIcon
+											className={"sellButtons"}
+											onClick={handleClick}
+										/>
+									</Tooltip>
+								)}
 						</Grid>
 					</Grid>
 					<Chips />
@@ -366,7 +391,7 @@ function AdCard(props) {
 									{props.post.authorDisplay.split(" ")[0]}
 								</Typography>
 							</Button>
-							<RatingWrapper />
+							{!(currentUser.uid === userid) && <RatingWrapper />}
 						</Container>
 						<Container
 							sx={{
@@ -377,9 +402,9 @@ function AdCard(props) {
 								margin: "0 !important",
 							}}
 						>
-							{/* {!(uid === props.post.author || user === null || user === "Loading...") && (
-                                <Contact data={props.post}></Contact>
-                            )} */}
+							{!(currentUser.uid === props.post.author) && (
+								<Contact data={props.post}></Contact>
+							)}
 						</Container>
 					</Container>
 				</CardActions>

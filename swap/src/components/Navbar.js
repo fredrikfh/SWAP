@@ -11,7 +11,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 export default function Navbar() {
 	const { currentUser } = useAuth();
-	const [loggedIn, setLoggedIn] = useState(false);
+	const [loggedIn, setLoggedIn] = useState(true);
 
 	const navigate = useNavigate();
 
@@ -24,10 +24,7 @@ export default function Navbar() {
 	}
 
 	function handleClickSignOut() {
-		auth.signOut().then(() => {
-			navigate("/login");
-		});
-		console.log("hei");
+		auth.signOut();
 	}
 
 	const handleLogin = () => {
@@ -106,7 +103,7 @@ export default function Navbar() {
 						<span>{currentUser?.displayName}</span>
 					</Container>
 				)}
-				{loggedIn ? (
+				{currentUser ? (
 					<Container
 						onClick={handleClickSignOut}
 						sx={{
