@@ -206,6 +206,8 @@ export default function FilterMenu() {
 							display: "flex",
 							alignItems: "center",
 							margin: "40px 0 0 75px",
+							backgroundColor: "rgba(0,0,0,0)",
+							color: "black",
 						}}
 					>
 						Ingen resultater stemmer med ditt søk

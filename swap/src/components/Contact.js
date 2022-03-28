@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import Chip from "@mui/material/Chip";
 import NameAvatar from "./NameAvatar";
 import "date-fns";
-import AddIcon from "@mui/icons-material/Add";
+import ChatIcon from "@mui/icons-material/Chat";
 import Container from "@mui/material/Container";
 
 const style = {
@@ -60,8 +60,8 @@ function Contact(data) {
 	return (
 		<div>
 			<Button
-				className="tealButtons"
-				endIcon={<AddIcon />}
+				className="contactButtons"
+				endIcon={<ChatIcon />}
 				variant="outlined"
 				id="addItemButton"
 				sx={{

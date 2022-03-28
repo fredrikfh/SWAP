@@ -17,7 +17,7 @@ const Profile = () => {
 
 	return (
 		<Grid container direction="row" justifyContent="center" alignItems="center" padding="20px">
-			<NameAvatar name={name} diameter={100} />
+			<NameAvatar name={currentUser.displayName} diameter={100} />
 			<Grid id="top-row" item>
 				<Grid item xs={12} paddingLeft="20px" paddingRight="10px" paddingTop="5px">
 					<PersonIcon />
@@ -46,7 +46,7 @@ const Profile = () => {
 					</Typography>
 				</Grid>
 			</Grid>
-			<Button
+			{/* <Button
 				className="tealButtons"
 				sx={{
 					background: "teal",
@@ -57,7 +57,7 @@ const Profile = () => {
 				onClick={handleClick}
 			>
 				<EditIcon />
-			</Button>
+			</Button> */}
 		</Grid>
 	);
 };
