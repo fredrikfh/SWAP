@@ -1,5 +1,9 @@
 # Swap
 
+Prosjekt i faget TDT4140 - Programvareutvikling, NTNU (Våren 2022)
+
+Et React-prosjekt for kjøp og salg av billetter, med integrasjon mot Google Firebase til autentisering og fillagring. 
+
 ###### Check the latest build: https://swap-93d9f.web.app/
 ###### Check the latest coverage report: https://
 
